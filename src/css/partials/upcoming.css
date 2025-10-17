@@ -1,0 +1,32 @@
+/* .upcoming {
+  background-color: #111;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.upcoming-content {
+  display: flex;
+  gap: 20px;
+}
+
+.upcoming img {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.btn-library {
+  background: linear-gradient(90deg, #ffc226 0%, #f84119 100%);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-library:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+} */

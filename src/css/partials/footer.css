@@ -1,22 +1,27 @@
 /* footer */
+.footer {
+    height: 100%;
+}
+
 .footer-description,
 .goit-students {
     font-size: 16px;
     text-align: center;
+    justify-content: center;
 }
 
-.students-list {
+.student-list {
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
-    
+    justify-content: center; 
 }
 
 .student-photo {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    margin-bottom: 0;
     margin-right: 20px;
+    display: block;
 }
 
 .student-photo:hover {
@@ -25,24 +30,50 @@
 }
 
 .student-info {
-    font-size: 18px;
-    color: #FFFFFF;
+    font-size: 16px;
+    color: orange;
     text-align: center;
     background-color: #111111;
     margin: 0 20px;
 }
 
+.info-icon {
+    background-color: #111111;
+    fill: orange;
+    gap: 10px;
+}
+
 /* footer-modal */
+.modal-title {
+    font-size: 30px;
+    color: orange;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .modal-overlay {
     position: fixed;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
     display: none;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
+    z-index: 999;
+    padding: 40px 20px;
+}
+
+.modal-content {
     background-color: #111111;
-    z-index: 1000;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
 }
 
 .modal-overlay.active {
@@ -57,4 +88,31 @@
     font-weight: bold;
     color: #FFFFFF;
     cursor: pointer;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal-title {
+        font-size: 25px;
+    }
+
+    .modal-content {
+        width: 300px;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 20px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width:1279px) {
+    .modal-content {
+        width: 720px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .modal-content {
+        width: 1200px;
+    }
 }

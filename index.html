@@ -3,18 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
 
+    <title>Cinemania</title>
     <link rel="icon" href="/vanilla-app-template/assets/favicon-0Qq06bqf.svg">
+    <link rel="stylesheet" crossorigin href="/vanilla-app-template/assets/index-CDk9eOXu.css">
   </head>
   <body>
+    <header>
+      <nav class="navbar" id="navbar">
+  <div class="logo">
+    <img src="../images/header/popcorn.png" alt="Logo" class="logo-icon" />
+    <span class="logo-text">Cinemania</span>
+  </div>
 
+  <div class="overlay" id="overlay"></div>
+  <ul class="links" id="links">
+    <li class="active"><a href="./home.html">HOME</a></li>
+    <li><a href="./catalog.html">CATALOG</a></li>
+    <li><a href="./library.html">MY LIBRARY</a></li>
+  </ul>
+  <div class="mobile-menu">
+    <button id="menu" class="logo-button menu-title">menu</button>
 
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="toggle" />
+        <div class="slider-container">
+          <svg class="icon" id="themeIcon">
+            <use href="../images/icons.svg#icon-Vector"></use>
+          </svg>
+          <svg class="icon marquee">
+            <use href="../images/icons.svg#icon-Circle"></use>
+          </svg>
+        </div>
+      </label>
+    </div>
+  </div>
+</nav>
+<div class="sidebar-backdrop" id="sidebar-backdrop">
+  <nav class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="../images/header/popcorn.png" alt="Logo" class="logo-icon" />
+    </div>
+    <ul class="menu-links" id="menuLinks">
+      <li class="active"><a href="./home.html">HOME</a></li>
+      <li><a href="./catalog.html">CATALOG</a></li>
+      <li><a href="./library.html">MY LIBRARY</a></li>
+    </ul>
+  </nav>
+  <script src="../js/partials/header.js"></script>
+</div>
+
+    </header>
     
 <button id="scrollToTopBtn" title="Scroll Up" class="button-up">↑</button> 
-
-
-
 
  </body>
 </html>

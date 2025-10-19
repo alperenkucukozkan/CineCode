@@ -1,9 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cinemania</title>
+    <meta
+      name="description"
+      content="Cinemania - En popüler filmleri keşfedin, arayın ve detaylarını görüntüleyin. Güncel film kataloğu ve trend filmler."
+    />
+    <meta
+      name="keywords"
+      content="film, sinema, movie, catalog, trending, search"
+    />
+    <meta name="author" content="Cinemania" />
+
+    <title>Cinemania | Film Kataloğu</title>
+
+    <link rel="preload" href="css/catalog.css" as="style" />
+    <link rel="preload" href="js/catalog.js" as="script" crossorigin />
+
+    <link rel="stylesheet" href="css/catalog.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+
+  <body>
+    <main id="main-content" role="main">
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero" aria-label="Günün Filmi">
+        <div class="hero-content container" id="hero-content">
+          <div class="hero-info">
+            <div
+              class="rating-stars"
+              id="rating-stars"
+              aria-label="Film puanı"
+            ></div>
+            <p class="hero-overview">
+              Super-Hero find themselves exploring the Quantum Realm,
+              interacting with strange new creatures and embarking on an
+              adventure that will push them beyond the limits of what they
+              thought possible.
+            </p>
+            <div class="hero-actions">
+              <button class="btn trailer-btn">Watch trailer</button>
+              <button class="btn details-btn">More details</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search Section -->
+      <section class="search-block container" aria-label="Film Arama">
+        <form
+          id="search-form"
+          class="search-form"
+          role="search"
+          aria-label="Film Arama Formu"
+          novalidate
+        >
+          <fieldset class="search-fieldset">
+            <legend class="sr-only">Arama kriterleri</legend>
+
+            <div class="search-input-wrap">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Film"
+                autocomplete="off"
+                class="form-input"
+                name="query"
+                aria-describedby="search-help"
+                required
+              />
+              <button
+                type="button"
+                id="clear-btn"
+                class="clear-btn"
+                aria-label="Aramayı temizle"
+                title="Aramayı temizle"
+              >
+                <span aria-hidden="true">x</span>
+              </button>
+            </div>
+
+            <div class="year-select-wrap">
+              <select
+                name="year"
+                id="year-select"
+                aria-label="Yıl seçin"
+                class="form-select"
+              >
+                <option value="">Year</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              class="btn search-btn"
+              aria-label="Film ara"
+              title="Film ara"
+            >
+              <svg class="icon icon-search" aria-hidden="true">
+                <use xlink:href="./images/symbol-defs.svg#icon-search"></use>
+              </svg>
+            </button>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- Movie Catalog Section -->
+      <section class="catalog-block container" aria-label="Film Listesi">
+        <!-- Loading State -->
+        <div
+          id="loading-indicator"
+          class="loading-indicator"
+          aria-hidden="true"
+        >
+          <div class="spinner" aria-label="Yükleniyor"></div>
+        </div>
+
+        <!-- Movie List -->
+        <div
+          id="movie-list"
+          class="movie-list"
+          aria-live="polite"
+          aria-busy="false"
+        >
+          <ul class="movie-list-grid" id="movies-ul" role="list"></ul>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="pagination" id="pagination" aria-label="Sayfa navigasyonu">
+          <ul class="pagination-list" id="pagination-ul" role="list"></ul>
+        </nav>
+      </section>
+    </main>
+
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script type="module" src="./js/catalog.js" defer></script>
+  </body>
 </html>

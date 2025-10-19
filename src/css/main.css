@@ -1,1 +1,23 @@
-@import "./partials/header.css";
+
+/**
+  |============================
+  | include css partials with
+  | default @import url()
+  |============================
+*/
+/* Common styles */
+@import url('./partials/modern-normalize.css');
+@import url('./partials/base.css');
+
+/* Sections style */
+@import url('./partials/catalog.css');
+@import url('./partials/footer.css');
+@import url('./partials/header.css');
+@import url('./partials/hero.css');
+@import url('./partials/libarary.css');
+@import url('./partials/loader.css');
+@import url('./partials/modal.css');
+@import url('./partials/searchBar.css');
+@import url('./partials/upcoming.css');
+@import url('./partials/weekly.css');
+

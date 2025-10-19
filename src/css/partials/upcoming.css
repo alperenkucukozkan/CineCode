@@ -1,0 +1,184 @@
+:root {
+  background-color: #111;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+p {
+  color: #f8f8f8;
+}
+h2 {
+  font-size: 16px;
+}
+.upcoming {
+  margin: 0 auto;
+  padding: 20px;
+  color: #ffffff;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.upcoming-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.upcoming-card {
+  color: #fff;
+  margin: 0 auto;
+}
+
+.upcoming-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.movie-name {
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: 24px 0 20px;
+}
+
+.movie-detail {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding-bottom: 12px;
+}
+.movie-vote {
+  gap: 4px;
+}
+
+.about-title {
+  padding: 20px 0 16px;
+}
+
+.movie-detail > span:first-child {
+  color: #ccc;
+  min-width: 100px;
+}
+
+.highlight {
+  color: #ff7b00;
+  font-weight: 600;
+}
+
+.vote-box {
+  background-color: #ffffff;
+  color: #111111;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+}
+
+.about-title {
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  color: #ddd;
+}
+
+.movie-overview {
+  font-size: 14px;
+  color: #bbb;
+  line-height: 1.4;
+  padding-bottom: 20px;
+}
+
+.btn-library {
+  background: linear-gradient(90deg, #ffc226, #f84119);
+  color: #111111;
+  font-size: 12px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn-add {
+  width: 140px;
+}
+.btn-remove {
+  width: 176px;
+}
+
+.btn-library:hover {
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #ffc226, #f84119) border-box;
+  color: #f84119;
+}
+@media screen and (min-width: 768px) {
+  .upcoming {
+    padding: 32px;
+  }
+  .upcoming-content {
+    gap: 24px;
+  }
+
+  .upcoming-card {
+    max-width: 704px;
+  }
+  .upcoming-card img {
+    max-width: 704px;
+    height: 400px;
+  }
+  .movie-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+  }
+  .btn-add {
+    width: 147px;
+  }
+  .btn-remove {
+    width: 183px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .upcoming {
+    border-radius: 10px;
+    max-width: 1211px;
+  }
+
+  .upcoming-content {
+    display: flex;
+    gap: 20px;
+  }
+
+  .upcoming-card {
+    display: flex;
+    gap: 16px;
+    max-width: 1211px;
+    flex-direction: row;
+  }
+
+  .upcoming-card img {
+    max-width: 805px;
+    height: 458px;
+    border-radius: 10px;
+  }
+  .info {
+    max-width: 390px;
+    width: 100%;
+  }
+  .movie-name {
+    font-size: 32px;
+    padding: 0 0 28px;
+  }
+  .btn-add {
+    width: 155px;
+  }
+  .btn-remove {
+    width: 192px;
+  }
+}

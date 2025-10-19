@@ -1,14 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.getElementById('toggle');
-  const navbar = document.getElementById('navbar');
-  const menuButton = document.getElementById('menu');
-  const menuLinks = document.getElementById('menuLinks');
-  const activeKey = localStorage.getItem('menuLinks:active');
-  const modal = document.querySelector('.sidebar');
-  const backdrop = document.querySelector('.sidebar-backdrop');
-  const themeIcon = document.querySelector('.theme-toggle use');
-  const links = document.getElementById('links');
-
   initMenu('#menuLinks', 'menuLinks:active');
   initMenu('#links', 'menuLinks:active');
   initSidebar('#menu', '.sidebar', '.sidebar-backdrop');
@@ -115,14 +105,12 @@ function initTheme(toggleSel, iconSel, refs = {}) {
 
     icon?.setAttribute(
       'href',
-      `../images/icons.svg#${isDark ? 'icon-Vector' : 'icon-Sun'}`
+      `../img/icon.svg#${isDark ? 'icon-Vector' : 'icon-Sun'}`
     );
   };
 
-  // ilk yüklemede temayı uygula
   setTheme(localStorage.getItem('theme') || 'light-theme');
 
-  // değişiklik dinleyicisi
   toggle?.addEventListener('change', () =>
     setTheme(toggle.checked ? 'dark-theme' : 'light-theme')
   );

@@ -42,6 +42,7 @@ h2 {
 .movie-name {
   font-size: 20px;
   text-transform: uppercase;
+  padding: 24px 0 20px;
 }
 
 .movie-detail {
@@ -49,9 +50,14 @@ h2 {
   display: flex;
   align-items: center;
   gap: 56px;
+  padding-bottom: 12px;
 }
 .movie-vote {
   gap: 4px;
+}
+
+.about-title {
+  padding: 20px 0 16px;
 }
 
 .movie-detail > span:first-child {
@@ -80,9 +86,10 @@ h2 {
 }
 
 .movie-overview {
-  font-size: 0.85rem;
+  font-size: 14px;
   color: #bbb;
   line-height: 1.4;
+  padding-bottom: 20px;
 }
 
 .btn-library {
@@ -123,6 +130,18 @@ h2 {
     max-width: 704px;
     height: 400px;
   }
+  .movie-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+  }
+  .btn-add {
+    width: 147px;
+  }
+  .btn-remove {
+    width: 183px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -138,9 +157,8 @@ h2 {
 
   .upcoming-card {
     display: flex;
-    gap: 24px;
-    max-width: 1000px;
-    align-items: flex-start;
+    gap: 16px;
+    max-width: 1211px;
     flex-direction: row;
   }
 
@@ -148,5 +166,19 @@ h2 {
     max-width: 805px;
     height: 458px;
     border-radius: 10px;
+  }
+  .info {
+    max-width: 390px;
+    width: 100%;
+  }
+  .movie-name {
+    font-size: 32px;
+    padding: 0 0 28px;
+  }
+  .btn-add {
+    width: 155px;
+  }
+  .btn-remove {
+    width: 192px;
   }
 }

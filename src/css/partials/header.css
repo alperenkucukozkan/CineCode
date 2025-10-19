@@ -19,6 +19,9 @@ body {
   text-transform: uppercase;
   text-align: center;
   color: #b7b7b7;
+position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .mobile-menu {
   display: flex;
@@ -118,7 +121,7 @@ body {
   justify-content: center;
   gap: 16px;
   padding: 5px;
-  height: 7px;
+  height: 18px;
 }
 
 .icon {
@@ -221,15 +224,22 @@ input:checked + .slider-container .icon {
     text-align: center;
     color: #fff;
   }
-  .mobile-menu {
-  }
   .switch {
     height: 24px;
   }
   .slider-container {
-    height: 14px;
+    padding: 3px;
+    align-items: unset;
   }
   .logo {
     gap: 8px;
+  }
+  .icon{
+    width: 18px;
+        height: 18px;
+        transform: translateX(220%);
+  }
+  .icon.marquee {
+      transform: translateX(-220%) ;
   }
 }

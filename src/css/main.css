@@ -12,12 +12,7 @@
 /* Sections style */
 /* @import url('./partials/header.css');
 @import url('./partials/hero.css');
-@import url('./partials/weekly.css'); */
-@import url('./partials/upcoming.css');
-/* @import url('./partials/footer.css');
-@import url('./partials/catalog.css');
-@import url('./partials/searchBar.css');
-@import url('./partials/libarary.css'); */
+@import url('./partials/library.css');
 @import url('./partials/loader.css');
 @import url('./partials/scrollup.css');
 @import url('./partials/modal.css');

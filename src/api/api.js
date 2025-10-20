@@ -1,45 +1,59 @@
-const API_KEY = 'c0fe092c4149192005601ffec65036a5';
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-//tüm sayfalar
+async function fetchJSON(path) {
+  const sep = path.includes('?') ? '&' : '?';
+  const url = `${BASE_URL}${path}${sep}api_key=${API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok)
+    throw new Error(
+      `API request failed: ${res.status} ${res.statusText} - ${url}`
+    );
+  return res.json();
+}
+
+// tüm sayfalar
 export async function fetchPopularMovies(page = 1) {
-    const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
-    return res.json();
+  return fetchJSON(`/movie/popular?page=${page}`);
 }
 
-//Günlük trendler
-export async function fetchDailyTrending() {
-    const res = await fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
-    return res.json();
-}
-//HAftalık trendler
-export async function fetchWeeklyMovies() {
-    const res =  await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`);
-    return res.json();
+// Günlük trendler
+export async function fetchDailyTrending(page = 1) {
+  return fetchJSON(`/trending/movie/day?page=${page}`);
 }
 
-//Upcoming
-export async function fetchUpcomingMovies() {
-    const res = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`);
-    return res.json();
+// Haftalık trendler
+export async function fetchWeeklyMovies(page = 1) {
+  return fetchJSON(`/trending/movie/week?page=${page}`);
 }
-//Film detayları
+
+// Upcoming
+export async function fetchUpcomingMovies(page = 1) {
+  return fetchJSON(`/movie/upcoming?page=${page}`);
+}
+
+// Film detayları
 export async function fetchMovieDetails(movieId) {
-    const res = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
-    return res.json();
+  if (!movieId) throw new Error('movieId gerekli');
+  return fetchJSON(`/movie/${movieId}`);
 }
-//film video
+
+// film video
 export async function fetchMovieVideos(movieId) {
-    const res = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);
-    return res.json();
+  if (!movieId) throw new Error('movieId gerekli');
+  return fetchJSON(`/movie/${movieId}/videos`);
 }
-//anahtar kelimelere göre arama yıla göre filtreleme
-export async function searchMovies(query, year = '') {
-    const res = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&page=${page}&query=${encodeURIComponent(query)}&year=${year}`);
-    return res.json();
+
+// anahtar kelimelere göre arama, sayfa ve yıl filtreleme
+export async function searchMovies(query, page = 1, year = '') {
+  if (!query) return { results: [] };
+  const yearParam = year ? `&year=${encodeURIComponent(year)}` : '';
+  return fetchJSON(
+    `/search/movie?page=${page}&query=${encodeURIComponent(query)}${yearParam}`
+  );
 }
-//tür listesini getir
+
+// tür listesini getir
 export async function fetchGenres() {
-    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&page=${page}`);
-    return res.json();
+  return fetchJSON(`/genre/movie/list`);
 }

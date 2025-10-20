@@ -1,8 +1,4 @@
-import {
-  fetchWeeklyMovies,
-  fetchGenres,
-  fetchMovieDetails,
-} from '../../api/api.js';
+import { fetchWeeklyMovies, fetchGenres, fetchMovieDetails } from '../api/api';
 
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';

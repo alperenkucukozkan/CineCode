@@ -6,4 +6,4 @@ import './modal.js';
 import './scrollup.js';
 import './searchBar.js';
 import './upcoming.js';
-// import './weekly.js';
+import './weekly.js';

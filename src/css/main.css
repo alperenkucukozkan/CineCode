@@ -5,17 +5,17 @@
   |============================
 */
 /* Common styles */
-@import url('./partials/modern-normalize.css');
-@import url('./partials/reset.css');
+@import url('./modern-normalize.css');
+@import url('./reset.css');
 /* @import url('./partials/base.css'); */
 
 /* Sections style */
-@import url('./partials/header.css');
+@import url('./header.css');
 /* @import url('./partials/hero.css'); */
-@import url('./partials/library.css');
-@import url('./partials/loader.css');
-@import url('./partials/scrollup.css');
-@import url('./partials/modal.css');
+@import url('./library.css');
+@import url('./loader.css');
+@import url('./scrollup.css');
+@import url('./modal.css');
 /* @import url('./partials/searchBar.css'); */
-@import url('./partials/upcoming.css');
-@import url('./partials/weekly.css');
+@import url('./upcoming.css');
+@import url('./weekly.css');

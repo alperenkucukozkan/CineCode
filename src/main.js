@@ -29,4 +29,6 @@ async function loadPartials() {
     }
   }
 }
-loadPartials().catch(err => console.error(err));
+loadPartials().then(async () => {
+  await import('./js/index.js');
+});

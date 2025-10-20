@@ -1,0 +1,9 @@
+import './footer.js';
+import './header.js';
+import './hero.js';
+import './loader.js';
+import './modal.js';
+import './scrollup.js';
+import './searchBar.js';
+import './upcoming.js';
+import './weekly.js';

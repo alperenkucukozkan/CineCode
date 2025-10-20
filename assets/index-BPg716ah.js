@@ -3,31 +3,33 @@ import{b as A}from"./vendor-CAXQE2hQ.js";document.addEventListener("DOMContentLo
         <img src="${d}" alt="${o.title}" />
         <div class="info">
           <h3 class="movie-name">${o.title}</h3>
+          <div class="details-wrapper">
+            <p class="movie-detail">
+              <span>Release date</span>
+              <span class="highlight">${o.release_date||"Unknown"}</span>
+            </p>
 
-          <p class="movie-detail">
-            <span>Release date</span>
-            <span class="highlight">${o.release_date||"Unknown"}</span>
-          </p>
+            <p class="movie-detail">
+              <span>Vote / Votes</span>
+         
+              <span>
+                <span class="vote-box">${(($=o.vote_average)==null?void 0:$.toFixed(1))||"-"}</span>
+                <span>/</span>
+                <span class="vote-box">${o.vote_count||"-"}</span> 
+              </span>
+        
+            </p>
 
-          <p class="movie-detail">
-            <span>Vote / Votes</span>
-            <span>
-              <span class="vote-box">${(($=o.vote_average)==null?void 0:$.toFixed(1))||"-"}</span>
-              <span>/</span>
-              <span class="vote-box">${o.vote_count||"-"}</span>
-            </span>
-          </p>
+            <p class="movie-detail">
+              <span>Popularity</span>
+              <span>${((E=o.popularity)==null?void 0:E.toFixed(1))||"-"}</span>
+            </p>
 
-          <p class="movie-detail">
-            <span>Popularity</span>
-            <span>${((E=o.popularity)==null?void 0:E.toFixed(1))||"-"}</span>
-          </p>
-
-          <p class="movie-detail">
-            <span>Genre</span>
-            <span>${T||"Unknown"}</span>
-          </p>
-
+            <p class="movie-detail">
+              <span>Genre</span>
+              <span>${T||"Unknown"}</span>
+            </p>
+          </div>
           <h4 class="about-title">ABOUT</h4>
           <p class="movie-overview">${o.overview||"No description available."}</p>
 
@@ -65,4 +67,4 @@ import{b as A}from"./vendor-CAXQE2hQ.js";document.addEventListener("DOMContentLo
         </div>
       </div>
       `,{onShow:p=>{p.element().querySelector(".popup-close-btn").addEventListener("click",()=>p.close());const y=p.element().querySelector(".library-btn");J(t,y)}});u.show(),window.addEventListener("keydown",m)}catch(t){console.error("Popup açılırken hata:",t)}});q();
-//# sourceMappingURL=index-B9KSJBb3.js.map
+//# sourceMappingURL=index-BPg716ah.js.map

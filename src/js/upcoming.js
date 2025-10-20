@@ -63,31 +63,33 @@ const endDate = `${year}-${month}-${lastDay}`;
         <img src="${imageUrl}" alt="${movie.title}" />
         <div class="info">
           <h3 class="movie-name">${movie.title}</h3>
+          <div class="details-wrapper">
+            <p class="movie-detail">
+              <span>Release date</span>
+              <span class="highlight">${movie.release_date || 'Unknown'}</span>
+            </p>
 
-          <p class="movie-detail">
-            <span>Release date</span>
-            <span class="highlight">${movie.release_date || 'Unknown'}</span>
-          </p>
+            <p class="movie-detail">
+              <span>Vote / Votes</span>
+         
+              <span>
+                <span class="vote-box">${movie.vote_average?.toFixed(1) || '-'}</span>
+                <span>/</span>
+                <span class="vote-box">${movie.vote_count || '-'}</span> 
+              </span>
+        
+            </p>
 
-          <p class="movie-detail">
-            <span>Vote / Votes</span>
-            <span>
-              <span class="vote-box">${movie.vote_average?.toFixed(1) || '-'}</span>
-              <span>/</span>
-              <span class="vote-box">${movie.vote_count || '-'}</span>
-            </span>
-          </p>
+            <p class="movie-detail">
+              <span>Popularity</span>
+              <span>${movie.popularity?.toFixed(1) || '-'}</span>
+            </p>
 
-          <p class="movie-detail">
-            <span>Popularity</span>
-            <span>${movie.popularity?.toFixed(1) || '-'}</span>
-          </p>
-
-          <p class="movie-detail">
-            <span>Genre</span>
-            <span>${genreNames || 'Unknown'}</span>
-          </p>
-
+            <p class="movie-detail">
+              <span>Genre</span>
+              <span>${genreNames || 'Unknown'}</span>
+            </p>
+          </div>
           <h4 class="about-title">ABOUT</h4>
           <p class="movie-overview">${movie.overview || 'No description available.'}</p>
 

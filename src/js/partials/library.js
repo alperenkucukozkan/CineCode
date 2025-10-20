@@ -1,4 +1,6 @@
-const API_KEY = '1ba89716ead2ad5eab8a0f464a944832';
+import { fetchGenres  } from '../../api/api.js';
+
+const API_KEY = 'c0fe092c4149192005601ffec65036a5';
 const TRENDING_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
 
 const hero = document.getElementById('hero');
@@ -13,7 +15,7 @@ const trailerModal = document.getElementById('trailer-modal');
 const closeModal = document.getElementById('close-modal');
 const trailerFrame = document.getElementById('trailer-frame');
 
-const favoritesListEl = document.getElementById('favorites-list');
+const libraryListEl = document.getElementById('library-list');
 const emptyLibraryEl = document.getElementById('empty-library');
 const genreFilter = document.getElementById('genre-filter');
 
@@ -26,16 +28,14 @@ function createStarRating(vote) {
 
     for (let i = 1; i <= 5; i++) {
         if (rating >= i) {
-            // Tam dolu
-            stars += `<span class="star">&#9733;</span>`;
+            stars += `<svg class="star-svg-full" width="20" height="20"><use href="../img/icon.svg#icon-full-star"></use></svg>`;
         } else if (rating >= i - 0.5) {
-            // Yarım yıldız
-            stars += `<span class="star half">&#9733;</span>`;
+            stars += `<svg class="star-svg-half" width="20" height="20"><use href="../img/icon.svg#icon-half-star"></use></svg>`;
         } else {
-            // Boş yıldız
-            stars += `<span class="star empty">&#9733;</span>`;
+            stars += `<svg class="star-svg-empty" width="20" height="20"><use href="../img/icon.svg#icon-empty-star"></use></svg>`;
         }
     }
+
     return stars;
 }
 
@@ -92,38 +92,13 @@ trailerModal.addEventListener('click', e => {
     if (e.target === trailerModal) closeTrailer();
 });
 
-function loadFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let currentLibraryView = [];
 
-    if (favorites.length === 0) {
-        emptyLibraryEl.style.display = 'flex';
-        favoritesListEl.innerHTML = '';
-        genreFilter.parentElement.style.display = 'none';
-        return;
-    }
-
-    emptyLibraryEl.style.display = 'none';
-    genreFilter.parentElement.style.display = 'flex';
-
-    const genresSet = new Set();
-    favorites.forEach(movie =>
-        movie.genre_ids?.forEach(id => {
-            if (GENRES[id]) genresSet.add(GENRES[id]);
-        })
-    );
-
-    genreFilter.innerHTML = `<option value="all">Genre</option>`;
-    genresSet.forEach(name => {
-        genreFilter.innerHTML += `<option value="${name}">${name}</option>`;
-    });
-
-    displayFavorites(favorites);
-}
-
-function displayFavorites(movies, reset = true) {
+function displayLibrary(movies, reset = true) {
     if (reset) {
-        favoritesListEl.innerHTML = '';
+        libraryListEl.innerHTML = '';
         displayedCount = 0;
+        currentLibraryView = movies;
     }
 
     const remaining = movies.slice(displayedCount, displayedCount + LOAD_COUNT);
@@ -137,7 +112,7 @@ function displayFavorites(movies, reset = true) {
             return (
                 movie.poster_path &&
                 `
-                <li id="${movie.id}" class="favorite-card" style="
+                <li id="${movie.id}" class="library-card" style="
                     background-image: url(https://image.tmdb.org/t/p/w500${movie.poster_path});
                     background-size: cover;
                     background-position: center;
@@ -148,7 +123,7 @@ function displayFavorites(movies, reset = true) {
                     overflow: hidden;
                     position: relative;
                 ">
-                <div class="favorite-card-content" style="
+                <div class="library-card-content" style="
                     position: absolute;
                     bottom: 0;
                     width: 100%;
@@ -167,7 +142,7 @@ function displayFavorites(movies, reset = true) {
         })
         .join('');
 
-    favoritesListEl.insertAdjacentHTML('beforeend', newHTML);
+    libraryListEl.insertAdjacentHTML('beforeend', newHTML);
 
     displayedCount += remaining.length;
 
@@ -181,16 +156,15 @@ function displayFavorites(movies, reset = true) {
 }
 
 loadMoreBtn.addEventListener('click', () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    displayFavorites(favorites, false);
+    displayLibrary(currentLibraryView, false);
 });
 
-function loadFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+function loadLibrary() {
+    const library = JSON.parse(localStorage.getItem('library')) || [];
 
-    if (favorites.length === 0) {
+    if (library.length === 0) {
         emptyLibraryEl.style.display = 'flex';
-        favoritesListEl.innerHTML = '';
+        libraryListEl.innerHTML = '';
         genreFilter.parentElement.style.display = 'none';
         loadMoreBtn.classList.add('hidden');
         return;
@@ -200,7 +174,7 @@ function loadFavorites() {
     genreFilter.parentElement.style.display = 'flex';
 
     const genresSet = new Set();
-    favorites.forEach(movie =>
+    library.forEach(movie =>
         movie.genre_ids?.forEach(id => {
             if (GENRES[id]) genresSet.add(GENRES[id]);
         })
@@ -211,19 +185,19 @@ function loadFavorites() {
         genreFilter.innerHTML += `<option value="${name}">${name}</option>`;
     });
 
-    displayFavorites(favorites);
+    displayLibrary(library);
 }
 
 genreFilter.addEventListener('change', e => {
     const value = e.target.value;
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const library = JSON.parse(localStorage.getItem('library')) || [];
     if (value === 'all') {
-        displayFavorites(favorites);
+        displayLibrary(library);
     } else {
-        const filtered = favorites.filter(m =>
+        const filtered = library.filter(m =>
             m.genre_ids.some(id => GENRES[id] === value)
         );
-        displayFavorites(filtered);
+        displayLibrary(filtered);
     }
 });
 
@@ -253,19 +227,18 @@ if (genreFilter) {
 }
 
 function attachCardClickEvents() {
-    document.querySelectorAll('.favorite-card').forEach(card => {
+    document.querySelectorAll('.library-card').forEach(card => {
         card.removeEventListener('click', card._clickHandler);
         const handler = () => {
             const movieId = parseInt(card.id);
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            const movie = favorites.find(m => m.id === movieId);
-            if (movie) showDetailsPopup(movie, loadFavorites);
+            const library = JSON.parse(localStorage.getItem('library')) || [];
+            const movie = library.find(m => m.id === movieId);
+            if (movie) showDetailsPopup(movie, loadLibrary);
         };
         card.addEventListener('click', handler);
         card._clickHandler = handler;
     });
 }
-
 
 function showDetailsPopup(movie, onLibraryChange) {
     const modal = document.getElementById('movie-detail-modal');
@@ -299,24 +272,24 @@ function showDetailsPopup(movie, onLibraryChange) {
     const libBtn = modal.querySelector('.library-btn');
 
     function updateButton() {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        const inLibrary = favorites.some(f => f.id === movie.id);
+        const library = JSON.parse(localStorage.getItem('library')) || [];
+        const inLibrary = library.some(f => f.id === movie.id);
         libBtn.textContent = inLibrary ? 'Remove from My Library' : 'Add to My Library';
     }
 
     updateButton();
 
     libBtn.addEventListener('click', () => {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        const inLibrary = favorites.some(f => f.id === movie.id);
+        let library = JSON.parse(localStorage.getItem('library')) || [];
+        const inLibrary = library.some(f => f.id === movie.id);
 
         if (inLibrary) {
-            favorites = favorites.filter(f => f.id !== movie.id);
+            library = library.filter(f => f.id !== movie.id);
         } else {
-            favorites.push(movie);
+            library.push(movie);
         }
 
-        localStorage.setItem('favorites', JSON.stringify(favorites));
+        localStorage.setItem('library', JSON.stringify(library));
         updateButton();
         if (typeof onLibraryChange === 'function') onLibraryChange();
     });
@@ -337,43 +310,18 @@ function showDetailsPopup(movie, onLibraryChange) {
     closeBtn.addEventListener('click', closeModal);
 }
 
-function addFilm(movie) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    if (!favorites.some(f => f.id === movie.id)) {
-        favorites.push(movie);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    }
+let GENRES = {};
+
+async function loadGenres() {
+  const genres = await fetchGenres();
+  GENRES = genres.reduce((acc, g) => {
+    acc[g.id] = g.name;
+    return acc;
+  }, {});
 }
 
-function removeFilm(id) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites = favorites.filter(m => m.id !== id);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    loadFavorites();
-}
-
-
-const GENRES = {
-    28: 'Action',
-    12: 'Adventure',
-    16: 'Animation',
-    35: 'Comedy',
-    80: 'Crime',
-    99: 'Documentary',
-    18: 'Drama',
-    10751: 'Family',
-    14: 'Fantasy',
-    36: 'History',
-    27: 'Horror',
-    10402: 'Music',
-    9648: 'Mystery',
-    10749: 'Romance',
-    878: 'Science Fiction',
-    10770: 'TV Movie',
-    53: 'Thriller',
-    10752: 'War',
-    37: 'Western',
-};
-
-fetchTrendingMovie();
-loadFavorites();
+(async function init() {
+  await loadGenres();  // önce türleri getir
+  fetchTrendingMovie();
+  loadLibrary();
+})();

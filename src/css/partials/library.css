@@ -6,7 +6,6 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: black;
     line-height: 1.5;
 }
 
@@ -16,7 +15,6 @@ header {
     background-color: #000;
 }
 
-/* 🎥 HERO SECTION (MOBILE) */
 .hero {
     position: relative;
     min-height: 70vh;
@@ -65,35 +63,33 @@ header {
     display: none !important;
 }
 
-.star {
-    font-size: 1.35rem;
-    color: orange;
-    margin-right: 6px;
-    position: relative;
-    line-height: 1;
-    display: inline-block;
+.star-svg-full {
+    fill: #f87719;
+    stroke: #f87719;
+    margin-right: 2px;
+    vertical-align: middle;
+    width: 22px;
+    height: 21px;
 }
 
-/* Boş yıldız */
-.star.empty {
-    color: #fff;
+.star-svg-half {
+    fill: #f87719;
+    stroke: #F84119;
+    margin-right: 2px;
+    vertical-align: middle;
+    width: 22px;
+    height: 21px;
 }
 
-/* Yarım yıldız */
-.star.half {
-    color: #fff;
+.star-svg-empty {
+    fill: none;
+    stroke: #F84119;
+    margin-right: 2px;
+    vertical-align: middle;
+    width: 22px;
+    height: 21px;
 }
 
-.star.half::before {
-    content: '★';
-    position: absolute;
-    left: 0;
-    width: 50%;
-    overflow: hidden;
-    color: orange;
-}
-
-/* BUTTONS */
 .library-btn {
     background: linear-gradient(141.22deg, #FFC226 9.4%, #F84119 91.91%);
     border: none;
@@ -111,12 +107,11 @@ header {
     color: #F87719;
 }
 
-/* ❤️ FAVORITES SECTION */
-.favorites {
+.library {
     padding: 2rem 1rem;
 }
 
-.favorites-header {
+.library-header {
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: flex-start;
@@ -134,7 +129,7 @@ header {
     font-size: 1rem;
 }
 
-#favorites-list {
+#library-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -170,8 +165,6 @@ header {
     display: none;
 }
 
-/* 🎥 MODAL POPUP */
-/* 🎥 YOUTUBE POPUP MODAL (Mobile First) */
 #trailer-modal {
     position: fixed;
     inset: 0;
@@ -239,7 +232,7 @@ header {
     color: inherit;
 }
 
-.favorite-card {
+.library-card {
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -249,19 +242,19 @@ header {
     list-style: none;
 }
 
-.favorite-card:hover {
+.library-card:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
-.favorite-card img {
+.library-card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
 }
 
-.favorite-card-content {
+.library-card-content {
     padding: 0.6rem 0.5rem;
     display: flex;
     flex-direction: column;
@@ -269,7 +262,7 @@ header {
     flex-grow: 1;
 }
 
-.favorite-card-content h3 {
+.library-card-content h3 {
     font-size: 1rem;
     font-weight: 600;
     color: var(--white);
@@ -279,13 +272,13 @@ header {
     text-overflow: ellipsis;
 }
 
-.favorite-card-content p {
+.library-card-content p {
     font-size: 0.8rem;
     color: #bdbdbd;
     margin-bottom: 0.3rem;
 }
 
-.favorite-card-content .stars {
+.library-card-content .stars {
     font-size: 1rem;
     color: orange;
     display: flex;
@@ -297,7 +290,6 @@ header {
     margin: 30px auto;
 }
 
-/* 🎥 DETAIL POPUP MODAL */
 .detail-modal {
     position: fixed;
     top: 0;
@@ -393,7 +385,6 @@ header {
     color: #F87719;
 }
 
-/* TABLET */
 @media (min-width: 768px) {
     .hero {
         min-height: 70vh;
@@ -409,12 +400,11 @@ header {
         max-width: 600px;
     }
 
-    .favorites-list {
+    .library-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* DESKTOP */
 @media (min-width: 1280px) {
     .hero {
         min-height: 80vh;
@@ -430,12 +420,11 @@ header {
         font-size: 1.1rem;
     }
 
-    #favorites-list {
+    #library-list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* LARGE SCREEN */
 @media (min-width: 1440px) {
     .hero-content {
         max-width: 60%;

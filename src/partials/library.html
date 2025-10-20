@@ -11,11 +11,9 @@
 <body>
 
     <main>
-        <!-- 🎬 HERO SECTION -->
         <section class="hero" id="hero" data-default="true">
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <!-- Default durum -->
                 <h2 id="movie-title" class="hero-title">
                     Create Your Dream Cinema
                 </h2>
@@ -26,7 +24,6 @@
                     cozy seating, dim lighting, and movie theater snacks.
                 </p>
 
-                <!-- JS tarafından görünür hale gelecek -->
                 <div class="hero-buttons hidden" id="hero-buttons">
                     <button id="trailer-btn" class="library-btn">
                         Watch Trailer
@@ -34,7 +31,6 @@
                 </div>
             </div>
 
-            <!-- 🎥 YOUTUBE POPUP MODAL -->
             <div id="trailer-modal" class="modal hidden">
                 <div class="modal-content">
                     <button id="close-modal" class="modal-close">&times;</button>
@@ -43,25 +39,19 @@
             </div>
         </section>
 
-
-
-        <!-- 🎞️ FAVORITE MOVIES SECTION -->
-        <section class="favorites" id="favorites">
-            <div class="favorites-header">
+        <section class="library" id="library">
+            <div class="library-header">
                 <select id="genre-filter" class="filter">
                     <option value="all">Genre</option>
                 </select>
             </div>
 
-            <div id="favorites-container">
-                <ul id="favorites-list"></ul>
+            <div id="library-container">
+                <ul id="library-list"></ul>
                 <button id="load-more-btn" class="library-btn hidden">Load More</button>
             </div>
 
-            <!-- <div id="favorites-list" class="favorites-list"></div> -->
-
-            <!-- Boş liste mesajı -->
-            <div id="empty-library" class="empty hidden">
+            <div id="empty-library" class="empty">
                 <p class="empty-text">
                     OOPS...<br />
                     We are very sorry!<br />
@@ -74,7 +64,7 @@
 
     <div id="movie-detail-modal" class="detail-modal"></div>
 
-    <script src="../js/partials/library.js"></script>
+    <script type="module" src="../js/partials/library.js"></script>
 </body>
 
 </html>

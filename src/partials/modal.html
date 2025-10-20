@@ -1,0 +1,61 @@
+<section class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <!-- Kapatma tuşu ikonu svg olarak ekleme -->
+    <svg
+      class="close-icon"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11 11L0.5 0.5M11 0.5L0.5 11"
+        stroke="#F8F8F8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <!-- Filmin afişi için -->
+    <img class="modal-img" src="" alt="Movie Poster" />
+    <!-- afişin altındaki bilgiler için kapsayıcı div-->
+    <div class="modal-info">
+      <!-- film ismi -->
+      <h2 class="movie-title">Movie Title</h2>
+      <!-- film puanı ve toplam oy sayısı şeklindeki bilgiler -->
+      <div class="movie-votes">
+        <span class="votes-wrapper general">Vote / Votes</span>
+        <span class="votes-value">
+          <span class="votes-puanlama">0.0</span>
+          <span class="votes-slash">/</span>
+          <span class="votes-oysayisi">0</span>
+        </span>
+      </div>
+      <!-- film populerlik puanı -->
+      <div class="modal-popularity general">
+        Popularity
+        <span class="popularity-value genel">0</span>
+      </div>
+      <!-- Film türü -->
+      <div class="modal-genre general">
+        Genre <span class="genre-value genel">genre</span>
+      </div>
+      <!-- film about kısmı -->
+      <div class="modal-about general">
+        ABOUT
+        <p class="about-value">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui quo
+          doloribus consequuntur enim. Eos error, minima voluptatibus modi
+          expedita atque ea aliquid non? Aut voluptates praesentium laudantium
+          ullam. Eaque, repellendus!
+        </p>
+      </div>
+      <!-- kütüphaneye eklemek için buton -->
+      <div class="modal-library-add">
+        <button type="submit" class="modal-add-button">
+          Add to my library
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -40,8 +40,6 @@ export async function searchMovies(query, year = '') {
 }
 //tür listesini getir
 export async function fetchGenres() {
-    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`);
-    const data = await res.json();
-    return data.genres;
+    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&page=${page}`);
+    return res.json();
 }
-

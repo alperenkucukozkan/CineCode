@@ -1,0 +1,165 @@
+.modal {
+  width: 100%;
+  height: 847px;
+  background-color: #111;
+  font-family: 'Roboto', sans-serif;
+  /* display: none; -------------En son bu satır aktif hale gelecek gerisi js */
+}
+.is-open {
+  display: block;
+}
+.modal-content {
+  margin: 52px 16px;
+  border: 1px solid #ffff;
+}
+.close-icon {
+  float: right;
+  margin-top: 20px;
+}
+.modal-img {
+  width: 100%;
+  height: 315px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #ffff;
+  margin-top: 52px;
+}
+.modal-info {
+  margin-top: 22px;
+}
+.movie-title {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  color: #ffff;
+  margin-bottom: 29px;
+}
+.movie-votes {
+  margin-bottom: 12px;
+}
+.general {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #b7b7b7;
+  margin-bottom: 12px;
+}
+.modal-genre {
+  margin-bottom: 20px;
+}
+.votes-value {
+  float: right;
+}
+.votes-puanlama {
+  display: inline-flex;
+  padding: 1px 8px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background: #fff;
+  margin-right: 7px;
+}
+.votes-slash {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #b7b7b7;
+  margin-right: 4px;
+}
+.votes-oysayisi {
+  text-transform: uppercase;
+  display: inline-flex;
+  padding: 1px 4px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 5px;
+  background: #fff;
+}
+.genel {
+  float: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #fff;
+  text-transform: uppercase;
+}
+.modal-about {
+  margin-bottom: 16px;
+}
+.about-value {
+  color: #f8f8f8;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+.modal-add-button {
+  width: 140px;
+  height: 38px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 74px;
+  border: 1px solid var(--linear, #ffc226);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #111;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.modal-add-button:hover {
+  color: #f87719;
+  background: #fff;
+  border: none;
+}
+@media screen and (min-width: 768px) {
+  .modal-content {
+    display: flex;
+    padding: 44px;
+    position: relative;
+  }
+  .close-icon {
+    position: absolute;
+    right: 24px;
+    top: 0;
+  }
+
+  .modal-img {
+    margin-right: 16px;
+    width: 1000px;
+    margin-top: 0px;
+    height: 400px;
+  }
+  .modal-info {
+    margin-top: 0;
+  }
+  .movie-title {
+    margin-bottom: 26px;
+    font-size: 24px;
+  }
+  .modal-about {
+    margin-bottom: 24px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .general {
+    font-size: 16px;
+  }
+  .votes-puanlama {
+    font-size: 16px;
+  }
+  .votes-oysayisi {
+    font-size: 16px;
+  }
+  .about-value {
+    font-size: 14px;
+  }
+}

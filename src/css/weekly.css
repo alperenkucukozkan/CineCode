@@ -54,3 +54,7 @@
 [data-theme='light-theme'] .weekly-gallery li {
   box-shadow: 0 0 20px rgba(255, 136, 25, 0.1);
 }
+
+h2 {
+    color: white;
+}

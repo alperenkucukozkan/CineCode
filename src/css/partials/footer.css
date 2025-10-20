@@ -1,7 +1,4 @@
 /* footer */
-
-
-
 .footer {
     height: 100%;
 }
@@ -19,7 +16,6 @@
     flex-wrap: wrap;
     justify-content: center; 
 }
-
 
 .student-photo {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

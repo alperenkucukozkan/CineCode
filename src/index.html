@@ -4,17 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
 
-    <link rel="icon" href="./img/favicon.svg">
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    /></noscript>
+
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="icon" href="./img/favicon.svg" />
   </head>
   <body>
-
-
-    
-<button id="scrollToTopBtn" title="Scroll Up" class="button-up">↑</button> 
-
-
-
-
- </body>
+    <load src="./partials/header.html"></load>
+    <main>
+      <load src="./partials/hero.html"></load>
+      <load src="./partials/weekly.html"></load>
+      <load src="./partials/upcoming.html"></load>
+    </main>
+    <load src="./partials/footer.html"></load>
+    <button id="scrollToTopBtn" title="Scroll Up" class="button-up">↑</button>
+    <script src="./js/main.js"></script>
+    <script src="./js/partials/scrollup.js"></script>
+  </body>
 </html>

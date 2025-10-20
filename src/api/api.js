@@ -1,59 +1,52 @@
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-async function fetchJSON(path) {
-  const sep = path.includes('?') ? '&' : '?';
-  const url = `${BASE_URL}${path}${sep}api_key=${API_KEY}`;
-  const res = await fetch(url);
-  if (!res.ok)
-    throw new Error(
-      `API request failed: ${res.status} ${res.statusText} - ${url}`
-    );
-  return res.json();
-}
-
-// tüm sayfalar
+// Tüm filmler
 export async function fetchPopularMovies(page = 1) {
-  return fetchJSON(`/movie/popular?page=${page}`);
+  const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+  return await res.json();
 }
 
-// Günlük trendler
-export async function fetchDailyTrending(page = 1) {
-  return fetchJSON(`/trending/movie/day?page=${page}`);
+// Günlük trend filmler
+export async function fetchDailyTrending() {
+  const res = await fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
+  return await res.json();
 }
 
-// Haftalık trendler
-export async function fetchWeeklyMovies(page = 1) {
-  return fetchJSON(`/trending/movie/week?page=${page}`);
+// Haftalık trend filmler
+export async function fetchWeeklyTrending() {
+  const res = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`);
+  return await res.json();
 }
 
-// Upcoming
-export async function fetchUpcomingMovies(page = 1) {
-  return fetchJSON(`/movie/upcoming?page=${page}`);
+// Yeni filmler (upcoming)
+export async function fetchUpcomingMovies() {
+  const res = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`);
+  return await res.json();
 }
 
-// Film detayları
+// Film detayları (tek bir film)
 export async function fetchMovieDetails(movieId) {
-  if (!movieId) throw new Error('movieId gerekli');
-  return fetchJSON(`/movie/${movieId}`);
+  const res = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
+  return await res.json();
 }
 
-// film video
+// Filmin videoları (fragman dahil)
 export async function fetchMovieVideos(movieId) {
-  if (!movieId) throw new Error('movieId gerekli');
-  return fetchJSON(`/movie/${movieId}/videos`);
+  const res = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);
+  return await res.json();
 }
 
-// anahtar kelimelere göre arama, sayfa ve yıl filtreleme
-export async function searchMovies(query, page = 1, year = '') {
-  if (!query) return { results: [] };
-  const yearParam = year ? `&year=${encodeURIComponent(year)}` : '';
-  return fetchJSON(
-    `/search/movie?page=${page}&query=${encodeURIComponent(query)}${yearParam}`
+// Anahtar kelime + yıla göre arama
+export async function searchMovies(query, year = "") {
+  const res = await fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&year=${year}`
   );
+  return await res.json();
 }
 
-// tür listesini getir
+// Tür listesini getir
 export async function fetchGenres() {
-  return fetchJSON(`/genre/movie/list`);
+  const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
+  return await res.json();
 }

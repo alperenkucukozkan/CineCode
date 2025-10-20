@@ -96,7 +96,7 @@ async function renderWeeklyTrends(limit = getVisibleCardCount()) {
 }
 
 function initializeLibraryButton(movie, button) {
-  let library = JSON.parse(localStorage.getItem('favorites')) || [];
+  let library = JSON.parse(localStorage.getItem('library')) || [];
   const isInLibrary = library.includes(movie.id);
 
   if (isInLibrary) {
@@ -108,7 +108,7 @@ function initializeLibraryButton(movie, button) {
   }
 
   button.onclick = () => {
-    let library = JSON.parse(localStorage.getItem('favorites')) || [];
+    let library = JSON.parse(localStorage.getItem('library')) || [];
     if (library.includes(movie.id)) {
       library = library.filter(id => id !== movie.id);
       button.textContent = 'Add to Library';
@@ -118,7 +118,7 @@ function initializeLibraryButton(movie, button) {
       button.textContent = 'Remove from Library';
       button.classList.add('added');
     }
-    localStorage.setItem('favorites', JSON.stringify(library));
+    localStorage.setItem('library', JSON.stringify(library));
   };
 }
 
@@ -144,7 +144,7 @@ gallery.addEventListener('click', async e => {
 
     const genres = movie.genres.map(g => g.name).join(', ');
 
-    const library = JSON.parse(localStorage.getItem('favorites')) || [];
+    const library = JSON.parse(localStorage.getItem('library')) || [];
     const inLibrary = library.includes(movie.id);
 
     const popup = basicLightbox.create(

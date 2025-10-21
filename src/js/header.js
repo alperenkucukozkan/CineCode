@@ -1,22 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initHeader() {
   initMenu('#menuLinks', 'menuLinks:active');
   initMenu('#links', 'menuLinks:active');
   initSidebar('#menu', '.sidebar', '.sidebar-backdrop');
   initTheme('#toggle', '.theme-toggle use', {
-    navbar: '#navbar',
+    navbar: 'header',
     menuButton: '#menu',
     modal: '.sidebar',
     backdrop: '.sidebar-backdrop',
     links: '#links',
     logoText: '.logo-text',
+    body: 'body',
   });
-});
-
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeader);
+} else {
+  initHeader();
+}
 function initMenu(selector, storageKey) {
   const menu = document.querySelector(selector);
   console;
   if (!menu) return;
-
   const savedKey = localStorage.getItem(storageKey);
   if (savedKey) {
     const activeLink = menu.querySelector(`a[href="${savedKey}"]`);
@@ -46,6 +50,7 @@ function initSidebar(buttonSel, modalSel, backdropSel) {
   if (!button || !modal || !backdrop) return;
 
   button.addEventListener('click', () => {
+    console.log('clicked');
     const visible = modal.style.display === 'flex';
     modal.style.display = visible ? 'none' : 'flex';
     backdrop.style.display = visible ? 'none' : 'block';
@@ -55,7 +60,7 @@ function initSidebar(buttonSel, modalSel, backdropSel) {
       if (e.target === backdrop) {
         modal.style.display = 'none';
         backdrop.style.display = 'none';
-        modal.removeEventListener('click', closeOnBackdrop);
+        backdrop.removeEventListener('click', closeOnBackdrop);
       }
     };
     backdrop.addEventListener('click', closeOnBackdrop);
@@ -65,7 +70,7 @@ function initSidebar(buttonSel, modalSel, backdropSel) {
 function initTheme(toggleSel, iconSel, refs = {}) {
   const toggle = document.querySelector(toggleSel);
   const icon = document.querySelector(iconSel);
-  const { navbar, menuButton, modal, backdrop, links, logoText } =
+  const { navbar, menuButton, modal, backdrop, links, logoText, body } =
     getRefs(refs);
 
   const setTheme = theme => {
@@ -74,7 +79,7 @@ function initTheme(toggleSel, iconSel, refs = {}) {
 
     const isDark = theme === 'dark-theme';
     if (toggle) toggle.checked = isDark;
-
+    if (body) body.style.backgroundColor = isDark ? '#121212' : '#fff';
     if (menuButton) menuButton.style.color = isDark ? '#b7b7b7' : '#595959';
     if (navbar) navbar.style.backgroundColor = isDark ? '#000' : '#fff';
     if (modal) modal.style.backgroundColor = isDark ? '#000' : '#f8f8f8';

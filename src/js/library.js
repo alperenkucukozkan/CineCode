@@ -1,4 +1,4 @@
-import { fetchGenres } from '../api/api';
+import { fetchGenres } from '../api/api.js';
 
 const API_KEY = 'c0fe092c4149192005601ffec65036a5';
 const TRENDING_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;

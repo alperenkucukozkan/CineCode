@@ -10,7 +10,6 @@ p {
 }
 h2 {
   font-size: 16px;
-  padding-bottom: 24px;
 }
 .upcoming {
   margin: 0 auto;
@@ -26,16 +25,18 @@ h2 {
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  padding-top: 24px;
 }
 
 .upcoming-card {
   color: #fff;
+  max-width: 280px;
   margin: 0 auto;
 }
 
 .upcoming-card img {
-  width: 100%;
-  height: 100%;
+  width: 280px;
+  height: 402px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -106,9 +107,18 @@ h2 {
 
 .btn-add {
   width: 140px;
+  height: 38px;
 }
 .btn-remove {
   width: 176px;
+  height: 38px;
+  align-self: flex-start;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .btn-library:hover {
@@ -131,7 +141,7 @@ h2 {
     max-width: 704px;
   }
   .upcoming-card img {
-    max-width: 704px;
+    width: 704px;
     height: 400px;
   }
   .details-wrapper {
@@ -140,17 +150,18 @@ h2 {
   }
 
   .btn-add {
-    width: 147px;
+    width: 155px;
+    height: 40px;
   }
   .btn-remove {
-    width: 183px;
+    width: 176px;
+    height: 40px;
   }
 }
 
 @media screen and (min-width: 1280px) {
   h2 {
     font-size: 28px;
-    padding-bottom: 28px;
   }
   .upcoming {
     border-radius: 10px;
@@ -160,6 +171,7 @@ h2 {
   .upcoming-content {
     display: flex;
     gap: 20px;
+    padding-top: 28px;
   }
 
   .upcoming-card {
@@ -170,9 +182,8 @@ h2 {
   }
 
   .upcoming-card img {
-    max-width: 805px;
+    width: 805px;
     height: 458px;
-    border-radius: 10px;
   }
   .details-wrapper {
     grid-template-columns: repeat(1, 1fr);
@@ -184,11 +195,5 @@ h2 {
   .movie-name {
     font-size: 32px;
     padding: 0 0 28px;
-  }
-  .btn-add {
-    width: 155px;
-  }
-  .btn-remove {
-    width: 192px;
   }
 }

@@ -71,5 +71,5 @@ export async function fetchMoviesBetween(startDate, endDate, { region = DEFAULTS
       'primary_release_date.lte': endDate
     })
   );
-  return res.json();
+  return res.json();
 }

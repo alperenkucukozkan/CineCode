@@ -118,10 +118,12 @@
 
 .card-rating {
   position: absolute;
-  bottom: 12px;
+  bottom: 16px;
   display: flex;
   gap: 4px;
   right: 12px;
+  width: 86px;
+  height: 14px;
 }
 
 .card-rating img {
@@ -142,7 +144,7 @@
   text-decoration: underline;
 }
 
-h2 {
+.weekly-header h2 {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
@@ -161,7 +163,7 @@ h2 {
   max-width: 320px;
   max-height: 100vh;
   height: auto;
-  box-shadow: 1px 1px 14px 4px #FF6B086B;
+  box-shadow: 1px 1px 14px 4px #ff6b086b;
   position: relative;
   font-family: 'Roboto', sans-serif;
   margin: auto;
@@ -264,7 +266,7 @@ h2 {
 .icon-close {
   width: 24px;
   height: 24px;
-  stroke: var(--accent, #fff);
+  stroke: #fff;
 }
 
 /* [data-theme='light'] .icon-close {
@@ -276,7 +278,7 @@ h2 {
 } */
 
 .popup-close-btn:hover .icon-close {
-  color: var(--orange-color);
+  stroke: #f87719;
 }
 
 .remove-from-library {
@@ -306,9 +308,15 @@ h2 {
   border: 1px solid #000000;
 }
 
+.icon-full-star,
+.icon-half-star {
+  fill: #f84119;
+  stroke: #f84119;
+}
+
 .icon-empty-star {
-    fill: red;
-    width: 12px;
+  fill: transparent;
+  stroke: #f84119;
 }
 
 /* TABLET */
@@ -335,7 +343,7 @@ h2 {
     height: 28px;
   }
 
-  h2 {
+  .weekly-header h2 {
     font-size: 24px;
     width: 185px;
     height: 28px;
@@ -423,10 +431,10 @@ h2 {
 
   .card-rating {
     position: absolute;
-    right: 27px;
-    bottom: 19px;
+    bottom: 17px;
     display: flex;
     gap: 4px;
+    right: 12px;
     width: 66px;
     height: 10px;
   }
@@ -496,9 +504,6 @@ h2 {
     stroke: var(--accent, #fff);
   }
 
-  .popup-close-btn:hover .icon-close {
-    color: var(--orange-color);
-  }
 }
 
 /* DESKTOP */
@@ -525,7 +530,7 @@ h2 {
     max-width: 100%;
   }
 
-  h2 {
+  .weekly-header h2 {
     font-size: 28px;
     width: 215px;
     height: 33px;
@@ -561,13 +566,13 @@ h2 {
   }
 
   .card-rating {
+    position: absolute;
+    bottom: 20px;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: row;
+    gap: 4px;
+    right: 20px;
     width: 106px;
     height: 18px;
-    gap: 4px;
   }
 
   .movie-modal {
@@ -661,10 +666,6 @@ h2 {
     width: 24px;
     height: 24px;
     stroke: var(--accent, #fff);
-  }
-
-  .popup-close-btn:hover .icon-close {
-    color: var(--orange-color);
   }
 
   .remove-from-library {

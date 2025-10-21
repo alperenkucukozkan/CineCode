@@ -67,15 +67,15 @@ const buildImageUrl = path => {
 // DOM ELEMANLARINI SEÇME
 
 const modalEl = document.querySelector('.modal');
-const closeBtnEl = modalEl.querySelector('.close-icon');
-const posterImgEl = modalEl.querySelector('.modal-img');
-const titleEl = modalEl.querySelector('.movie-title');
-const votesPuanEl = modalEl.querySelector('.votes-puanlama');
-const votesCountEl = modalEl.querySelector('.votes-oysayisi');
-const popularityEl = modalEl.querySelector('.popularity-value');
-const genreEl = modalEl.querySelector('.genre-value');
-const aboutEl = modalEl.querySelector('.about-value');
-const libraryBtn = modalEl.querySelector('.modal-add-button');
+const closeBtnEl = document.querySelector('.close-icon');
+const posterImgEl = document.querySelector('.modal-img');
+const titleEl = document.querySelector('.movie-title');
+const votesPuanEl = document.querySelector('.votes-puanlama');
+const votesCountEl = document.querySelector('.votes-oysayisi');
+const popularityEl = document.querySelector('.popularity-value');
+const genreEl = document.querySelector('.genre-value');
+const aboutEl = document.querySelector('.about-value');
+const libraryBtn = document.querySelector('.modal-add-button');
 
 //  Modal Aç/Kapat İşlemleri
 

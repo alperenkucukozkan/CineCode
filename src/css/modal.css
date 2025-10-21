@@ -3,7 +3,7 @@
   height: 847px;
   background-color: #111;
   font-family: 'Roboto', sans-serif;
-  /* display: none; -------------En son bu satır aktif hale gelecek gerisi js */
+  display: none;
 }
 .is-open {
   display: block;

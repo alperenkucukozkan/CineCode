@@ -5,12 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CineCode</title>
-    <link rel="stylesheet" href="../css/partials/library.css" />
+    <link rel="stylesheet" href="../css/library.css" />
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const loads = document.querySelectorAll("load[src]");
+            for (const el of loads) {
+                const src = el.getAttribute("src");
+                try {
+                    const res = await fetch(src);
+                    if (!res.ok) throw new Error(`Failed to load ${src}`);
+                    const html = await res.text();
+                    el.outerHTML = html;
+                } catch (err) {
+                    console.error("Load error:", err);
+                }
+            }
+        });
+    </script>
+
 </head>
 
 <body>
 
-    <load src="./partials/header.html"></load>
+    <header>
+        <load src="./header.html"></load>
+    </header>
 
     <main>
         <section class="hero" id="hero" data-default="true">
@@ -59,16 +80,19 @@
                     We are very sorry!<br />
                     You don’t have any movies at your library.
                 </p>
-                <a href="catalog.html" class="library-btn">Search Movie</a>
+                <a href="../catalog.html" class="library-btn">Search Movie</a>
             </div>
         </section>
     </main>
 
     <div id="movie-detail-modal" class="detail-modal"></div>
 
-    <load src="./partials/footer.html"></load>
+    <footer>
+        <load src="./footer.html"></load>
+    </footer>
 
-    <script type="module" src="../js/partials/library.js"></script>
+
+    <script type="module" src="../js/library.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,6 @@
-import { fetchGenres } from '../api/api.js';
-
 const API_KEY = 'c0fe092c4149192005601ffec65036a5';
-const TRENDING_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
+const BASE_URL = 'https://api.themoviedb.org/3';
+const TRENDING_URL = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`;
 
 const hero = document.getElementById('hero');
 const titleEl = document.getElementById('movie-title');
@@ -69,7 +68,7 @@ async function fetchTrendingMovie() {
 async function fetchTrailer(movieId) {
   try {
     const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
+      `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
     );
     const data = await res.json();
     const trailer = data.results.find(
@@ -318,7 +317,11 @@ function showDetailsPopup(movie, onLibraryChange) {
   closeBtn.addEventListener('click', closeModal);
 }
 
-let GENRES = {};
+export async function fetchGenres() {
+    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`);
+    const data = await res.json();
+    return data.genres;
+}
 
 async function loadGenres() {
   const genres = await fetchGenres();
@@ -327,6 +330,8 @@ async function loadGenres() {
     return acc;
   }, {});
 }
+
+let GENRES = {};
 
 (async function init() {
   await loadGenres();

@@ -355,6 +355,9 @@ function createMovieCard(movie) {
 }
 
 function renderPagination(currentPage, totalPages) {
+  // Skip if pagination is deactivated
+  if (!DOM.paginationUl) return;
+
   DOM.paginationUl.innerHTML = '';
   AppState.totalPages = totalPages;
   AppState.currentPage = currentPage;
@@ -567,7 +570,8 @@ async function loadTrendingMovies(page = 1) {
 
     AppState.totalPages = data.total_pages || 1;
 
-    if (page === 1) {
+    // Only render hero section if hero content exists (may be deactivated)
+    if (DOM.heroContent && page === 1) {
       const firstMovie = data.results?.[0];
       if (firstMovie) {
         renderHeroSection(firstMovie);
@@ -680,6 +684,8 @@ async function handleDetailsClick(movieId) {
  * Populates year select dropdown
  */
 function populateYearSelect() {
+  if (!DOM.yearSelect) return; // Skip if search is deactivated
+
   const currentYear = new Date().getFullYear();
 
   for (let year = currentYear; year >= CONFIG.YEAR_SELECT_START; year--) {
@@ -694,29 +700,32 @@ function populateYearSelect() {
  * Sets up all event listeners
  */
 function setupEventListeners() {
-  // Search form submission
-  DOM.searchForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const query = DOM.searchInput.value;
-    const year = DOM.yearSelect.value;
-    performMovieSearch(query, year, 1);
-  });
+  // Only setup search-related listeners if search elements exist
+  if (DOM.searchForm && DOM.searchInput && DOM.yearSelect && DOM.clearBtn) {
+    // Search form submission
+    DOM.searchForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const query = DOM.searchInput.value;
+      const year = DOM.yearSelect.value;
+      performMovieSearch(query, year, 1);
+    });
 
-  // Search input changes
-  DOM.searchInput.addEventListener('input', e => {
-    const value = e.target.value;
-    DOM.clearBtn.style.display = value.trim() ? 'flex' : 'none';
-  });
+    // Search input changes
+    DOM.searchInput.addEventListener('input', e => {
+      const value = e.target.value;
+      DOM.clearBtn.style.display = value.trim() ? 'flex' : 'none';
+    });
 
-  // Clear button
-  DOM.clearBtn.addEventListener('click', () => {
-    DOM.searchInput.value = '';
-    DOM.clearBtn.style.display = 'none';
-    DOM.yearSelect.value = '';
-    loadTrendingMovies(1);
-  });
+    // Clear button
+    DOM.clearBtn.addEventListener('click', () => {
+      DOM.searchInput.value = '';
+      DOM.clearBtn.style.display = 'none';
+      DOM.yearSelect.value = '';
+      loadTrendingMovies(1);
+    });
+  }
 
-  // Movie action buttons
+  // Movie action buttons (always setup - these work for modal buttons too)
   document.addEventListener('click', async e => {
     const trailerBtn = e.target.closest('.trailer-btn');
     if (trailerBtn) {
@@ -747,23 +756,31 @@ async function initializeApp() {
     DOM = {
       moviesUl: document.getElementById('movies-ul'),
       paginationUl: document.getElementById('pagination-ul'),
-      heroContent: document.getElementById('hero-content'),
-      searchForm: document.getElementById('search-form'),
-      searchInput: document.getElementById('search-input'),
-      clearBtn: document.getElementById('clear-btn'),
-      yearSelect: document.getElementById('year-select'),
+      heroContent: document.getElementById('hero-content'), // May be null if deactivated
+      searchForm: document.getElementById('search-form'), // May be null if deactivated
+      searchInput: document.getElementById('search-input'), // May be null if deactivated
+      clearBtn: document.getElementById('clear-btn'), // May be null if deactivated
+      yearSelect: document.getElementById('year-select'), // May be null if deactivated
       movieListRegion: document.getElementById('movie-list'),
     };
 
-    populateYearSelect();
+    // Setup event listeners (search events will be skipped if search is deactivated)
     setupEventListeners();
+
+    // Only populate year select if search form exists
+    if (DOM.yearSelect) {
+      populateYearSelect();
+    }
 
     AppState.genresCache = await fetchGenres();
 
-    const dayData = await fetchTrendingDay();
-    const heroMovie = dayData.results?.[0];
-    if (heroMovie) {
-      renderHeroSection(heroMovie);
+    // Only render hero section if hero content exists
+    if (DOM.heroContent) {
+      const dayData = await fetchTrendingDay();
+      const heroMovie = dayData.results?.[0];
+      if (heroMovie) {
+        renderHeroSection(heroMovie);
+      }
     }
 
     await loadTrendingMovies(1);

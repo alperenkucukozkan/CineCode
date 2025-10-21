@@ -15,7 +15,7 @@
 
     <title>Cinemania | Film Kataloğu</title>
 
-    <link rel="preload" href="/CineCode/assets/catalog-D4XYd4qX.js" as="script" crossorigin />
+    <link rel="preload" href="/CineCode/assets/catalog-Bv1owGbo.js" as="script" crossorigin />
 
     <link rel="icon" href="/CineCode/assets/favicon-0Qq06bqf.svg" />
 
@@ -41,88 +41,6 @@
     </header>
 
     <main id="main-content" role="main">
-      <!-- Hero Section -->
-      <section class="hero-section" id="hero" aria-label="Günün Filmi">
-        <div class="hero-content container" id="hero-content">
-          <div class="hero-info">
-            <div
-              class="rating-stars"
-              id="rating-stars"
-              aria-label="Film puanı"
-            ></div>
-            <p class="hero-overview">
-              Super-Hero find themselves exploring the Quantum Realm,
-              interacting with strange new creatures and embarking on an
-              adventure that will push them beyond the limits of what they
-              thought possible.
-            </p>
-            <div class="hero-actions">
-              <button class="btn trailer-btn">Watch trailer</button>
-              <button class="btn details-btn">More details</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Search Section -->
-      <section class="search-block container" aria-label="Film Arama">
-        <form
-          id="search-form"
-          class="search-form"
-          role="search"
-          aria-label="Film Arama Formu"
-          novalidate
-        >
-          <fieldset class="search-fieldset">
-            <legend class="sr-only">Arama kriterleri</legend>
-
-            <div class="search-input-wrap">
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Film"
-                autocomplete="off"
-                class="form-input"
-                name="query"
-                aria-describedby="search-help"
-                required
-              />
-              <button
-                type="button"
-                id="clear-btn"
-                class="clear-btn"
-                aria-label="Aramayı temizle"
-                title="Aramayı temizle"
-              >
-                <span aria-hidden="true">x</span>
-              </button>
-            </div>
-
-            <div class="year-select-wrap">
-              <select
-                name="year"
-                id="year-select"
-                aria-label="Yıl seçin"
-                class="form-select"
-              >
-                <option value="">Year</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              class="btn search-btn"
-              aria-label="Film ara"
-              title="Film ara"
-            >
-              <svg class="icon icon-search" aria-hidden="true">
-                <use xlink:href="/CineCode/assets/symbol-defs-BAiHWaVT.svg#icon-search"></use>
-              </svg>
-            </button>
-          </fieldset>
-        </form>
-      </section>
-
       <!-- Movie Catalog Section -->
       <section class="catalog-block container" aria-label="Film Listesi">
         <!-- Loading State -->
@@ -143,11 +61,6 @@
         >
           <ul class="movie-list-grid" id="movies-ul" role="list"></ul>
         </div>
-
-        <!-- Pagination -->
-        <nav class="pagination" id="pagination" aria-label="Sayfa navigasyonu">
-          <ul class="pagination-list" id="pagination-ul" role="list"></ul>
-        </nav>
       </section>
     </main>
 

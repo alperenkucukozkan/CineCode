@@ -2,7 +2,7 @@ import {
   fetchWeeklyMovies,
   fetchGenres,
   fetchMovieDetails,
-} from '../../api/api.js';
+} from '../api/api.js';
 
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
@@ -28,18 +28,37 @@ function createRatingStars(vote) {
   let stars = [];
   for (let i = 0; i < fullStars; i++)
     stars.push(
-      '<svg class="icon icon-full-star"><use xlink:href="../../img/icon.svg#icon-full-star"></use></svg>'
+      '<svg class="icon-full-star"><use xlink:href="../img/icon.svg#icon-full-star"></use></svg>'
     );
   if (hasHalfStar)
     stars.push(
-      '<svg class="icon icon-half-star"><use xlink:href="../../img/icon.svg#icon-half-star"></use></svg>'
+      '<svg class="icon-half-star"><use xlink:href="../img/icon.svg#icon-half-star"></use></svg>'
     );
   for (let i = 0; i < emptyStars; i++)
     stars.push(
-      '<svg class="icon icon-empty-star"><use xlink:href="../../img/icon.svg#icon-empty-star"></use></svg>'
+      '<svg class="icon-empty-star"><use xlink:href="../img/icon.svg#icon-empty-star"></use></svg>'
     );
 
   return stars.join('');
+}
+
+function toggleLibraryButton(movie, button) {
+  let library = JSON.parse(localStorage.getItem('library')) || [];
+  const isInLibrary = library.includes(movie.id);
+
+  if (isInLibrary) {
+    library = library.filter(id => id !== movie.id);
+    button.textContent = 'Add to Library';
+    button.classList.remove('remove-from-library');
+    button.classList.add('library-btn-w');
+  } else {
+    library.push(movie.id);
+    button.textContent = 'Remove from my library';
+    button.classList.remove('library-btn-w');
+    button.classList.add('remove-from-library');
+  }
+
+  localStorage.setItem('library', JSON.stringify(library));
 }
 
 async function renderWeeklyTrends(limit = getVisibleCardCount()) {
@@ -95,33 +114,6 @@ async function renderWeeklyTrends(limit = getVisibleCardCount()) {
   }
 }
 
-function initializeLibraryButton(movie, button) {
-  let library = JSON.parse(localStorage.getItem('library')) || [];
-  const isInLibrary = library.includes(movie.id);
-
-  if (isInLibrary) {
-    button.textContent = 'Remove from Library';
-    button.classList.add('added');
-  } else {
-    button.textContent = 'Add to Library';
-    button.classList.remove('added');
-  }
-
-  button.onclick = () => {
-    let library = JSON.parse(localStorage.getItem('library')) || [];
-    if (library.includes(movie.id)) {
-      library = library.filter(id => id !== movie.id);
-      button.textContent = 'Add to Library';
-      button.classList.remove('added');
-    } else {
-      library.push(movie.id);
-      button.textContent = 'Remove from Library';
-      button.classList.add('added');
-    }
-    localStorage.setItem('library', JSON.stringify(library));
-  };
-}
-
 // See all butonu
 seeAllBtn.addEventListener('click', () => {
   isExpanded = !isExpanded;
@@ -151,21 +143,21 @@ gallery.addEventListener('click', async e => {
       `
       <div class="movie-modal">
         <button class="popup-close-btn" aria-label="Close">
-          <svg class="icon icon-close" width="24" height="24"><use xlink:href="../../img/icon.svg#icon-close"></use></svg>
+          <svg class="icon-close" width="24" height="24">
+            <use xlink:href="../../img/icon.svg#icon-close"></use>
+          </svg>
         </button>
 
         <img src="${posterUrl}" class="modal-poster" alt="${movie.title}">
         <div class="modal-details">
           <h2>${movie.title}</h2>
-          <p><strong>Vote / Votes:</strong> ${movie.vote_average} / ${
-        movie.vote_count
-      }</p>
+          <p><strong>Vote / Votes:</strong> ${movie.vote_average} / ${movie.vote_count}</p>
           <p><strong>Popularity:</strong> ${movie.popularity}</p>
           <p><strong>Genre:</strong> ${genres}</p>
           <h3>ABOUT</h3>
           <p>${movie.overview}</p>
-          <button class="library-btn ${inLibrary ? 'added' : ''}">
-            ${inLibrary ? 'Added to Library' : 'Add to Library'}
+          <button class="library-btn-w ${inLibrary ? 'remove-from-library' : 'library-btn-w'}">
+            ${inLibrary ? 'Remove from my library' : 'Add to Library'}
           </button>
         </div>
       </div>
@@ -175,8 +167,8 @@ gallery.addEventListener('click', async e => {
           const closeBtn = instance.element().querySelector('.popup-close-btn');
           closeBtn.addEventListener('click', () => instance.close());
 
-          const addBtn = instance.element().querySelector('.library-btn');
-          initializeLibraryButton(movie, addBtn);
+          const addBtn = instance.element().querySelector('.library-btn-w');
+          addBtn.addEventListener('click', () => toggleLibraryButton(movie, addBtn));
         },
       }
     );

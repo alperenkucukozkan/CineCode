@@ -48,7 +48,7 @@ import{b as B}from"./vendor-D_5xFgaM.js";document.addEventListener("DOMContentLo
             </div>
           </li>
         `}).join("");w.innerHTML=r}catch(s){console.error("Weekly trends fetch error:",s),w.innerHTML="<p>Veriler alınamadı.</p>"}}V.addEventListener("click",()=>{k=!k;const e=k?S.length:q();I(e)});w.addEventListener("click",async e=>{const s=e.target.closest(".weekly-card");if(!s)return;const n=s.dataset.id;try{let m=function(p){p.key==="Escape"&&(u.close(),window.removeEventListener("keydown",m))};const t=await j(n),i=t.poster_path?`https://image.tmdb.org/t/p/w500${t.poster_path}`:"https://via.placeholder.com/500x750?text=No+Image",r=t.genres.map(p=>p.name).join(", "),l=(JSON.parse(localStorage.getItem("library"))||[]).includes(t.id),u=B.create(`
-      <div class="movie-modal">
+      <div class="weekly-movie-modal">
         <button class="popup-close-btn" aria-label="Close">
           <svg class="icon-close" width="24" height="24">
             <use xlink:href="../../img/icon.svg#icon-close"></use>
@@ -69,4 +69,4 @@ import{b as B}from"./vendor-D_5xFgaM.js";document.addEventListener("DOMContentLo
         </div>
       </div>
       `,{onShow:p=>{p.element().querySelector(".popup-close-btn").addEventListener("click",()=>p.close());const y=p.element().querySelector(".library-btn-w");y.addEventListener("click",()=>G(t,y))}});u.show(),window.addEventListener("keydown",m)}catch(t){console.error("Popup açılırken hata:",t)}});I();
-//# sourceMappingURL=index-CvID3WV9.js.map
+//# sourceMappingURL=index-CGXzUjCl.js.map

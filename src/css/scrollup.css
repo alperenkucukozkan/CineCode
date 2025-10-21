@@ -1,6 +1,6 @@
 body { height: 2000px;}
     
-    #scrollToTopBtn {
+    #scroll-up {
       position: fixed;
       bottom: 30px;
       right: 30px;
@@ -17,7 +17,7 @@ body { height: 2000px;}
       z-index: 1000;
     }
     
-    #scrollToTopBtn.visible {
+    #scroll-up.visible {
       opacity: 1;
     }
    /*Scrolbar Özelleştirme*/

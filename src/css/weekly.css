@@ -310,13 +310,15 @@
 
 .icon-full-star,
 .icon-half-star {
-  fill: #f84119;
-  stroke: #f84119;
+  fill: #ff6b35;
+  color: #ff6b35;
+  stroke: none;
 }
 
 .icon-empty-star {
   fill: transparent;
-  stroke: #f84119;
+  color: #ff6b35;
+  stroke: #ff6b35;
 }
 
 /* TABLET */

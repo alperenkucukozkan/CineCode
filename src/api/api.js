@@ -57,6 +57,19 @@ export async function searchMovies(query, year = '', page = 1) {
 }
 
 export async function fetchGenres() {
-    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&page=${page}`);
-    return res.json();
+  const res = await fetch(buildUrl('/genre/movie/list'));
+  return res.json();
+}
+
+export async function fetchMoviesBetween(startDate, endDate, { region = DEFAULTS.region } = {}) {
+  const res = await fetch(
+    buildUrl('/discover/movie', {
+      sort_by: 'popularity.desc',
+      with_release_type: '2|3', 
+      region,
+      'primary_release_date.gte': startDate,
+      'primary_release_date.lte': endDate
+    })
+  );
+  return res.json();
 }

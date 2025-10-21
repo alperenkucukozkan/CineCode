@@ -1,3 +1,38 @@
+import axios from 'axios';
+
+// ===== LOAD PARTIALS =====
+async function loadPartials() {
+  const loads = document.querySelectorAll('load[src]');
+  for (const el of loads) {
+    const src = el.getAttribute('src');
+    if (!src) continue;
+    try {
+      const res = await fetch(src);
+      if (!res.ok) {
+        console.error('Partial yüklenemedi:', src, res.status);
+        continue;
+      }
+      const html = await res.text();
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+
+      wrapper.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        for (const attr of old.attributes)
+          s.setAttribute(attr.name, attr.value);
+        s.text = old.textContent;
+        old.parentNode.replaceChild(s, old);
+      });
+
+      const frag = document.createDocumentFragment();
+      while (wrapper.firstChild) frag.appendChild(wrapper.firstChild);
+      el.replaceWith(frag);
+    } catch (err) {
+      console.error('Partial fetch hatası:', src, err);
+    }
+  }
+}
+
 // ===== CONFIGURATION =====
 const CONFIG = {
   API_KEY: '0c52aafa16e24577e4a48f6286d3f101',
@@ -13,16 +48,7 @@ const CONFIG = {
 };
 
 // ===== DOM ELEMENTS CACHE =====
-const DOM = {
-  moviesUl: document.getElementById('movies-ul'),
-  paginationUl: document.getElementById('pagination-ul'),
-  heroContent: document.getElementById('hero-content'),
-  searchForm: document.getElementById('search-form'),
-  searchInput: document.getElementById('search-input'),
-  clearBtn: document.getElementById('clear-btn'),
-  yearSelect: document.getElementById('year-select'),
-  movieListRegion: document.getElementById('movie-list'),
-};
+let DOM;
 
 // ===== APPLICATION STATE =====
 const AppState = {
@@ -196,19 +222,19 @@ function renderStarRating(voteAverage, container) {
   // Render full stars
   for (let i = 0; i < fullStars; i++) {
     starsHTML +=
-      '<svg class="icon icon-star"><use xlink:href="./images/symbol-defs.svg#icon-star"></use></svg>';
+      '<svg class="icon icon-star"><use xlink:href="../images/symbol-defs.svg#icon-star"></use></svg>';
   }
 
   // Render half star if needed
   if (hasHalfStar) {
     starsHTML +=
-      '<svg class="icon icon-star-half"><use xlink:href="./images/symbol-defs.svg#icon-star-half"></use></svg>';
+      '<svg class="icon icon-star-half"><use xlink:href="../images/symbol-defs.svg#icon-star-half"></use></svg>';
   }
 
   // Render empty stars
   for (let i = 0; i < emptyStars; i++) {
     starsHTML +=
-      '<svg class="icon icon-star-empty"><use xlink:href="./images/symbol-defs.svg#icon-star-empty"></use></svg>';
+      '<svg class="icon icon-star-empty"><use xlink:href="../images/symbol-defs.svg#icon-star-empty"></use></svg>';
   }
 
   container.innerHTML = starsHTML;
@@ -717,6 +743,18 @@ function setupEventListeners() {
  */
 async function initializeApp() {
   try {
+    // Initialize DOM elements after partials are loaded
+    DOM = {
+      moviesUl: document.getElementById('movies-ul'),
+      paginationUl: document.getElementById('pagination-ul'),
+      heroContent: document.getElementById('hero-content'),
+      searchForm: document.getElementById('search-form'),
+      searchInput: document.getElementById('search-input'),
+      clearBtn: document.getElementById('clear-btn'),
+      yearSelect: document.getElementById('year-select'),
+      movieListRegion: document.getElementById('movie-list'),
+    };
+
     populateYearSelect();
     setupEventListeners();
 
@@ -736,8 +774,13 @@ async function initializeApp() {
 }
 
 // ===== APP STARTUP =====
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
+async function startApp() {
+  await loadPartials();
   initializeApp();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
 }

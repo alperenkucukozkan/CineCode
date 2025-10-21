@@ -15,10 +15,12 @@
 
     <title>Cinemania | Film Kataloğu</title>
 
-    <link rel="preload" href="css/catalog.css" as="style" />
-    <link rel="preload" href="js/catalog.js" as="script" crossorigin />
+    <link rel="preload" href="./css/catalog.css" as="style" />
+    <link rel="preload" href="./js/catalog.js" as="script" crossorigin />
 
-    <link rel="stylesheet" href="css/catalog.css" />
+    <link rel="stylesheet" href="./css/catalog.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="icon" href="./img/favicon.svg" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +32,11 @@
   </head>
 
   <body>
+    <!-- Header -->
+    <header>
+      <load src="./partials/header.html"></load>
+    </header>
+
     <main id="main-content" role="main">
       <!-- Hero Section -->
       <section class="hero-section" id="hero" aria-label="Günün Filmi">
@@ -141,11 +148,12 @@
       </section>
     </main>
 
+    <!-- Footer -->
+    <footer>
+      <load src="./partials/footer.html"></load>
+    </footer>
+
     <!-- Scripts -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-      defer
-    ></script>
     <script type="module" src="./js/catalog.js" defer></script>
   </body>
 </html>

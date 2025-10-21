@@ -141,7 +141,7 @@ gallery.addEventListener('click', async e => {
 
     const popup = basicLightbox.create(
       `
-      <div class="movie-modal">
+      <div class="weekly-movie-modal">
         <button class="popup-close-btn" aria-label="Close">
           <svg class="icon-close" width="24" height="24">
             <use xlink:href="../../img/icon.svg#icon-close"></use>

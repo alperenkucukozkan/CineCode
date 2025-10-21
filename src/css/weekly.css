@@ -151,7 +151,7 @@
   text-transform: uppercase;
 }
 
-.movie-modal {
+.weekly-movie-modal {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -455,7 +455,7 @@
     flex-shrink: 0;
   }
 
-  .movie-modal {
+  .weekly-movie-modal {
     flex-direction: row;
     gap: 20px;
     max-width: 680px;
@@ -575,7 +575,7 @@
     height: 18px;
   }
 
-  .movie-modal {
+  .weekly-movie-modal {
     display: flex;
     flex-direction: row;
     gap: 20px;

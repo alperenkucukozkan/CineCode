@@ -329,7 +329,7 @@ async function loadGenres() {
 }
 
 (async function init() {
-  await loadGenres(); // önce türleri getir
+  await loadGenres();
   fetchTrendingMovie();
   loadLibrary();
 })();

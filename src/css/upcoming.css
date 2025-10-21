@@ -10,6 +10,7 @@ p {
 }
 h2 {
   font-size: 16px;
+  padding-bottom: 24px;
 }
 .upcoming {
   margin: 0 auto;
@@ -116,6 +117,9 @@ h2 {
   color: #f84119;
 }
 @media screen and (min-width: 768px) {
+  h2 {
+    font-size: 24px;
+  }
   .upcoming {
     padding: 32px;
   }
@@ -130,12 +134,11 @@ h2 {
     max-width: 704px;
     height: 400px;
   }
-  .movie-detail {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 56px;
-    align-items: center;
+  .details-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
   }
+
   .btn-add {
     width: 147px;
   }
@@ -145,6 +148,10 @@ h2 {
 }
 
 @media screen and (min-width: 1280px) {
+  h2 {
+    font-size: 28px;
+    padding-bottom: 28px;
+  }
   .upcoming {
     border-radius: 10px;
     max-width: 1211px;
@@ -166,6 +173,9 @@ h2 {
     max-width: 805px;
     height: 458px;
     border-radius: 10px;
+  }
+  .details-wrapper {
+    grid-template-columns: repeat(1, 1fr);
   }
   .info {
     max-width: 390px;

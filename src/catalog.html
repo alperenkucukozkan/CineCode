@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cinemania - En popüler filmleri keşfedin, arayın ve detaylarını görüntüleyin. Güncel film kataloğu ve trend filmler."
+    />
+    <meta
+      name="keywords"
+      content="film, sinema, movie, catalog, trending, search"
+    />
+    <meta name="author" content="Cinemania" />
+
+    <title>Cinemania | Film Kataloğu</title>
+
+    <link rel="preload" href="./css/catalog.css" as="style" />
+    <link rel="preload" href="./js/catalog.js" as="script" crossorigin />
+
+    <link rel="stylesheet" href="./css/catalog.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="icon" href="./img/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <load src="./partials/header.html"></load>
+    </header>
+
+    <main id="main-content" role="main">
+      <!-- Movie Catalog Section -->
+      <section class="catalog-block container" aria-label="Film Listesi">
+        <!-- Loading State -->
+        <div
+          id="loading-indicator"
+          class="loading-indicator"
+          aria-hidden="true"
+        >
+          <div class="spinner" aria-label="Yükleniyor"></div>
+        </div>
+
+        <!-- Movie List -->
+        <div
+          id="movie-list"
+          class="movie-list"
+          aria-live="polite"
+          aria-busy="false"
+        >
+          <ul class="movie-list-grid" id="movies-ul" role="list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <load src="./partials/footer.html"></load>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="./js/catalog.js" defer></script>
+  </body>
+</html>

@@ -4,18 +4,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Library</title>
-    <link rel="stylesheet" href="../css/partials/library.css" />
+    <title>CineCode</title>
+    <link rel="stylesheet" href="./css/library.css" />
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const loads = document.querySelectorAll("load[src]");
+            for (const el of loads) {
+                const src = el.getAttribute("src");
+                try {
+                    const res = await fetch(src);
+                    if (!res.ok) throw new Error(`Failed to load ${src}`);
+                    const html = await res.text();
+                    el.outerHTML = html;
+                } catch (err) {
+                    console.error("Load error:", err);
+                }
+            }
+        });
+    </script>
+
 </head>
 
 <body>
 
+    <header>
+        <load src="./partials/header.html"></load>
+    </header>
+
     <main>
-        <!-- 🎬 HERO SECTION -->
         <section class="hero" id="hero" data-default="true">
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <!-- Default durum -->
                 <h2 id="movie-title" class="hero-title">
                     Create Your Dream Cinema
                 </h2>
@@ -26,7 +47,6 @@
                     cozy seating, dim lighting, and movie theater snacks.
                 </p>
 
-                <!-- JS tarafından görünür hale gelecek -->
                 <div class="hero-buttons hidden" id="hero-buttons">
                     <button id="trailer-btn" class="library-btn">
                         Watch Trailer
@@ -34,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- 🎥 YOUTUBE POPUP MODAL -->
             <div id="trailer-modal" class="modal hidden">
                 <div class="modal-content">
                     <button id="close-modal" class="modal-close">&times;</button>
@@ -43,38 +62,37 @@
             </div>
         </section>
 
-
-
-        <!-- 🎞️ FAVORITE MOVIES SECTION -->
-        <section class="favorites" id="favorites">
-            <div class="favorites-header">
+        <section class="library" id="library">
+            <div class="library-header">
                 <select id="genre-filter" class="filter">
                     <option value="all">Genre</option>
                 </select>
             </div>
 
-            <div id="favorites-container">
-                <ul id="favorites-list"></ul>
+            <div id="library-container">
+                <ul id="library-list"></ul>
                 <button id="load-more-btn" class="library-btn hidden">Load More</button>
             </div>
 
-            <!-- <div id="favorites-list" class="favorites-list"></div> -->
-
-            <!-- Boş liste mesajı -->
-            <div id="empty-library" class="empty hidden">
+            <div id="empty-library" class="empty">
                 <p class="empty-text">
                     OOPS...<br />
                     We are very sorry!<br />
                     You don’t have any movies at your library.
                 </p>
-                <a href="catalog.html" class="library-btn">Search Movie</a>
+                <a href="./catalog.html" class="library-btn">Search Movie</a>
             </div>
         </section>
     </main>
 
     <div id="movie-detail-modal" class="detail-modal"></div>
 
-    <script src="../js/partials/library.js"></script>
+    <footer>
+        <load src="./partials/footer.html"></load>
+    </footer>
+
+
+    <script type="module" src="./js/library.js"></script>
 </body>
 
 </html>

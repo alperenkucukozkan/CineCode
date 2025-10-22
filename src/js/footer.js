@@ -71,7 +71,8 @@ const students = [
   }
 ];
 
-function createStyles() {
+
+function createFooterModalStyles() {
   const style = document.createElement("style");
   style.textContent = `
     .footer {
@@ -89,14 +90,14 @@ function createStyles() {
       font-size: 16px;
     }
 
-    .modal-title {
+    .footer-modal-title {
       text-align: center;
       font-size: 28px;
       margin-bottom: 30px;
       font-weight: bold;
     }
 
-    .modal-overlay {
+    .footer-modal-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -108,11 +109,11 @@ function createStyles() {
       padding: 40px 20px;
     }
 
-    .modal-overlay.active {
+    .footer-modal-overlay.active {
       display: flex;
     }
 
-    .modal-content {
+    .footer-modal-content {
       background-color: #111;
       color: #f87719;
       border-radius: 10px;
@@ -124,7 +125,7 @@ function createStyles() {
       position: relative;
     }
 
-    .close-btn {
+    .footer-modal-close-btn {
       position: absolute;
       top: 20px;
       right: 30px;
@@ -206,20 +207,20 @@ function renderFooter() {
   footer.innerHTML = `
     <p>
       © 2025 | All Rights Reserved | Developed with 🧡 by
-      <button class="goit-students" id="openModalBtn">GoIT Students</button>
+      <button class="goit-students" id="openFooterModalBtn">GoIT Students</button>
     </p>
   `;
   document.body.appendChild(footer);
 }
 
-function renderModal() {
+function renderFooterModal() {
   const modal = document.createElement("div");
-  modal.className = "modal-overlay";
-  modal.id = "modal";
+  modal.className = "footer-modal-overlay";
+  modal.id = "footerModal";
   modal.innerHTML = `
-    <div class="modal-content">
-      <span class="close-btn" id="closeModalBtn">&times;</span>
-      <h2 class="modal-title">PROJECT TEAM</h2>
+    <div class="footer-modal-content">
+      <span class="footer-modal-close-btn" id="closeFooterModalBtn">&times;</span>
+      <h2 class="footer-modal-title">PROJECT TEAM</h2>
       <ul class="student-list">
         ${students.map(createStudentItem).join("")}
       </ul>
@@ -228,8 +229,8 @@ function renderModal() {
   document.body.appendChild(modal);
 }
 
-function applyResponsiveStyles() {
-  const modalContent = document.querySelector(".modal-content");
+function applyFooterModalResponsiveStyles() {
+  const modalContent = document.querySelector(".footer-modal-content");
   const footer = document.querySelector(".footer");
 
   if (!modalContent || !footer) return;
@@ -247,16 +248,16 @@ function applyResponsiveStyles() {
 }
 
 function initFooterModal() {
-  createStyles();
+  createFooterModalStyles();
   renderFooter();
-  renderModal();
-  applyResponsiveStyles();
-  window.addEventListener("resize", applyResponsiveStyles);
+  renderFooterModal();
+  applyFooterModalResponsiveStyles();
+  window.addEventListener("resize", applyFooterModalResponsiveStyles);
 
-  const modal = document.getElementById("modal");
-  const modalContent = modal.querySelector(".modal-content");
-  const openBtn = document.getElementById("openModalBtn");
-  const closeBtn = document.getElementById("closeModalBtn");
+  const modal = document.getElementById("footerModal");
+  const modalContent = modal.querySelector(".footer-modal-content");
+  const openBtn = document.getElementById("openFooterModalBtn");
+  const closeBtn = document.getElementById("closeFooterModalBtn");
 
   openBtn.addEventListener("click", () => {
     modal.classList.add("active");
@@ -268,7 +269,7 @@ function initFooterModal() {
     document.body.style.overflow = "";
   });
 
-    modal.addEventListener("click", (e) => {
+  modal.addEventListener("click", (e) => {
     if (!modalContent.contains(e.target)) {
       modal.classList.remove("active");
       document.body.style.overflow = "";

@@ -1,8 +1,36 @@
-
 * {
   margin: 0;
   padding: 0;
 }
+.light-theme .upcoming-card,
+.light-theme .movie-overview,
+.light-theme .movie-detail,
+.light-theme .movie-detail > span:first-child,
+.light-theme .about-title,
+.light-theme .movie-name,
+.light-theme h2,
+.light-theme p {
+  color: #111111;
+}
+.light-theme .vote-box {
+  background-color: #f8f8f8;
+}
+
+/* === Dark Theme === */
+.dark-theme {
+  background-color: #121212;
+  color: #f8f8f8;
+}
+
+.dark-theme .upcoming-card,
+.dark-theme .movie-overview,
+.dark-theme .movie-detail,
+.dark-theme .about-title,
+.dark-theme .movie-name,
+.dark-theme p {
+  color: #f8f8f8;
+}
+
 p {
   color: #f8f8f8;
 }

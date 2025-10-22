@@ -9,8 +9,8 @@ body { height: 2000px;}
       border-radius: 50%;
       background: linear-gradient(135deg, #F87719, #FF0000);
       color: white;
-      font-size: 32px;
-      font-weight: 600;
+      font-size: 25px;
+      font-weight: 800;
       border: none;
       cursor: pointer;
       opacity: 0;

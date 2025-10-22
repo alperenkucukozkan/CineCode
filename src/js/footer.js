@@ -51,7 +51,7 @@ const students = [
   {
     name: "Baran Taşçı",
     role: "Developer",
-    img:"../img/baran.jpg",
+    img: "../img/baran.jpg",
     github: "https://github.com/BaranTascii",
     linkedin: "https://www.linkedin.com/in/baran-tasci/"
   },
@@ -70,6 +70,7 @@ const students = [
     linkedin: "https://linkedin.com/in/akdemir77/"
   }
 ];
+
 function createStudentItem(student) {
   return `
     <li class="student-item">
@@ -78,7 +79,7 @@ function createStudentItem(student) {
         <h3>${student.name}</h3>
         <p>${student.role}</p>
         <a class="footer-icon" href="${student.github}" target="_blank" aria-label="GitHub">
-          <svg class="icon-github">
+          <svg class="icon-github" width="40" height="40">
             <use xlink:href="../img/icon.svg#icon-github"></use>
           </svg>
         </a>
@@ -92,6 +93,7 @@ function createStudentItem(student) {
     </li>
   `;
 }
+
 function ensureFooter() {
   let footer = document.querySelector('footer.footer');
   if (!footer) {
@@ -102,13 +104,14 @@ function ensureFooter() {
     footer.classList.add('goit-footer');
   }
   footer.innerHTML = `
-    <p>
-      © 2025 | All Rights Reserved | Developed with :orange_heart: by
-      <button class="goit-students" id="openFooterModalBtn">GoIT Students</button>
+    <p class="footer-description">
+      © 2025 | All Rights Reserved | Developed with <span aria-label="love">🧡</span> by
+      <button class="goit-students" id="openFooterModalBtn" type="button">GoIT Students</button>
     </p>
   `;
   return footer;
 }
+
 function renderFooterModal() {
   let modal = document.getElementById("footerModal");
   if (modal) return modal;
@@ -127,6 +130,7 @@ function renderFooterModal() {
   document.body.appendChild(modal);
   return modal;
 }
+
 function applyFooterModalResponsiveStyles() {
   const modalContent = document.querySelector(".footer-modal-content");
   const footer = document.querySelector(".footer");
@@ -142,37 +146,47 @@ function applyFooterModalResponsiveStyles() {
     footer.style.paddingBottom = "50px";
   }
 }
+
 function initFooterModal() {
   ensureFooter();
   const modal = renderFooterModal();
   const modalContent = modal.querySelector(".footer-modal-content");
   const openBtn = document.getElementById("openFooterModalBtn");
   const closeBtn = document.getElementById("closeFooterModalBtn");
-  if (!openBtn) { console.warn("openFooterModalBtn bulunamadı"); return; }
-  if (!closeBtn) { console.warn("closeFooterModalBtn bulunamadı"); return; }
+
+  if (!openBtn || !closeBtn) {
+    console.warn("Modal tetikleyici veya kapatma butonu bulunamadı.");
+    return;
+  }
+
   openBtn.addEventListener("click", () => {
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
   });
+
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("active");
     document.body.style.overflow = "";
   });
+
   modal.addEventListener("click", (e) => {
     if (!modalContent.contains(e.target)) {
       modal.classList.remove("active");
       document.body.style.overflow = "";
     }
   });
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       modal.classList.remove("active");
       document.body.style.overflow = "";
     }
   });
+
   applyFooterModalResponsiveStyles();
   window.addEventListener("resize", applyFooterModalResponsiveStyles);
 }
+
 if (document.readyState === 'loading') {
   document.addEventListener("DOMContentLoaded", initFooterModal, { once: true });
 } else {

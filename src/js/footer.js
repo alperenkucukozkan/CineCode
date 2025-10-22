@@ -79,13 +79,13 @@ function createStudentItem(student) {
         <h3>${student.name}</h3>
         <p>${student.role}</p>
         <a class="footer-icon" href="${student.github}" target="_blank" aria-label="GitHub">
-          <svg class="icon-github" width="40" height="40">
+          <svg class="info-icon" width="30" height="30">
             <use xlink:href="../img/icon.svg#icon-github"></use>
           </svg>
         </a>
         ${student.linkedin !== "#" ? `
         <a class="footer-icon" href="${student.linkedin}" target="_blank" aria-label="LinkedIn">
-          <svg class="info-icon" width="40" height="40">
+          <svg class="info-icon" width="30" height="30">
             <use xlink:href="../img/icon.svg#icon-linkedin"></use>
           </svg>
         </a>` : ""}
@@ -105,8 +105,7 @@ function ensureFooter() {
   }
   footer.innerHTML = `
     <p class="footer-description">
-      © 2025 | All Rights Reserved | Developed with <span aria-label="love">🧡</span> by
-      <button class="goit-students" id="openFooterModalBtn" type="button">GoIT Students</button>
+      © 2025 | All Rights Reserved | Developed with <span aria-label="love">🧡</span> by <button class="goit-students" id="openFooterModalBtn" type="button">GoIT Students</button>
     </p>
   `;
   return footer;

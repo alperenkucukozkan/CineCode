@@ -2,11 +2,11 @@
   width: 100%;
   text-align: center;
   padding: 20px;
-  color: #fff;
+  color: #111111;
 }
 
 .goit-students {
-  color: #fff;
+  color: #111111;
   cursor: pointer;
   background: none;
   border: none;
@@ -16,6 +16,7 @@
 
 .footer-modal-title {
   text-align: center;
+  color:#F87719;
   font-size: 28px;
   margin-bottom: 30px;
   font-weight: bold;
@@ -40,7 +41,7 @@
 }
 
 .footer-modal-content {
-  background-color: #111;
+  background-color: #111111;
   color: #F87719;
   border-radius: 10px;
   padding: 20px;
@@ -85,7 +86,6 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 250ms ease-in-out;
 }
 
 .student-info {
@@ -95,13 +95,13 @@
 
 .footer-icon {
   margin: 0 5px;
-  transition: transform 250ms ease-in-out;
 }
 
-.footer-icon:hover {
+.info-icon:hover {
   transform: scale(1.05);
 }
 
 .info-icon {
   fill: #B7B7B7;
+  transition: transform 250ms ease-in-out;
 }

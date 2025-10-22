@@ -1,11 +1,29 @@
-import './footer.js';
-import './header.js';
-import './hero.js';
-import './loader.js';
-import './modal.js';
-import './scrollup.js';
-import './searchBar.js';
-import './upcoming.js';
-import './weekly.js';
-import './catalog.js';
-import './library.js';
+const importIf = (selectorOrTestFn, importer) => {
+  const ok = typeof selectorOrTestFn === 'function'
+    ? selectorOrTestFn()
+    : !!document.querySelector(selectorOrTestFn);
+  return ok ? importer() : Promise.resolve();
+};
+
+async function boot() {
+  await Promise.all([
+    importIf('header, .header, #header', () => import('./header.js')),
+    importIf('footer, .footer, #footer', () => import('./footer.js')),
+    importIf('#hero, #hero-content, .hero', () => import('./hero.js')),
+    importIf('#loading-indicator, .loading-indicator', () => import('./loader.js')),
+    importIf('.movie-modal, [data-modal-root]', () => import('./modal.js')),
+    importIf('#movies-ul, .movie-list-grid', () => import('./catalog.js')),
+    importIf('#pagination-ul, .pagination', () => import('./pagination.js')),
+    importIf('#search-form, #searchbar, .search-container', () => import('./searchBar.js')),
+    importIf('.weekly-gallery', () => import('./weekly.js')),
+    importIf('.upcoming-section, #upcoming', () => import('./upcoming.js')),
+    importIf('#library-root, .library-grid', () => import('./library.js')),
+    importIf('#scroll-up, .button-up', () => import('./scrollup.js')),
+  ]);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('partials:loaded', boot, { once: true });
+}
+
+boot();

@@ -139,7 +139,7 @@ function createStyles() {
       flex-wrap: wrap;
       justify-content: center;
       padding: 0;
-      gap: 20px;
+      gap: 15px;
     }
 
     .student-item {
@@ -171,7 +171,7 @@ function createStyles() {
     }
 
     .info-icon {
-      fill: #f87719;
+      fill: #B7B7B7;
     }
   `;
   document.head.appendChild(style);

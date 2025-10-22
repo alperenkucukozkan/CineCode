@@ -44,9 +44,10 @@ function createRatingStars(vote) {
 
 function toggleLibraryButton(movie, button) {
   let library = JSON.parse(localStorage.getItem('library')) || [];
-  const isInLibrary = library.some(item => item.id === movie.id);
+  const isInLibrary = library.some(item => Number(item.id) === Number(movie.id));
+
   if (isInLibrary) {
-    library = library.filter(item => item.id !== movie.id);
+    library = library.filter(item => Number(item.id) !== Number(movie.id));
     button.textContent = 'Add to Library';
     button.classList.remove('remove-from-library');
     button.classList.add('library-btn-w');
@@ -59,6 +60,7 @@ function toggleLibraryButton(movie, button) {
     button.classList.remove('library-btn-w');
     button.classList.add('remove-from-library');
   }
+
   localStorage.setItem('library', JSON.stringify(library));
 }
 
@@ -138,7 +140,7 @@ gallery.addEventListener('click', async e => {
     const genres = movie.genres.map(g => g.name).join(', ');
 
     const library = JSON.parse(localStorage.getItem('library')) || [];
-    const inLibrary = library.includes(movie.id);
+    const inLibrary = library.some(item => Number(item.id) === Number(movie.id));
 
     const popup = basicLightbox.create(
       `
@@ -152,14 +154,12 @@ gallery.addEventListener('click', async e => {
         <img src="${posterUrl}" class="modal-poster" alt="${movie.title}">
         <div class="modal-details">
           <h2>${movie.title}</h2>
-          <p><strong>Vote / Votes:</strong> ${movie.vote_average} / ${
-        movie.vote_count
-      }</p>
+          <p><strong>Vote / Votes:</strong> ${movie.vote_average} / ${movie.vote_count}</p>
           <p><strong>Popularity:</strong> ${movie.popularity}</p>
           <p><strong>Genre:</strong> ${genres}</p>
           <h3>ABOUT</h3>
           <p>${movie.overview}</p>
-          <button class="library-btn-w ${
+          <button class="${
             inLibrary ? 'remove-from-library' : 'library-btn-w'
           }">
             ${inLibrary ? 'Remove from my library' : 'Add to Library'}
@@ -172,7 +172,9 @@ gallery.addEventListener('click', async e => {
           const closeBtn = instance.element().querySelector('.popup-close-btn');
           closeBtn.addEventListener('click', () => instance.close());
 
-          const addBtn = instance.element().querySelector('.library-btn-w');
+          const addBtn = instance
+            .element()
+            .querySelector('button.remove-from-library, button.library-btn-w');
           addBtn.addEventListener('click', () =>
             toggleLibraryButton(movie, addBtn)
           );

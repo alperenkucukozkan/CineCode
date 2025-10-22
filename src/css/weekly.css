@@ -5,13 +5,9 @@
   width: 100%;
 }
 
-/* [data-theme='light-theme'] h2 {
+body.light-theme .weekly-header h2 {
   color: #111;
 }
-
-[data-theme='dark-theme'] h2 {
-  color: #fff;
-} */
 
 .weekly-header {
   margin-top: 40px;
@@ -39,13 +35,9 @@
   z-index: 2;
 }
 
-/* [data-theme='dark-theme'] .weekly-gallery li {
-  box-shadow: 0 0 20px rgba(255, 136, 25, 0.2);
-}
-
-[data-theme='light-theme'] .weekly-gallery li {
+body.light-theme .weekly-gallery li {
   box-shadow: 0 0 20px rgba(255, 136, 25, 0.1);
-} */
+}
 
 .weekly-gallery {
   display: flex;
@@ -195,12 +187,22 @@
   font-size: 14px;
   font-weight: 600;
   margin-top: 8px;
+  color: #B7B7B7;
+}
+
+body.light-theme .modal-details h3 {
+  color: #111111;
 }
 
 .modal-details p {
   font-size: 13px;
   line-height: 1.3;
   margin: 2px 0;
+  color: #B7B7B7;
+}
+
+body.light-theme .modal-details p {
+  color: #111111;
 }
 
 .library-btn-w {
@@ -210,7 +212,7 @@
   align-self: flex-start;
   padding: 6px 16px;
   border: 1px solid #f87719;
-  background-color: #000000;
+  background-color: #111111;
   color: #fff;
   font-weight: 500;
   border-radius: 74px;
@@ -225,27 +227,17 @@
   border: 1px solid #fff;
 }
 
-/* [data-theme='dark-theme'] .library-btn-w {
-  background-color: #111;
-  color: #ffffff;
-  border: 1px solid #f87719;
-}
-
-[data-theme='dark-theme'] .library-btn-w:hover {
-  background-color: #f87719;
-  color: #0e0e0e;
-}
-
-[data-theme='light-theme'] .library-btn-w {
+body.light-theme .library-btn-w {
   background-color: #ffffff;
-  color: #0e0e0e;
+  color: #111111;
   border: 1px solid #f87719;
 }
 
-[data-theme='light-theme'] .library-btn-w:hover {
-  background-color: #0e0e0e;
+body.light-theme .library-btn-w:hover {
+  background-color: #111111 ;
   color: #f87719;
-} */
+  border: 1px solid #111111;
+}
 
 .popup-close-btn {
   position: absolute;
@@ -269,13 +261,14 @@
   stroke: #fff;
 }
 
-/* [data-theme='light'] .icon-close {
-  color: var(--black-color);
+body.light-theme .icon-close {
+  stroke: #111111;
 }
 
-[data-theme='dark'] .icon-close {
-  color: var(--white-color);
-} */
+body.light-theme .icon-close:hover {
+  stroke: #F87719;
+}
+
 
 .popup-close-btn:hover .icon-close {
   stroke: #f87719;
@@ -294,18 +287,25 @@
   cursor: pointer;
   font-size: 12px;
   border: 1px solid #f87719;
-  background-color: #000000;
+  background-color: #111111;
 }
-
-/* [data-theme='light-theme'] {
-  background-color: var(--button-bg-light);
-  color: #000;
-} */
 
 .remove-from-library:hover {
   background-color: #fff;
   color: #f87719;
-  border: 1px solid #000000;
+  border: 1px solid #f87719;
+}
+
+body.light-theme .remove-from-library {
+  background-color: #fff;
+  color: #111111;
+  border: 1px solid #f87719;
+}
+
+body.light-theme .remove-from-library:hover {
+  background-color: #111111;
+  color: #f87719;
+  border: 1px solid #111111;
 }
 
 .icon-full-star,
@@ -313,12 +313,14 @@
   fill: #ff6b35;
   color: #ff6b35;
   stroke: none;
+  stroke-width: 0;
 }
 
 .icon-empty-star {
   fill: transparent;
   color: #ff6b35;
   stroke: #ff6b35;
+  stroke-width: 0;
 }
 
 /* TABLET */
@@ -492,18 +494,9 @@
     transition: background-color 0.2s ease, stroke 0.2s ease;
   }
 
-  /* [data-theme='light-theme'] .icon-close {
-    color: var(--black-color);
-  }
-
-  [data-theme='dark-theme'] .icon-close {
-    color: var(--white-color);
-  } */
-
   .icon-close {
     width: 24px;
     height: 24px;
-    stroke: var(--accent, #fff);
   }
 
 }
@@ -594,6 +587,11 @@
     overflow-y: auto;
   }
 
+  body.light-theme  .weekly-movie-modal {
+    background-color: #fff;
+    color: #111;
+  }
+
   .modal-poster {
     width: 375px;
     height: 478px;
@@ -627,7 +625,6 @@
     margin-top: 20px;
     font-size: 18px;
     font-weight: var(--fw-medium, 500);
-    color: #f87719;
   }
 
   .library-btn-w {
@@ -656,18 +653,10 @@
     transition: background-color 0.2s ease, stroke 0.2s ease;
   }
 
-  /* [data-theme='light-theme'] .icon-close {
-    color: var(--black-color);
-  }
-
-  [data-theme='dark-theme'] .icon-close {
-    color: var(--white-color);
-  } */
 
   .icon-close {
     width: 24px;
     height: 24px;
-    stroke: var(--accent, #fff);
   }
 
   .remove-from-library {
@@ -683,8 +672,4 @@
     font-size: 12px;
   }
 
-  /* [data-theme='light-theme'] {
-    background-color: var(--button-bg-light);
-    color: #000;
-  } */
 }

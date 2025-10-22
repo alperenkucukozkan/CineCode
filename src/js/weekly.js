@@ -51,6 +51,9 @@ function toggleLibraryButton(movie, button) {
     button.classList.remove('remove-from-library');
     button.classList.add('library-btn-w');
   } else {
+    if (!movie.genre_ids && movie.genres) {
+      movie.genre_ids = movie.genres.map(g => g.id);
+    }
     library.push(movie);
     button.textContent = 'Remove from my library';
     button.classList.remove('library-btn-w');

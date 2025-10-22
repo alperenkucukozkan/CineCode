@@ -64,7 +64,7 @@ import{b as J}from"./vendor-D_5xFgaM.js";const P=[{name:"Alperen Küçüközkan"
       flex-wrap: wrap;
       justify-content: center;
       padding: 0;
-      gap: 20px;
+      gap: 15px;
     }
 
     .student-item {
@@ -96,7 +96,7 @@ import{b as J}from"./vendor-D_5xFgaM.js";const P=[{name:"Alperen Küçüközkan"
     }
 
     .info-icon {
-      fill: #f87719;
+      fill: #B7B7B7;
     }
   `,document.head.appendChild(e)}function V(e){return`
     <li class="student-item">
@@ -201,4 +201,4 @@ import{b as J}from"./vendor-D_5xFgaM.js";const P=[{name:"Alperen Küçüközkan"
         </div>
       </div>
       `,{onShow:u=>{u.element().querySelector(".popup-close-btn").addEventListener("click",()=>u.close());const h=u.element().querySelector(".library-btn-w");h.addEventListener("click",()=>de(o,h))}});m.show(),window.addEventListener("keydown",p)}catch(o){console.error("Popup açılırken hata:",o)}});F();
-//# sourceMappingURL=index-CoQ1QDKL.js.map
+//# sourceMappingURL=index-CUSK0NkN.js.map

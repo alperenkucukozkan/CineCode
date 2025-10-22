@@ -1,1 +1,7 @@
+.footer-icon {
+  transition: transform 250ms ease-in-out;
+}
 
+.footer-icon:hover {
+  transform: scale(1.05);
+}

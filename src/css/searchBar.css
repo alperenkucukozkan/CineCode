@@ -27,3 +27,22 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(255, 194, 38, 0.4);
 }
+
+.year-select {
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    text-align: center;
+    color: #595959;
+    font-size: 14px;
+}
+
+.clear-button {
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}

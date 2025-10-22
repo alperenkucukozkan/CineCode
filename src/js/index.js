@@ -7,3 +7,5 @@ import './scrollup.js';
 import './searchBar.js';
 import './upcoming.js';
 import './weekly.js';
+import './catalog.js';
+import './library.js';

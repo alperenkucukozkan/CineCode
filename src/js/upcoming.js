@@ -21,24 +21,24 @@ const endDate = `${year}-${month}-${lastDay}`;
     return getLibrary().includes(id);
   }
 
-  function toggleLibrary(id, btn) {
-    let library = getLibrary();
-    const inLib = library.includes(id);
+  function toggleLibrary(movie, btn) {
+  let library = JSON.parse(localStorage.getItem('library')) || [];
+  const inLibrary = library.some(item => item.id === movie.id);
 
-    if (inLib) {
-      library = library.filter(x => x !== id);
-      btn.textContent = 'Add to my library';
-      btn.classList.remove('btn-remove');
-      btn.classList.add('btn-add');
-    } else {
-      library.push(id);
-      btn.textContent = 'Remove from my library';
-      btn.classList.remove('btn-add');
-      btn.classList.add('btn-remove');
-    }
-
-    localStorage.setItem('library', JSON.stringify(library));
+  if (inLibrary) {
+    library = library.filter(item => item.id !== movie.id);
+    btn.textContent = 'Add to my library';
+    btn.classList.remove('btn-remove');
+    btn.classList.add('btn-add');
+  } else {
+    library.push(movie); 
+    btn.textContent = 'Remove from my library';
+    btn.classList.remove('btn-add');
+    btn.classList.add('btn-remove');
   }
+
+  localStorage.setItem('library', JSON.stringify(library));
+}
 
   function getGenreNames(ids) {
     return ids
@@ -99,7 +99,7 @@ const endDate = `${year}-${month}-${lastDay}`;
     `;
 
     const btn = document.getElementById('library-btn');
-    btn?.addEventListener('click', () => toggleLibrary(movie.id, btn));
+    btn?.addEventListener('click', () => toggleLibrary(movie, btn));
   }
 
   async function initUpcoming() {

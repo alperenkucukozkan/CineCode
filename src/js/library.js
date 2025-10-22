@@ -27,11 +27,27 @@ function createStarRating(vote) {
 
   for (let i = 1; i <= 5; i++) {
     if (rating >= i) {
-      stars += `<svg class="star-svg-full" width="20" height="20"><use href="../img/icon.svg#icon-full-star"></use></svg>`;
+      stars += `<svg class="star-svg-full" width="20" height="20"><use href="../img/icon.svg#icon-full-star"></svg>`;
     } else if (rating >= i - 0.5) {
-      stars += `<svg class="star-svg-half" width="20" height="20"><use href="../img/icon.svg#icon-half-star"></use></svg>`;
+      stars += `<svg class="star-svg-half" width="20" height="20" viewBox="0 0 32 32">
+                    <path
+                      fill="none"
+                      stroke="#f87719"
+                      stroke-linejoin="round"
+                      stroke-linecap="butt"
+                      stroke-miterlimit="4"
+                      stroke-width="2"
+                      d="M30 13h-10.75l-3.25-10-3.25 10h-10.75l8.75 6-3.375 10 8.625-6.25 8.625 6.25-3.375-10 8.75-6z">
+                    </path>
+
+                    <path
+                      d="M16 3v19.75l-8.625 6.25 3.375-10-8.75-6h10.75l3.25-10z"
+                      fill="#f87719">
+                    </path>
+                </svg>
+              `;
     } else {
-      stars += `<svg class="star-svg-empty" width="20" height="20"><use href="../img/icon.svg#icon-empty-star"></use></svg>`;
+      stars += `<svg class="star-svg-empty" width="20" height="20"><use href="../img/icon.svg#icon-empty-star"></svg>`;
     }
   }
 
@@ -250,17 +266,14 @@ function showDetailsPopup(movie, onLibraryChange) {
   const popularity = movie.popularity ? movie.popularity.toFixed(1) : 'N/A';
 
   modal.innerHTML = `
-        <div class="detail-overlay"></div>
         <div class="detail-box" role="dialog" aria-modal="true">
             <button class="close-span-btn-details" aria-label="Close detail">&times;</button>
             <img src="${poster}" alt="${movie.title}" class="detail-poster"/>
             <div class="detail-content">
                 <h2>${movie.title}</h2>
-                <div class="detail-info">
-                    <p><strong>Vote / Votes:</strong> <span>${voteAverage}</span> / <span>${voteCount}</span></p>
-                    <p><strong>Popularity:</strong> <span>${popularity}</span></p>
-                    <p><strong>Genre:</strong> <span>${genres}</span></p>
-                </div>
+                <p><strong>Vote / Votes:</strong> <span>${voteAverage}</span> / <span>${voteCount}</span></p>
+                <p><strong>Popularity:</strong> <span>${popularity}</span></p>
+                <p><strong>Genre:</strong> <span>${genres}</span></p>
                 <p><strong>ABOUT</strong></p>
                 <div class="scrollable-description">${
                   movie.overview || 'No description available.'
@@ -268,7 +281,7 @@ function showDetailsPopup(movie, onLibraryChange) {
                 <button class="library-btn" data-id="${movie.id}"></button>
             </div>
         </div>
-    `;
+        `;
 
   modal.classList.add('active');
 
@@ -304,7 +317,6 @@ function showDetailsPopup(movie, onLibraryChange) {
   };
   document.addEventListener('keydown', escHandler);
 
-  const overlay = modal.querySelector('.detail-overlay');
   const closeBtn = modal.querySelector('.close-span-btn-details');
 
   function closeModal() {
@@ -313,7 +325,6 @@ function showDetailsPopup(movie, onLibraryChange) {
     document.removeEventListener('keydown', escHandler);
   }
 
-  overlay.addEventListener('click', closeModal);
   closeBtn.addEventListener('click', closeModal);
 }
 
@@ -336,6 +347,7 @@ async function loadGenres() {
 let GENRES = {};
 
 (async function init() {
+  await loadPartials();
   await loadGenres();
   fetchTrendingMovie();
   loadLibrary();

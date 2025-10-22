@@ -1,6 +1,6 @@
 body { height: 2000px;}
     
-    #scrollToTopBtn {
+    #scroll-up {
       position: fixed;
       bottom: 30px;
       right: 30px;
@@ -9,7 +9,8 @@ body { height: 2000px;}
       border-radius: 50%;
       background: linear-gradient(135deg, #F87719, #FF0000);
       color: white;
-      font-size: 24px;
+      font-size: 32px;
+      font-weight: 600;
       border: none;
       cursor: pointer;
       opacity: 0;
@@ -17,7 +18,7 @@ body { height: 2000px;}
       z-index: 1000;
     }
     
-    #scrollToTopBtn.visible {
+    #scroll-up.visible {
       opacity: 1;
     }
    /*Scrolbar Özelleştirme*/

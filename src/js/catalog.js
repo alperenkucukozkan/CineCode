@@ -222,19 +222,19 @@ function renderStarRating(voteAverage, container) {
   // Render full stars
   for (let i = 0; i < fullStars; i++) {
     starsHTML +=
-      '<svg class="icon icon-star"><use xlink:href="../images/symbol-defs.svg#icon-star"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star"><use xlink:href="../images/symbol-defs.svg#icon-star"></use></svg>';
   }
 
   // Render half star if needed
   if (hasHalfStar) {
     starsHTML +=
-      '<svg class="icon icon-star-half"><use xlink:href="../images/symbol-defs.svg#icon-star-half"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star-half"><use xlink:href="../images/symbol-defs.svg#icon-star-half"></use></svg>';
   }
 
   // Render empty stars
   for (let i = 0; i < emptyStars; i++) {
     starsHTML +=
-      '<svg class="icon icon-star-empty"><use xlink:href="../images/symbol-defs.svg#icon-star-empty"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star-empty"><use xlink:href="../images/symbol-defs.svg#icon-star-empty"></use></svg>';
   }
 
   container.innerHTML = starsHTML;
@@ -329,6 +329,11 @@ function createMovieCard(movie) {
     genresText = genreNames.join(', ');
   }
 
+  const releaseYear = extractYear(movie.release_date);
+  const genreAndYear = genresText
+    ? `${genresText} | ${releaseYear}`
+    : releaseYear;
+
   li.innerHTML = `
     <div class="movie-poster">
       <img src="${getImageUrl(movie.poster_path)}"
@@ -339,16 +344,15 @@ function createMovieCard(movie) {
     <div class="movie-info">
       <div class="movie-info-left">
         <div class="movie-title">${movie.title}</div>
-        ${genresText ? `<div class="movie-genres">${genresText}</div>` : ''}
-        <div class="movie-date">${extractYear(movie.release_date)}</div>
+        <div class="movie-meta">${genreAndYear}</div>
       </div>
       <div class="movie-info-right">
-        <div class="rating-stars"></div>
+        <div class="catalog-rating-stars"></div>
       </div>
     </div>
   `;
 
-  const starsContainer = li.querySelector('.rating-stars');
+  const starsContainer = li.querySelector('.catalog-rating-stars');
   renderStarRating(movie.vote_average || 0, starsContainer);
 
   return li;

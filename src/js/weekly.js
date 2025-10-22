@@ -70,8 +70,8 @@ async function renderWeeklyTrends(limit = getVisibleCardCount()) {
     const markup = moviesToShow
       .map(movie => {
         const posterUrl = movie.poster_path
-          ? 'https://image.tmdb.org/t/p/w500${movie.poster_path}'
-          : 'https://via.placeholder.com/500x750?text=No+Image';
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+          : `https://via.placeholder.com/500x750?text=No+Image`;
         const genreName = movie.genre_ids
           .map(id => genreMap[id])
           .slice(0, 1)
@@ -121,8 +121,8 @@ function initWeeklySection() {
     try {
       const movie = await fetchMovieDetails(movieId);
       const posterUrl = movie.poster_path
-        ? 'https://image.tmdb.org/t/p/w500${movie.poster_path}'
-        : 'https://via.placeholder.com/500x750?text=No+Image';
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : `https://via.placeholder.com/500x750?text=No+Image`;
       const genres = movie.genres.map(g => g.name).join(', ');
       const library = JSON.parse(localStorage.getItem('library')) || [];
       const inLibrary = library.some(

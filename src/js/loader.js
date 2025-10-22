@@ -1,6 +1,18 @@
-const btns = document.querySelectorAll('button')
-btns.forEach((item) => {
-    item.addEventListener('click', (evt) => {
-        evt.target.classList.add('activeLoading')
-    })
-})
+
+
+
+function showLoader() {
+  const loadingIndicator = document.querySelector('.loading');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'flex';
+    loadingIndicator.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function hideLoader() {
+  const loadingIndicator = document.querySelector('.loading');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'none';
+    loadingIndicator.setAttribute('aria-hidden', 'true');
+  }
+}

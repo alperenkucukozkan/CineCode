@@ -9,7 +9,7 @@
 .light-theme .about-title,
 .light-theme .movie-name,
 .light-theme h2,
-.light-theme p {
+.light-theme p.movie-overview {
   color: #111111;
 }
 .light-theme .vote-box {

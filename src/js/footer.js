@@ -70,114 +70,6 @@ const students = [
     linkedin: "https://linkedin.com/in/akdemir77/"
   }
 ];
-
-
-function createFooterModalStyles() {
-  const style = document.createElement("style");
-  style.textContent = `
-    .footer {
-      width: 100%;
-      text-align: center;
-      padding: 20px;
-      color: #111;
-    }
-
-    .goit-students {
-      color: #111;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 16px;
-    }
-
-    .footer-modal-title {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 30px;
-      font-weight: bold;
-    }
-
-    .footer-modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      padding: 40px 20px;
-    }
-
-    .footer-modal-overlay.active {
-      display: flex;
-    }
-
-    .footer-modal-content {
-      background-color: #111;
-      color: #f87719;
-      border-radius: 10px;
-      padding: 20px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: inset 0 0 10px 5px #f57302e8;
-      position: relative;
-    }
-
-    .footer-modal-close-btn {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 30px;
-      color: #f87719;
-      cursor: pointer;
-    }
-
-    .student-list {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0;
-      gap: 15px;
-    }
-
-    .student-item {
-      text-align: center;
-      transition: transform 250ms ease-in-out;
-    }
-
-    .student-item:hover {
-      transform: scale(1.05);
-    }
-
-    .student-photo {
-      width: 200px;
-      height: 260px;
-      object-fit: cover;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: transform 250ms ease-in-out;
-    }
-
-    .student-info {
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
-
-    .footer-icon {
-      margin: 0 5px;
-    }
-
-    .info-icon {
-      fill: #B7B7B7;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
 function createStudentItem(student) {
   return `
     <li class="student-item">
@@ -200,21 +92,27 @@ function createStudentItem(student) {
     </li>
   `;
 }
-
-function renderFooter() {
-  const footer = document.createElement("footer");
-  footer.className = "footer";
+function ensureFooter() {
+  let footer = document.querySelector('footer.footer');
+  if (!footer) {
+    footer = document.createElement('footer');
+    footer.className = 'footer goit-footer';
+    document.body.appendChild(footer);
+  } else {
+    footer.classList.add('goit-footer');
+  }
   footer.innerHTML = `
     <p>
-      © 2025 | All Rights Reserved | Developed with 🧡 by
+      © 2025 | All Rights Reserved | Developed with :orange_heart: by
       <button class="goit-students" id="openFooterModalBtn">GoIT Students</button>
     </p>
   `;
-  document.body.appendChild(footer);
+  return footer;
 }
-
 function renderFooterModal() {
-  const modal = document.createElement("div");
+  let modal = document.getElementById("footerModal");
+  if (modal) return modal;
+  modal = document.createElement("div");
   modal.className = "footer-modal-overlay";
   modal.id = "footerModal";
   modal.innerHTML = `
@@ -227,14 +125,12 @@ function renderFooterModal() {
     </div>
   `;
   document.body.appendChild(modal);
+  return modal;
 }
-
 function applyFooterModalResponsiveStyles() {
   const modalContent = document.querySelector(".footer-modal-content");
   const footer = document.querySelector(".footer");
-
   if (!modalContent || !footer) return;
-
   if (window.matchMedia("(max-width: 768px)").matches) {
     modalContent.style.maxWidth = "300px";
     footer.style.paddingBottom = "100px";
@@ -246,42 +142,39 @@ function applyFooterModalResponsiveStyles() {
     footer.style.paddingBottom = "50px";
   }
 }
-
 function initFooterModal() {
-  createFooterModalStyles();
-  renderFooter();
-  renderFooterModal();
-  applyFooterModalResponsiveStyles();
-  window.addEventListener("resize", applyFooterModalResponsiveStyles);
-
-  const modal = document.getElementById("footerModal");
+  ensureFooter();
+  const modal = renderFooterModal();
   const modalContent = modal.querySelector(".footer-modal-content");
   const openBtn = document.getElementById("openFooterModalBtn");
   const closeBtn = document.getElementById("closeFooterModalBtn");
-
+  if (!openBtn) { console.warn("openFooterModalBtn bulunamadı"); return; }
+  if (!closeBtn) { console.warn("closeFooterModalBtn bulunamadı"); return; }
   openBtn.addEventListener("click", () => {
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
   });
-
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("active");
     document.body.style.overflow = "";
   });
-
   modal.addEventListener("click", (e) => {
     if (!modalContent.contains(e.target)) {
       modal.classList.remove("active");
       document.body.style.overflow = "";
     }
   });
-
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       modal.classList.remove("active");
       document.body.style.overflow = "";
     }
   });
+  applyFooterModalResponsiveStyles();
+  window.addEventListener("resize", applyFooterModalResponsiveStyles);
 }
-
-document.addEventListener("DOMContentLoaded", initFooterModal);
+if (document.readyState === 'loading') {
+  document.addEventListener("DOMContentLoaded", initFooterModal, { once: true });
+} else {
+  initFooterModal();
+}

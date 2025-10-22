@@ -313,12 +313,14 @@
   fill: #ff6b35;
   color: #ff6b35;
   stroke: none;
+  stroke-width: 0;
 }
 
 .icon-empty-star {
   fill: transparent;
   color: #ff6b35;
   stroke: #ff6b35;
+  stroke-width: 0;
 }
 
 /* TABLET */

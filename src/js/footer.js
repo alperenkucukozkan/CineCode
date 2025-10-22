@@ -2,70 +2,70 @@ const students = [
   {
     name: "Alperen Küçüközkan",
     role: "Team Lead",
-    img: "../img/alperen.jpg",
+    img: "./img/alperen.jpg",
     github: "https://github.com/alperenkucukozkan",
     linkedin: "https://www.linkedin.com/in/alperen-k%C3%BC%C3%A7%C3%BCk%C3%B6zkan-b9b30625a/"
   },
   {
     name: "Tuğba Bostancı",
     role: "Scrum Master",
-    img: "../img/tugba.jpg",
+    img: "./img/tugba.jpg",
     github: "https://github.com/tugbabostanci",
     linkedin: "https://linkedin.com/in/tuğba-bostancı-040900115"
   },
   {
     name: "Esra Aras",
     role: "Developer",
-    img: "../img/esra.jpg",
+    img: "./img/esra.jpg",
     github: "https://github.com/Esraras",
     linkedin: "https://linkedin.com/in/esraaras/"
   },
   {
     name: "Nurgül Çoksağlamdemir",
     role: "Developer",
-    img: "../img/nurgul.jpg",
+    img: "./img/nurgul.jpg",
     github: "https://github.com/nurgul4261",
     linkedin: "https://linkedin.com/in/nurg%C3%BCl-%C3%A7oksa%C4%9Flamdemir-423b0a382/"
   },
   {
     name: "Yunus Sarı",
     role: "Developer",
-    img: "../img/yunus.jpg",
+    img: "./img/yunus.jpg",
     github: "https://github.com/yunsari",
     linkedin: "https://linkedin.com/in/yunus-sar%C4%B1-3713a9242/"
   },
   {
     name: "Furkan Çelik",
     role: "Developer",
-    img: "../img/furkan.jpg",
+    img: "./img/furkan.jpg",
     github: "https://github.com/furkangoit",
     linkedin: "https://linkedin.com/in/furkan-%C3%A7elik-a6399632b/"
   },
   {
     name: "Hilmi Şafak",
     role: "Developer",
-    img: "../img/hilmi.jpg",
+    img: "./img/hilmi.jpg",
     github: "https://github.com/hilmisafak",
     linkedin: "https://linkedin.com/in/hilmi-safak/"
   },
   {
     name: "Baran Taşçı",
     role: "Developer",
-    img:"../img/baran.jpg",
+    img:"./img/baran.jpg",
     github: "https://github.com/BaranTascii",
     linkedin: "https://www.linkedin.com/in/baran-tasci/"
   },
   {
     name: "Emre Ürün",
     role: "Developer",
-    img: "../img/emre.jpg",
+    img: "./img/emre.jpg",
     github: "https://github.com/Emre-Urun",
     linkedin: "#"
   },
   {
     name: "Ali Kemal Demir",
     role: "Developer",
-    img: "../img/alikemal.jpg",
+    img: "./img/alikemal.jpg",
     github: "https://github.com/Tirnerf",
     linkedin: "https://linkedin.com/in/akdemir77/"
   }
@@ -185,14 +185,14 @@ function createStudentItem(student) {
         <h3>${student.name}</h3>
         <p>${student.role}</p>
         <a class="footer-icon" href="${student.github}" target="_blank" aria-label="GitHub">
-          <svg class="info-icon" width="40" height="40">
-            <use href="#icon-github"></use>
+          <svg class="icon-github">
+            <use xlink:href="../img/icon.svg#icon-github"></use>
           </svg>
         </a>
         ${student.linkedin !== "#" ? `
         <a class="footer-icon" href="${student.linkedin}" target="_blank" aria-label="LinkedIn">
           <svg class="info-icon" width="40" height="40">
-            <use href="#icon-linkedin"></use>
+            <use xlink:href="../img/icon.svg#icon-linkedin"></use>
           </svg>
         </a>` : ""}
       </div>

@@ -266,17 +266,14 @@ function showDetailsPopup(movie, onLibraryChange) {
   const popularity = movie.popularity ? movie.popularity.toFixed(1) : 'N/A';
 
   modal.innerHTML = `
-        <div class="detail-overlay"></div>
         <div class="detail-box" role="dialog" aria-modal="true">
             <button class="close-span-btn-details" aria-label="Close detail">&times;</button>
             <img src="${poster}" alt="${movie.title}" class="detail-poster"/>
             <div class="detail-content">
                 <h2>${movie.title}</h2>
-                <div class="detail-info">
-                    <p><strong>Vote / Votes:</strong> <span>${voteAverage}</span> / <span>${voteCount}</span></p>
-                    <p><strong>Popularity:</strong> <span>${popularity}</span></p>
-                    <p><strong>Genre:</strong> <span>${genres}</span></p>
-                </div>
+                <p><strong>Vote / Votes:</strong> <span>${voteAverage}</span> / <span>${voteCount}</span></p>
+                <p><strong>Popularity:</strong> <span>${popularity}</span></p>
+                <p><strong>Genre:</strong> <span>${genres}</span></p>
                 <p><strong>ABOUT</strong></p>
                 <div class="scrollable-description">${
                   movie.overview || 'No description available.'
@@ -284,7 +281,7 @@ function showDetailsPopup(movie, onLibraryChange) {
                 <button class="library-btn" data-id="${movie.id}"></button>
             </div>
         </div>
-    `;
+        `;
 
   modal.classList.add('active');
 
@@ -320,7 +317,6 @@ function showDetailsPopup(movie, onLibraryChange) {
   };
   document.addEventListener('keydown', escHandler);
 
-  const overlay = modal.querySelector('.detail-overlay');
   const closeBtn = modal.querySelector('.close-span-btn-details');
 
   function closeModal() {
@@ -329,7 +325,6 @@ function showDetailsPopup(movie, onLibraryChange) {
     document.removeEventListener('keydown', escHandler);
   }
 
-  overlay.addEventListener('click', closeModal);
   closeBtn.addEventListener('click', closeModal);
 }
 

@@ -12,7 +12,7 @@
 /* Sections style */
 @import url('./header.css');
 @import url('./footer.css');
-/* @import url('./partials/hero.css'); */
+@import url('./hero.css');
 @import url('./library.css');
 @import url('./loader.css');
 @import url('./scrollup.css');

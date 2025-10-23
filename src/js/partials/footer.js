@@ -62,13 +62,6 @@ const students = [
     github: "https://github.com/Emre-Urun",
     linkedin: "#"
   },
-  {
-    name: "Ali Kemal Demir",
-    role: "Developer",
-    img: "../img/alikemal.jpg",
-    github: "https://github.com/Tirnerf",
-    linkedin: "https://linkedin.com/in/akdemir77/"
-  }
 ];
 
 function createStyles() {
@@ -284,3 +277,4 @@ function initFooterModal() {
 }
 
 document.addEventListener("DOMContentLoaded", initFooterModal);
+

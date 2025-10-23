@@ -12,12 +12,13 @@
       content="film, sinema, movie, catalog, trending, search"
     />
     <meta name="author" content="Cinemania" />
-
     <title>Cinemania | Film Kataloğu</title>
 
+    <!-- Preload -->
     <link rel="preload" href="./css/catalog.css" as="style" />
     <link rel="preload" href="./js/catalog.js" as="script" crossorigin />
 
+    <!-- Styles -->
     <link rel="stylesheet" href="./css/catalog.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="icon" href="./img/favicon.svg" />
@@ -37,19 +38,9 @@
       <load src="./partials/header.html"></load>
     </header>
 
+    <!-- Main Content -->
     <main id="main-content" role="main">
-      <!-- Movie Catalog Section -->
       <section class="catalog-block container" aria-label="Film Listesi">
-        <!-- Loading State -->
-        <div
-          id="loading-indicator"
-          class="loading-indicator"
-          aria-hidden="true"
-        >
-          <div class="spinner" aria-label="Yükleniyor"></div>
-        </div>
-
-        <!-- Movie List -->
         <div
           id="movie-list"
           class="movie-list"
@@ -58,19 +49,19 @@
         >
           <ul class="movie-list-grid" id="movies-ul" role="list"></ul>
         </div>
+        <load src="./partials/pagination.html"></load>
       </section>
 
       <button id="scroll-up" title="Scroll Up" class="button-up">↑</button>
     </main>
 
+    <!-- Modal -->
+    <load src="./partials/modal.html"></load>
+
     <!-- Footer -->
-    <footer>
-      <load src="./partials/footer.html"></load>
-    </footer>
+    <load src="./partials/footer.html"></load>
 
     <!-- Scripts -->
-
-    <script src="./js/scrollup.js"></script>
-    <script type="module" src="./js/catalog.js" defer></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>

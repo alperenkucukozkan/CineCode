@@ -232,7 +232,7 @@ if (genreFilter) {
 
   genreFilter.style.backgroundColor = bodyBg;
   genreFilter.style.color = textColor;
-  genreFilter.style.border = `1px solid ${brightness < 128 ? '#444' : '#ccc'}`;
+  genreFilter.style.border = `1px solid ${brightness < 128 ? '#000' : '#fff'}`;
 
   const options = genreFilter.querySelectorAll('option');
   options.forEach(option => {
@@ -257,23 +257,36 @@ function attachCardClickEvents() {
 
 function showDetailsPopup(movie, onLibraryChange) {
   const modal = document.getElementById('movie-detail-modal');
-  const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  const genres = movie.genre_ids?.map(id => GENRES[id]).join(', ') || 'N/A';
-  const voteAverage = movie.vote_average
-    ? movie.vote_average.toFixed(1)
-    : 'N/A';
-  const voteCount = movie.vote_count || 'N/A';
-  const popularity = movie.popularity ? movie.popularity.toFixed(1) : 'N/A';
+  const bodyBg = window.getComputedStyle(document.body).backgroundColor;
 
+  // Parlaklık hesaplama
+  function getBrightness(rgb) {
+    const rgbValues = rgb.match(/\d+/g).map(Number);
+    return (
+      (rgbValues[0] * 299 + rgbValues[1] * 587 + rgbValues[2] * 114) / 1000
+    );
+  }
+  const brightness = getBrightness(bodyBg);
+  const textColor = brightness < 128 ? '#fff' : '#000'; // yazı rengi
+
+  // Modal HTML
   modal.innerHTML = `
-        <div class="detail-box" role="dialog" aria-modal="true">
+        <div class="detail-box" role="dialog" aria-modal="true" style="background-color: ${bodyBg}; color: ${textColor};">
             <button class="close-span-btn-details" aria-label="Close detail">&times;</button>
-            <img src="${poster}" alt="${movie.title}" class="detail-poster"/>
+            <img src="https://image.tmdb.org/t/p/w500${
+              movie.poster_path
+            }" alt="${movie.title}" class="detail-poster"/>
             <div class="detail-content">
                 <h2>${movie.title}</h2>
-                <p><strong>Vote / Votes:</strong> <span>${voteAverage}</span> / <span>${voteCount}</span></p>
-                <p><strong>Popularity:</strong> <span>${popularity}</span></p>
-                <p><strong>Genre:</strong> <span>${genres}</span></p>
+                <p><strong>Vote / Votes:</strong> <span>${
+                  movie.vote_average?.toFixed(1) || 'N/A'
+                }</span> / <span>${movie.vote_count || 'N/A'}</span></p>
+                <p><strong>Popularity:</strong> <span>${
+                  movie.popularity?.toFixed(1) || 'N/A'
+                }</span></p>
+                <p><strong>Genre:</strong> <span>${
+                  movie.genre_ids?.map(id => GENRES[id]).join(', ') || 'N/A'
+                }</span></p>
                 <p><strong>ABOUT</strong></p>
                 <div class="scrollable-description">${
                   movie.overview || 'No description available.'
@@ -281,11 +294,62 @@ function showDetailsPopup(movie, onLibraryChange) {
                 <button class="library-btn" data-id="${movie.id}"></button>
             </div>
         </div>
-        `;
+    `;
 
   modal.classList.add('active');
 
+  // Kapatma tuşu
+  const closeBtn = modal.querySelector('.close-span-btn-details');
+  closeBtn.style.color = textColor;
+  closeBtn.addEventListener(
+    'mouseenter',
+    () => (closeBtn.style.color = '#F87719')
+  );
+  closeBtn.addEventListener(
+    'mouseleave',
+    () => (closeBtn.style.color = textColor)
+  );
+  closeBtn.addEventListener('click', closeModal);
+
+  // Library butonu
   const libBtn = modal.querySelector('.library-btn');
+
+  function setButtonStyle() {
+    if (brightness > 128) {
+      // Sayfa açık (beyaz)
+      libBtn.style.backgroundImage = 'none';
+      libBtn.style.backgroundColor = '#fff';
+      libBtn.style.color = '#000';
+      libBtn.style.border = '1px solid #F84119';
+      libBtn.onmouseenter = () => {
+        libBtn.style.backgroundColor = '#000';
+        libBtn.style.color = '#F87719';
+        libBtn.style.border = '1px solid #000';
+      };
+      libBtn.onmouseleave = () => {
+        libBtn.style.backgroundColor = '#fff';
+        libBtn.style.color = '#000';
+        libBtn.style.border = '1px solid #f84119';
+      };
+    } else {
+      // Sayfa koyu (siyah)
+      libBtn.style.backgroundImage = 'none';
+      libBtn.style.backgroundColor = '#000';
+      libBtn.style.color = '#fff';
+      libBtn.style.border = '1px solid #F87719';
+      libBtn.onmouseenter = () => {
+        libBtn.style.backgroundColor = '#fff';
+        libBtn.style.color = '#F87719';
+        libBtn.style.border = '1px solid #F87719';
+      };
+      libBtn.onmouseleave = () => {
+        libBtn.style.backgroundColor = '#000';
+        libBtn.style.color = '#fff';
+        libBtn.style.border = '1px solid #F87719';
+      };
+    }
+  }
+  setButtonStyle();
 
   function updateButton() {
     const library = JSON.parse(localStorage.getItem('library')) || [];
@@ -294,19 +358,14 @@ function showDetailsPopup(movie, onLibraryChange) {
       ? 'Remove from My Library'
       : 'Add to My Library';
   }
-
   updateButton();
 
   libBtn.addEventListener('click', () => {
     let library = JSON.parse(localStorage.getItem('library')) || [];
     const inLibrary = library.some(f => f.id === movie.id);
-
-    if (inLibrary) {
-      library = library.filter(f => f.id !== movie.id);
-    } else {
-      library.push(movie);
-    }
-
+    library = inLibrary
+      ? library.filter(f => f.id !== movie.id)
+      : [...library, movie];
     localStorage.setItem('library', JSON.stringify(library));
     updateButton();
     if (typeof onLibraryChange === 'function') onLibraryChange();
@@ -317,15 +376,17 @@ function showDetailsPopup(movie, onLibraryChange) {
   };
   document.addEventListener('keydown', escHandler);
 
-  const closeBtn = modal.querySelector('.close-span-btn-details');
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 
   function closeModal() {
     modal.classList.remove('active');
     modal.innerHTML = '';
     document.removeEventListener('keydown', escHandler);
   }
-
-  closeBtn.addEventListener('click', closeModal);
 }
 
 export async function fetchGenres() {

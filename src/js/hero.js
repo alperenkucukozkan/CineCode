@@ -3,7 +3,7 @@ import {
   fetchMovieDetails,
   fetchMovieVideos
 } from '../api/api.js';
-import { Modal } from './modal.js'; // <-- sadece Modal
+// import { Modal } from './modal.js'; 
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
 

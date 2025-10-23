@@ -137,18 +137,14 @@ function applyFooterModalResponsiveStyles() {
   if (window.matchMedia("(max-width: 768px)").matches) {
     modalContent.style.maxWidth = "300px";
     footer.style.paddingBottom = "100px";
-    modalTitle.style.fontSize = "25px";
   } else if (window.matchMedia("(max-width: 1279px)").matches) {
     modalContent.style.maxWidth = "720px";
     footer.style.paddingBottom = "80px";
-    modalTitle.style.fontSize = "28px";
   } else {
     modalContent.style.maxWidth = "1200px";
     footer.style.paddingBottom = "50px";
-    modalTitle.style.fontSize = "36px";
   }
 }
-
 
 function initFooterModal() {
   ensureFooter();

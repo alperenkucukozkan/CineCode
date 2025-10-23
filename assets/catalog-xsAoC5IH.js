@@ -1,50 +1,14 @@
-import axios from 'axios';
-
-// ===== LOAD PARTIALS =====
-async function loadPartials() {
-  const loads = document.querySelectorAll('load[src]');
-  for (const el of loads) {
-    const src = el.getAttribute('src');
-    if (!src) continue;
-    try {
-      const res = await fetch(src);
-      if (!res.ok) {
-        console.error('Partial yüklenemedi:', src, res.status);
-        continue;
-      }
-      const html = await res.text();
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-
-      wrapper.querySelectorAll('script').forEach(old => {
-        const s = document.createElement('script');
-        for (const attr of old.attributes)
-          s.setAttribute(attr.name, attr.value);
-        s.text = old.textContent;
-        old.parentNode.replaceChild(s, old);
-      });
-
-      const frag = document.createDocumentFragment();
-      while (wrapper.firstChild) frag.appendChild(wrapper.firstChild);
-      el.replaceWith(frag);
-    } catch (err) {
-      console.error('Partial fetch hatası:', src, err);
-    }
-  }
-}
+// ===== IMPORTS =====
+import * as API from '../api/api.js';
+import { initPagination, renderPagination } from './pagination.js';
 
 // ===== CONFIGURATION =====
 const CONFIG = {
-  API_KEY: '0c52aafa16e24577e4a48f6286d3f101',
-  BASE_URL: 'https://api.themoviedb.org/3',
   IMAGE_BASE_URL: 'https://image.tmdb.org/t/p/w500',
   IMAGE_BASE_URL_2X: 'https://image.tmdb.org/t/p/w780',
   BACKDROP_BASE_URL: 'https://image.tmdb.org/t/p/w1280',
   BACKDROP_BASE_URL_2X: 'https://image.tmdb.org/t/p/w1920',
   IMAGE_PLACEHOLDER: 'src/images/no-poster.svg',
-  DEFAULT_LANGUAGE: 'en-US',
-  PAGINATION_MAX_BUTTONS: 5,
-  YEAR_SELECT_START: 1980,
 };
 
 // ===== DOM ELEMENTS CACHE =====
@@ -53,27 +17,10 @@ let DOM;
 // ===== APPLICATION STATE =====
 const AppState = {
   lastSearch: { input: '', year: '', isSearch: false },
-  currentPage: 1,
-  totalPages: 1,
   genresCache: [],
 };
 
 // ===== UTILITY FUNCTIONS =====
-
-function buildApiUrl(path, params = {}) {
-  const url = new URL(`${CONFIG.BASE_URL}${path}`);
-  url.searchParams.set('api_key', CONFIG.API_KEY);
-
-  Object.keys(params).forEach(key => {
-    const value = params[key];
-    if (value !== '' && value !== null && value !== undefined) {
-      url.searchParams.set(key, value);
-    }
-  });
-
-  return url.toString();
-}
-
 function extractYear(releaseDate) {
   return releaseDate ? releaseDate.split('-')[0] : '—';
 }
@@ -103,30 +50,6 @@ function getBackdropUrl(backdropPath) {
   return baseUrl + backdropPath;
 }
 
-// ===== LOADING STATES =====
-
-/**
- * Shows loading indicator
- */
-function showLoader() {
-  const loadingIndicator = document.getElementById('loading-indicator');
-  if (loadingIndicator) {
-    loadingIndicator.style.display = 'flex';
-    loadingIndicator.setAttribute('aria-hidden', 'false');
-  }
-}
-
-/**
- * Hides loading indicator
- */
-function hideLoader() {
-  const loadingIndicator = document.getElementById('loading-indicator');
-  if (loadingIndicator) {
-    loadingIndicator.style.display = 'none';
-    loadingIndicator.setAttribute('aria-hidden', 'true');
-  }
-}
-
 // ===== ERROR HANDLING =====
 function showErrorMessage(message, type = 'error') {
   const errorDiv = document.createElement('div');
@@ -149,63 +72,6 @@ function showErrorMessage(message, type = 'error') {
 
   document.body.appendChild(errorDiv);
   setTimeout(() => errorDiv.remove(), 5000);
-}
-
-// ===== API FUNCTIONS =====
-async function fetchTrendingDay() {
-  const url = buildApiUrl('/trending/movie/day');
-  const response = await axios.get(url);
-  return response.data;
-}
-
-async function fetchTrendingWeek(page = 1) {
-  const url = buildApiUrl('/trending/movie/week', { page });
-  const response = await axios.get(url);
-  return response.data;
-}
-
-async function fetchMovieDetails(movieId) {
-  const url = buildApiUrl(`/movie/${movieId}`, {
-    language: CONFIG.DEFAULT_LANGUAGE,
-  });
-  const response = await axios.get(url);
-  return response.data;
-}
-
-async function fetchGenres() {
-  const url = buildApiUrl('/genre/movie/list', {
-    language: CONFIG.DEFAULT_LANGUAGE,
-  });
-  const response = await axios.get(url);
-  return response.data.genres;
-}
-
-async function fetchMovieVideos(movieId) {
-  try {
-    const url = buildApiUrl(`/movie/${movieId}/videos`, {
-      language: CONFIG.DEFAULT_LANGUAGE,
-    });
-    const response = await axios.get(url);
-    const videos = response.data?.results || [];
-    return videos.filter(
-      video => video.site === 'YouTube' && video.type === 'Trailer'
-    );
-  } catch (error) {
-    console.error('Error fetching movie videos:', error);
-    return [];
-  }
-}
-
-async function searchMovies(query, year = '', page = 1) {
-  const url = buildApiUrl('/search/movie', {
-    query,
-    year,
-    page,
-    include_adult: false,
-    language: CONFIG.DEFAULT_LANGUAGE,
-  });
-  const response = await axios.get(url);
-  return response.data;
 }
 
 // ===== RENDERING FUNCTIONS =====
@@ -358,105 +224,6 @@ function createMovieCard(movie) {
   return li;
 }
 
-function renderPagination(currentPage, totalPages) {
-  // Skip if pagination is deactivated
-  if (!DOM.paginationUl) return;
-
-  DOM.paginationUl.innerHTML = '';
-  AppState.totalPages = totalPages;
-  AppState.currentPage = currentPage;
-
-  if (totalPages <= 1) return;
-
-  const fragment = document.createDocumentFragment();
-
-  // Previous button
-  if (currentPage > 1) {
-    const prevBtn = createPaginationButton('‹', false, 'prev');
-    const prevButton = prevBtn.querySelector('button');
-    prevButton.addEventListener('click', () =>
-      handlePageChange(currentPage - 1)
-    );
-    fragment.appendChild(prevBtn);
-  }
-
-  // Calculate page range to show
-  let startPage, endPage;
-
-  if (currentPage <= 3) {
-    startPage = 1;
-    endPage = Math.min(5, totalPages);
-  } else if (currentPage >= totalPages - 2) {
-    startPage = Math.max(1, totalPages - 4);
-    endPage = totalPages;
-  } else {
-    startPage = currentPage - 2;
-    endPage = currentPage + 2;
-  }
-
-  // Render page numbers
-  for (let page = startPage; page <= endPage; page++) {
-    const pageNumber = page.toString().padStart(2, '0');
-    const pageBtn = createPaginationButton(pageNumber, page === currentPage);
-    const button = pageBtn.querySelector('button');
-    button.addEventListener('click', () => handlePageChange(page));
-    fragment.appendChild(pageBtn);
-  }
-
-  // Show ellipsis and last page if there's a gap
-  if (endPage < totalPages - 1) {
-    fragment.appendChild(createPaginationDots());
-    const lastPageNumber = totalPages.toString().padStart(2, '0');
-    const lastPageBtn = createPaginationButton(
-      lastPageNumber,
-      currentPage === totalPages
-    );
-    const lastButton = lastPageBtn.querySelector('button');
-    lastButton.addEventListener('click', () => handlePageChange(totalPages));
-    fragment.appendChild(lastPageBtn);
-  } else if (endPage < totalPages) {
-    const lastPageNumber = totalPages.toString().padStart(2, '0');
-    const lastPageBtn = createPaginationButton(
-      lastPageNumber,
-      currentPage === totalPages
-    );
-    const lastButton = lastPageBtn.querySelector('button');
-    lastButton.addEventListener('click', () => handlePageChange(totalPages));
-    fragment.appendChild(lastPageBtn);
-  }
-
-  // Next button
-  if (currentPage < totalPages) {
-    const nextBtn = createPaginationButton('›', false, 'next');
-    const nextButton = nextBtn.querySelector('button');
-    nextButton.addEventListener('click', () =>
-      handlePageChange(currentPage + 1)
-    );
-    fragment.appendChild(nextBtn);
-  }
-
-  DOM.paginationUl.appendChild(fragment);
-}
-
-function createPaginationButton(page, isActive = false, type = 'page') {
-  const li = document.createElement('li');
-  const button = document.createElement('button');
-
-  button.className = `page-btn ${type}`;
-  if (isActive) button.classList.add('active');
-  button.textContent = page;
-
-  li.appendChild(button);
-  return li;
-}
-
-function createPaginationDots() {
-  const li = document.createElement('li');
-  li.className = 'page-ellipsis';
-  li.textContent = '...';
-  return li;
-}
-
 // ===== MODAL FUNCTIONS =====
 function renderTrailerModal(videoKey, title) {
   const modal = document.createElement('div');
@@ -485,12 +252,17 @@ function renderTrailerModal(videoKey, title) {
 
 async function renderMovieDetailsModal(movieId) {
   try {
-    const [movie, videos] = await Promise.all([
-      fetchMovieDetails(movieId),
-      fetchMovieVideos(movieId),
+    const [movie, videosData] = await Promise.all([
+      API.fetchMovieDetails(movieId),
+      API.fetchMovieVideos(movieId),
     ]);
 
-    const trailer = videos.length ? videos[0] : null;
+    const videos = videosData?.results || [];
+    const trailers = videos.filter(
+      video => video.site === 'YouTube' && video.type === 'Trailer'
+    );
+    const trailer = trailers.length ? trailers[0] : null;
+
     const genres = movie.genres?.length
       ? movie.genres.map(g => g.name).join(', ')
       : '—';
@@ -564,15 +336,9 @@ function setupModalEventListeners(modal) {
 // ===== MAIN FUNCTIONS =====
 async function loadTrendingMovies(page = 1) {
   try {
-    showLoader();
     DOM.movieListRegion.setAttribute('aria-busy', 'true');
 
-    const [data] = await Promise.all([
-      fetchTrendingWeek(page),
-      new Promise(resolve => setTimeout(resolve, 800)), // Minimum loading time
-    ]);
-
-    AppState.totalPages = data.total_pages || 1;
+    const data = await API.fetchTrendingWeek(page);
 
     // Only render hero section if hero content exists (may be deactivated)
     if (DOM.heroContent && page === 1) {
@@ -601,14 +367,13 @@ async function loadTrendingMovies(page = 1) {
 
     const movies = data.results || [];
     renderMoviesList(movies);
-    renderPagination(page, AppState.totalPages);
+    renderPagination(page, data.total_pages || 1);
 
     AppState.lastSearch = { input: '', year: '', isSearch: false };
   } catch (error) {
     console.error('Error loading trending movies:', error);
     showErrorMessage('Failed to load trending movies. Please try again later.');
   } finally {
-    hideLoader();
     DOM.movieListRegion.removeAttribute('aria-busy');
   }
 }
@@ -619,13 +384,9 @@ async function performMovieSearch(query, year = '', page = 1) {
   }
 
   try {
-    showLoader();
     DOM.movieListRegion.setAttribute('aria-busy', 'true');
 
-    const [data] = await Promise.all([
-      searchMovies(query.trim(), year, page),
-      new Promise(resolve => setTimeout(resolve, 600)), // Minimum loading time
-    ]);
+    const data = await API.searchMovies(query.trim(), year, page);
 
     const movies = data.results || [];
     renderMoviesList(movies);
@@ -636,14 +397,11 @@ async function performMovieSearch(query, year = '', page = 1) {
     console.error('Error performing search:', error);
     showErrorMessage('Search failed. Please try again.');
   } finally {
-    hideLoader();
     DOM.movieListRegion.removeAttribute('aria-busy');
   }
 }
 
 function handlePageChange(page) {
-  AppState.currentPage = page;
-
   if (AppState.lastSearch.isSearch) {
     performMovieSearch(
       AppState.lastSearch.input,
@@ -659,14 +417,18 @@ function handlePageChange(page) {
 
 async function handleTrailerClick(movieId) {
   try {
-    const videos = await fetchMovieVideos(movieId);
+    const videosData = await API.fetchMovieVideos(movieId);
+    const videos = videosData?.results || [];
+    const trailers = videos.filter(
+      video => video.site === 'YouTube' && video.type === 'Trailer'
+    );
 
-    if (!videos.length) {
+    if (!trailers.length) {
       showErrorMessage('No trailer available for this movie.', 'warning');
       return;
     }
 
-    const trailer = videos[0];
+    const trailer = trailers[0];
     renderTrailerModal(trailer.key, trailer.name || 'Trailer');
   } catch (error) {
     console.error('Error loading trailer:', error);
@@ -684,52 +446,8 @@ async function handleDetailsClick(movieId) {
 }
 
 // ===== EVENT LISTENERS =====
-/**
- * Populates year select dropdown
- */
-function populateYearSelect() {
-  if (!DOM.yearSelect) return; // Skip if search is deactivated
-
-  const currentYear = new Date().getFullYear();
-
-  for (let year = currentYear; year >= CONFIG.YEAR_SELECT_START; year--) {
-    const option = document.createElement('option');
-    option.value = year;
-    option.textContent = year;
-    DOM.yearSelect.appendChild(option);
-  }
-}
-
-/**
- * Sets up all event listeners
- */
 function setupEventListeners() {
-  // Only setup search-related listeners if search elements exist
-  if (DOM.searchForm && DOM.searchInput && DOM.yearSelect && DOM.clearBtn) {
-    // Search form submission
-    DOM.searchForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const query = DOM.searchInput.value;
-      const year = DOM.yearSelect.value;
-      performMovieSearch(query, year, 1);
-    });
-
-    // Search input changes
-    DOM.searchInput.addEventListener('input', e => {
-      const value = e.target.value;
-      DOM.clearBtn.style.display = value.trim() ? 'flex' : 'none';
-    });
-
-    // Clear button
-    DOM.clearBtn.addEventListener('click', () => {
-      DOM.searchInput.value = '';
-      DOM.clearBtn.style.display = 'none';
-      DOM.yearSelect.value = '';
-      loadTrendingMovies(1);
-    });
-  }
-
-  // Movie action buttons (always setup - these work for modal buttons too)
+  // Movie action buttons (works for modal buttons too)
   document.addEventListener('click', async e => {
     const trailerBtn = e.target.closest('.trailer-btn');
     if (trailerBtn) {
@@ -751,42 +469,35 @@ function setupEventListeners() {
 }
 
 // ===== INITIALIZATION =====
-/**
- * Initializes the application
- */
 async function initializeApp() {
   try {
-    // Initialize DOM elements after partials are loaded
+    // Initialize DOM elements
     DOM = {
       moviesUl: document.getElementById('movies-ul'),
-      paginationUl: document.getElementById('pagination-ul'),
-      heroContent: document.getElementById('hero-content'), // May be null if deactivated
-      searchForm: document.getElementById('search-form'), // May be null if deactivated
-      searchInput: document.getElementById('search-input'), // May be null if deactivated
-      clearBtn: document.getElementById('clear-btn'), // May be null if deactivated
-      yearSelect: document.getElementById('year-select'), // May be null if deactivated
+      heroContent: document.getElementById('hero-content'),
       movieListRegion: document.getElementById('movie-list'),
     };
 
-    // Setup event listeners (search events will be skipped if search is deactivated)
+    // Setup event listeners
     setupEventListeners();
 
-    // Only populate year select if search form exists
-    if (DOM.yearSelect) {
-      populateYearSelect();
-    }
+    // Initialize pagination module
+    initPagination(handlePageChange);
 
-    AppState.genresCache = await fetchGenres();
+    // Fetch genres cache
+    const genresData = await API.fetchGenres();
+    AppState.genresCache = genresData.genres || [];
 
     // Only render hero section if hero content exists
     if (DOM.heroContent) {
-      const dayData = await fetchTrendingDay();
+      const dayData = await API.fetchTrendingDay();
       const heroMovie = dayData.results?.[0];
       if (heroMovie) {
         renderHeroSection(heroMovie);
       }
     }
 
+    // Load initial trending movies
     await loadTrendingMovies(1);
   } catch (error) {
     console.error('Error initializing app:', error);
@@ -795,13 +506,8 @@ async function initializeApp() {
 }
 
 // ===== APP STARTUP =====
-async function startApp() {
-  await loadPartials();
-  initializeApp();
-}
-
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startApp);
+  document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
-  startApp();
+  initializeApp();
 }

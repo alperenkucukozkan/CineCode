@@ -12,11 +12,12 @@
       content="film, sinema, movie, catalog, trending, search"
     />
     <meta name="author" content="Cinemania" />
-
     <title>Cinemania | Film Kataloğu</title>
 
-    <link rel="preload" href="/CineCode/assets/catalog-DedKfJNQ.js" as="script" crossorigin />
+    <!-- Preload -->
+    <link rel="preload" href="/CineCode/assets/catalog-xsAoC5IH.js" as="script" crossorigin />
 
+    <!-- Styles -->
     <link rel="icon" href="/CineCode/assets/favicon-0Qq06bqf.svg" />
 
     <!-- Google Fonts -->
@@ -26,10 +27,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/CineCode/assets/searchBar-DoB48YVi.js"></script>
-    <script type="module" crossorigin src="/CineCode/assets/main-BtdJTNpB.js"></script>
-    <link rel="stylesheet" crossorigin href="/CineCode/assets/main-DFpT8Rt_.css">
-    <link rel="stylesheet" crossorigin href="/CineCode/assets/catalog-CxRx_tiK.css">
+    <script type="module" crossorigin src="/CineCode/assets/searchBar-BUtDuUck.js"></script>
+    <script type="module" crossorigin src="/CineCode/assets/main-DB86svI2.js"></script>
+    <link rel="stylesheet" crossorigin href="/CineCode/assets/main-B1rA2da2.css">
+    <link rel="stylesheet" crossorigin href="/CineCode/assets/catalog-CbSUCOJI.css">
   </head>
 
   <body>
@@ -38,19 +39,9 @@
       <load src="./partials/header.html"></load>
     </header>
 
+    <!-- Main Content -->
     <main id="main-content" role="main">
-      <!-- Movie Catalog Section -->
       <section class="catalog-block container" aria-label="Film Listesi">
-        <!-- Loading State -->
-        <div
-          id="loading-indicator"
-          class="loading-indicator"
-          aria-hidden="true"
-        >
-          <div class="spinner" aria-label="Yükleniyor"></div>
-        </div>
-
-        <!-- Movie List -->
         <div
           id="movie-list"
           class="movie-list"
@@ -66,10 +57,8 @@
     </main>
 
     <!-- Footer -->
-
     <load src="./partials/footer.html"></load>
 
     <!-- Scripts -->
-
   </body>
 </html>

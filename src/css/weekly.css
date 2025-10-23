@@ -103,9 +103,13 @@ body.light-theme .weekly-gallery li {
 }
 
 .card-info {
-  color: #b7b7b7;
+  color: #f8f8f8;
   font-size: 12px;
   margin: 0;
+}
+
+body.light-theme .card-info {
+  color: #f8f8f8;
 }
 
 .card-rating {
@@ -434,9 +438,13 @@ body.light-theme .remove-from-library:hover {
 
   .card-info {
     font-size: 12px;
-    color: #b7b7b7;
+    color: #f8f8f8;
     margin: 0;
   }
+
+  body.light-theme .card-info {
+  color: #f8f8f8;
+}
 
   .card-rating {
     position: absolute;
@@ -569,6 +577,10 @@ body.light-theme .remove-from-library:hover {
   .card-info {
     font-size: 20px;
   }
+
+  body.light-theme .card-info {
+  color: #f8f8f8;
+}
 
   .card-rating {
     position: absolute;

@@ -23,8 +23,8 @@ button.goit-students {
 .footer-modal-title {
   text-align: center;
   color:#F87719;
-  font-size: 30px;
-  margin-bottom: 30px;
+  font-size: 25px;
+  margin-bottom: 20px;
   font-weight: bold;
 }
 
@@ -60,8 +60,8 @@ button.goit-students {
 
 .footer-modal-close-btn {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 15px;
+  right: 20px;
   font-size: 30px;
   color: #F87719;
   cursor: pointer;

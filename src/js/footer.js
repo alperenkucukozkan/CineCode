@@ -191,3 +191,4 @@ if (document.readyState === 'loading') {
 } else {
   initFooterModal();
 }
+

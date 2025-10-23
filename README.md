@@ -1,4 +1,4 @@
-# <img width="40" height="40" alt="Frame 770814" src="https://github.com/user-attachments/assets/31e5d650-1649-4c03-b96d-8ac730788252" />     CINEMANIA
+# <img width="40" height="40" alt="Frame 770814" src="https://github.com/user-attachments/assets/31e5d650-1649-4c03-b96d-8ac730788252" />     Cinemania
 
 
 Cinemania is a group project developed by GoIT students. This platform offers users a seamless way to explore trending movies, view detailed information about them, and create their personalized library of favorites.

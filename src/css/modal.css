@@ -5,8 +5,8 @@
   font-family: 'Roboto', sans-serif;
   display: none;
 }
-.is-open {
-  display: block;
+.modal.is-open {
+  display: flex;
 }
 .modal-content {
   margin: 52px 16px;

@@ -163,6 +163,11 @@ body.light-theme .weekly-gallery li {
   box-sizing: border-box;
 }
 
+body.light-theme  .weekly-movie-modal {
+    background-color: #fff;
+    color: #111;
+  }
+
 .modal-poster {
   width: 100%;
   height: auto;
@@ -464,6 +469,11 @@ body.light-theme .remove-from-library:hover {
     gap: 20px;
     max-width: 680px;
     padding: 24px;
+  }
+
+  body.light-theme  .weekly-movie-modal {
+    background-color: #fff;
+    color: #111;
   }
 
   .modal-details h2 {

@@ -1,173 +1,189 @@
-.modal {
-  width: 100%;
-  height: 847px;
-  background-color: #111;
-  font-family: 'Roboto', sans-serif;
-  display: none;
+/* =========================
+   1) Tema Değerleri (Varsayılan: Dark)
+   ========================= */
+:root {
+  --app-bg: #111;
+  --app-fg: #fff;
+  --app-muted: #b7b7b7;
+  --app-accent: #f87719;
+  --app-shadow: rgba(255, 107, 8, 0.42);
+  --app-border: rgba(255, 255, 255, 0.12);
 }
-.modal.is-open {
+/* Light tema */
+body.light-theme {
+  --app-bg: #fff;
+  --app-fg: #111;
+  --app-muted: #111; /* weekly’de ABOUT/paragraph koyu görünüyordu */
+  --app-accent: #f87719;
+  --app-shadow: rgba(255, 107, 8, 0.42);
+  --app-border: rgba(0, 0, 0, 0.08);
+}
+/* =========================
+   2) basicLightbox Backdrop
+   ========================= */
+.basicLightbox--visible {
+  background: rgba(0, 0, 0, 0.85);
+}
+/* =========================
+   3) Modal Kapsayıcı
+   ========================= */
+.app-modal {
   display: flex;
-}
-.modal-content {
-  margin: 52px 16px;
-  border: 1px solid #ffff;
-}
-.close-icon {
-  float: right;
-  margin-top: 20px;
-}
-.modal-img {
-  width: 100%;
-  height: 315px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  border: 1px solid #ffff;
-  margin-top: 52px;
-}
-.modal-info {
-  margin-top: 22px;
-}
-.movie-title {
-  margin-top: 0;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: normal;
-  color: #ffff;
-  margin-bottom: 29px;
-}
-.movie-votes {
-  margin-bottom: 12px;
-}
-.general {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 16px;
-  color: #b7b7b7;
-  margin-bottom: 12px;
-}
-.modal-genre {
-  margin-bottom: 20px;
-}
-.votes-value {
-  float: right;
-}
-.votes-puanlama {
-  display: inline-flex;
-  padding: 1px 8px;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 5px;
-  text-transform: uppercase;
-  background: #fff;
-  margin-right: 7px;
-}
-.votes-slash {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  color: #b7b7b7;
-  margin-right: 4px;
-}
-.votes-oysayisi {
-  text-transform: uppercase;
-  display: inline-flex;
-  padding: 1px 4px;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 5px;
-  background: #fff;
-}
-.genel {
-  float: right;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  color: #fff;
-  text-transform: uppercase;
-}
-.modal-about {
-  margin-bottom: 16px;
-}
-.about-value {
-  color: #f8f8f8;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  max-height: 140px;
-  overflow-y: auto;
-  padding-right: 8px;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--app-bg);
+  color: var(--app-fg);
+  padding: 20px;
+  border-radius: 20px;
+  width: 80vw;
+  max-width: 960px;
+  max-height: 100vh;
+  margin: auto;
+  box-shadow: 1px 1px 14px 4px var(--app-shadow);
+  position: relative;
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
   box-sizing: border-box;
+  overflow: hidden;
 }
-.modal-add-button {
-  width: 140px;
-  height: 38px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 74px;
-  border: 1px solid var(--linear, #ffc226);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
-  color: #fff;
-  background-color: #111;
-  margin-top: 4px;
-  cursor: pointer;
+.app-modal--wide {
+  width: 90vw;
+  max-width: 960px;
 }
-.modal-add-button:hover {
-  color: #f87719;
-  background: #fff;
+/* =========================
+   4) Kapatma Butonu
+   ========================= */
+.app-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
   border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--app-fg); /* SVG'de stroke: currentColor kullan */
+  transition: color 0.2s ease;
 }
-@media screen and (min-width: 768px) {
-  .modal-content {
-    display: flex;
-    padding: 44px;
-    position: relative;
+.app-modal__close:hover {
+  color: var(--app-accent);
+}
+.icon-close {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+/* =========================
+   5) Poster & İçerik
+   ========================= */
+.app-modal__poster {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+}
+.app-modal__details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.app-modal__title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  color: var(--app-fg);
+}
+.app-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+  color: var(--app-muted);
+}
+.app-modal__text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--app-muted);
+  margin: 0;
+}
+/* =========================
+   6) Butonlar
+   ========================= */
+.app-btn {
+  margin-top: 8px;
+  width: fit-content;
+  min-width: 160px;
+  height: 38px;
+  padding: 6px 16px;
+  border-radius: 74px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--app-accent);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  background: var(--app-bg);
+  color: var(--app-fg);
+}
+.app-btn--primary:hover {
+  background: #fff;
+  color: var(--app-accent);
+  border-color: #fff;
+}
+/* “Remove from my library” hissi için */
+.app-btn--danger:hover {
+  background: #fff;
+  color: var(--app-accent);
+  border-color: var(--app-accent);
+}
+/* =========================
+   7) Trailer Player
+   ========================= */
+.app-modal__player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+}
+.app-meta {
+  gap: 25px;
+}
+/* =========================
+   8) Responsive
+   ========================= */
+@media (min-width: 768px) {
+  .app-modal {
+    flex-direction: row;
+    gap: 20px;
+    padding: 24px;
   }
-  .close-icon {
-    position: absolute;
-    right: 24px;
-    top: 0;
+  .app-modal__poster {
+    width: 260px;
+    flex-shrink: 0;
   }
-
-  .modal-img {
-    margin-right: 16px;
-    width: 1000px;
-    margin-top: 0px;
-    height: 400px;
+  .app-modal__title {
+    font-size: 22px;
   }
-  .modal-info {
-    margin-top: 0;
+  .app-modal__text {
+    font-size: 15px;
   }
-  .movie-title {
-    margin-bottom: 26px;
+  .app-section-title {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1280px) {
+  .app-modal__poster {
+    width: 375px;
+    height: 478px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+  .app-modal__title {
     font-size: 24px;
-  }
-  .modal-about {
-    margin-bottom: 24px;
-  }
-  .about-value {
-    max-height: 160px;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .general {
-    font-size: 16px;
-  }
-  .votes-puanlama {
-    font-size: 16px;
-  }
-  .votes-oysayisi {
-    font-size: 16px;
-  }
-  .about-value {
-    max-height: 200px;
-    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
 }

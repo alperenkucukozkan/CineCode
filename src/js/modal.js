@@ -1,249 +1,144 @@
-// API'den film detaylarını alma
-import { fetchMovieDetails } from '../api/api.js';
-
-// Local Storage için kullanılacak anahtar ismi
-const LOCAL_STORAGE_KEY = 'myLibraryMovies_v1';
-
-// TMDB API'den gelen görsellerin temel URL'si
-const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
-
-// Oy veya popülerlik değerlerini yuvarlama fonk
-const roundOneDecimal = value => {
-  const n = Number(value);
-  if (Number.isNaN(n)) return 0.0;
-  return Math.round(n * 10) / 10;
-};
-
-// Local Storage'dan kayıtlı veriyi okuma fonk
-const readLibraryFromStorage = () => {
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
+/* ----- küçük “library” yardımcıları ----- */
+function readLibrary() {
   try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!raw) return {}; // Eğer veri yoksa boş obje döner
-    return JSON.parse(raw);
-  } catch (error) {
-    console.error('Local Storage okuma hatası:', error);
-    return {};
+    return JSON.parse(localStorage.getItem('library')) || [];
+  } catch {
+    return [];
   }
-};
-
-// Local Storage'a yeni film ekleme fonk
-const writeLibraryToStorage = obj => {
-  try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(obj));
-  } catch (error) {
-    console.error('Local Storage ekleme hatası:', error);
-  }
-};
-
-// Bir film kütüphanede var mı kontrol eden fonk (id üzerinden)
-const isInLibrary = movieId => {
-  const lib = readLibraryFromStorage();
-  return Boolean(lib[movieId]);
-};
-
-// Yeni bir filmi kütüphaneye ekleme fonk
-const addToLibrary = movieObj => {
-  if (!movieObj || !movieObj.id) return;
-  const lib = readLibraryFromStorage();
-  lib[movieObj.id] = movieObj;
-  writeLibraryToStorage(lib);
-};
-
-// filmi kütüphaneden kaldırma fonk
-const removeFromLibrary = movieId => {
-  const lib = readLibraryFromStorage();
-  if (lib[movieId]) {
-    delete lib[movieId];
-    writeLibraryToStorage(lib);
-  }
-};
-
-// Film posteri için URL oluşturma
-const buildImageUrl = path => {
-  if (!path) return '';
-  return `${IMAGE_BASE}${path}`;
-};
-
-// DOM ELEMANLARINI SEÇME
-
-const modalEl = document.querySelector('.modal');
-const closeBtnEl = document.querySelector('.close-icon');
-const posterImgEl = document.querySelector('.modal-img');
-const titleEl = document.querySelector('.movie-title');
-const votesPuanEl = document.querySelector('.votes-puanlama');
-const votesCountEl = document.querySelector('.votes-oysayisi');
-const popularityEl = document.querySelector('.popularity-value');
-const genreEl = document.querySelector('.genre-value');
-const aboutEl = document.querySelector('.about-value');
-const libraryBtn = document.querySelector('.modal-add-button');
-
-//  Modal Aç/Kapat İşlemleri
-
-let escHandler = null;
-let backdropHandler = null;
-let currentMovieData = null; // Şu anda açık olan filmin detayları
-
-// Modal açma fonksiyonu
-export const openModal = () => {
-  if (!modalEl) return;
-  modalEl.classList.add('is-open');
-  modalEl.setAttribute('aria-hidden', 'false');
-
-  // ESC tuşuna basıldığında modal kapansın
-  escHandler = e => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
-  document.addEventListener('keydown', escHandler);
-
-  // modal dışında bir yere tıklanırsa modal kapansın
-  backdropHandler = e => {
-    if (e.target === modalEl) {
-      closeModal();
-    }
-  };
-  modalEl.addEventListener('click', backdropHandler);
-};
-
-// Modal kapama fonk
-export const closeModal = () => {
-  if (!modalEl) return;
-  modalEl.classList.remove('is-open');
-  modalEl.setAttribute('aria-hidden', 'true');
-  currentMovieData = null;
-
-  // ESC ve tıklama eventlerini temizleme
-  if (escHandler) document.removeEventListener('keydown', escHandler);
-  if (backdropHandler) modalEl.removeEventListener('click', backdropHandler);
-};
-
-// Kapatma ikonuna tıklanırsa modal kapanır
-if (closeBtnEl) {
-  closeBtnEl.addEventListener('click', e => {
-    e.stopPropagation();
-    closeModal();
-  });
 }
-
-// --------------------Modal İçeriğini Güncelleme-------------------
-
-// Kütüphaneye ekleme/kaldırma butonunun metnini güncelleme
-const updateLibraryButton = movieId => {
-  if (!libraryBtn) return;
-  const inLib = isInLibrary(movieId);
-  libraryBtn.textContent = inLib
-    ? 'Remove from my Library'
-    : 'Add to my Library';
-  libraryBtn.dataset.inLibrary = inLib ? 'true' : 'false';
-  libraryBtn.dataset.movieId = movieId;
-};
-
-// Ana render fonksiyonu — film bilgilerini modal içine yerleştirme
-export const renderMovieInModal = movie => {
-  if (!movie) return;
-  currentMovieData = movie;
-
-  // Poster alanı
-  const posterPath = movie.poster_path || movie.backdrop_path || '';
-  const posterUrl = buildImageUrl(posterPath);
-  if (posterImgEl) {
-    if (posterUrl) {
-      posterImgEl.src = posterUrl;
-      posterImgEl.alt = movie.title || movie.name || 'Movie Poster';
-    } else {
-      posterImgEl.src = '';
-      posterImgEl.alt = 'Poster not available';
-    }
-  }
-
-  //  Film başlığı
-  if (titleEl) titleEl.textContent = movie.title || movie.name || 'No title';
-
-  //  Oy ortalaması
-  if (votesPuanEl) {
-    const rounded = roundOneDecimal(movie.vote_average ?? 0);
-    votesPuanEl.textContent = rounded.toFixed(1);
-  }
-
-  //  Toplam oy sayısı
-  if (votesCountEl) votesCountEl.textContent = movie.vote_count ?? 0;
-
-  //  Popülerlik değeri
-  if (popularityEl) {
-    const roundedPop = roundOneDecimal(movie.popularity ?? 0);
-    popularityEl.textContent = roundedPop.toFixed(1);
-  }
-
-  //  Tür bilgisi
-  if (genreEl) {
-    let genreText = '-';
-    if (Array.isArray(movie.genres) && movie.genres.length > 0) {
-      genreText = movie.genres
-        .map(g => g.name)
-        .slice(0, 3)
-        .join(', ');
-    } else if (movie.genre_ids && Array.isArray(movie.genre_ids)) {
-      genreText = movie.genre_ids.join(', ');
-    }
-    genreEl.textContent = genreText;
-  }
-
-  // Film özeti (about)
-  if (aboutEl) {
-    aboutEl.textContent =
-      movie.overview || movie.description || 'No description available.';
-  }
-
-  // Library butonunu güncelle
-  updateLibraryButton(movie.id);
-};
-
-// Library Buton Tıklaması
-
-if (libraryBtn) {
-  libraryBtn.addEventListener('click', async e => {
-    e.preventDefault();
-
-    const movieId =
-      libraryBtn.dataset.movieId || (currentMovieData && currentMovieData.id);
-    if (!movieId) return;
-
-    const inLib = isInLibrary(movieId);
-
-    // Eğer film zaten kütüphanedeyse kaldır
-    if (inLib) {
-      removeFromLibrary(movieId);
-      updateLibraryButton(movieId);
-      return;
-    }
-
-    // Eğer film detayları eksikse API'den çek
-    let movie = currentMovieData;
-    if (!movie || String(movieId) !== String(movie.id)) {
-      try {
-        movie = await fetchMovieDetails(movieId);
-      } catch (error) {
-        console.error('fetchMovieDetails fonksiyonu hatası:', error);
-        return;
-      }
-    }
-
-    // Kaydedilecek film objesini hazırlama
-    const toStore = {
-      id: movie.id,
-      title: movie.title || movie.name || '',
-      poster_path: movie.poster_path || '',
-      vote_average: movie.vote_average ?? 0,
-      vote_count: movie.vote_count ?? 0,
-      popularity: movie.popularity ?? 0,
-      genres: movie.genres ?? movie.genre_ids ?? [],
-      overview: movie.overview || '',
-      savedAt: new Date().toISOString(),
-    };
-
-    // Local Storage’a ekle ve butonu güncelle
-    addToLibrary(toStore);
-    updateLibraryButton(movieId);
-  });
+function writeLibrary(arr) {
+  localStorage.setItem('library', JSON.stringify(arr));
 }
+function isInLibrary(movieId) {
+  const lib = readLibrary();
+  return lib.some(m => Number(m.id) === Number(movieId));
+}
+function toggleLibrary(movie, btn) {
+  let lib = readLibrary();
+  const exists = lib.some(m => Number(m.id) === Number(movie.id));
+  if (exists) {
+    lib = lib.filter(m => Number(m.id) !== Number(movie.id));
+    btn.textContent = 'Add to Library';
+    btn.classList.remove('app-btn--danger');
+    btn.classList.add('app-btn--primary');
+  } else {
+    if (!movie.genre_ids && movie.genres) {
+      movie.genre_ids = movie.genres.map(g => g.id);
+    }
+    lib.push(movie);
+    btn.textContent = 'Remove from my library';
+    btn.classList.remove('app-btn--primary');
+    btn.classList.add('app-btn--danger');
+  }
+  writeLibrary(lib);
+}
+/* ----- tekil basicLightbox instance ----- */
+let instance = null;
+function openWithHTML(html, onShow) {
+  if (instance?.visible()) instance.close();
+  instance = basicLightbox.create(html, {
+    onShow: inst => {
+      const closeBtn = inst.element().querySelector('.app-modal__close');
+      if (closeBtn) closeBtn.addEventListener('click', () => inst.close());
+      if (typeof onShow === 'function') onShow(inst);
+    },
+  });
+  instance.show();
+}
+/* ----- film layout (weekly’den bağımsız sınıflar) ----- */
+function movieHTML(movie) {
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : `https://via.placeholder.com/500x750?text=No+Image`;
+  const genres = Array.isArray(movie.genres)
+    ? movie.genres.map(g => g.name).join(', ')
+    : Array.isArray(movie.genre_ids)
+    ? movie.genre_ids.join(', ')
+    : '-';
+  const inLib = isInLibrary(movie.id);
+  return `
+    <div class="app-modal" role="dialog" aria-modal="true">
+      <button class="app-modal__close" type="button" aria-label="Close">
+        <svg class="app-icon" width="24" height="24" viewBox="0 0 12 12">
+          <path d="M11 11L0.5 0.5M11 0.5L0.5 11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <img src="${posterUrl}" class="app-modal__poster" alt="${
+    movie.title || movie.name || 'Movie'
+  }"/>
+      <div class="app-modal__details">
+        <h2 class="app-modal__title">${
+          movie.title || movie.name || 'Untitled'
+        }</h2>
+        <div class="app-meta">
+          <div><strong>Vote / Votes:</strong> <span class="vote-box">${
+            movie.vote_average ?? 0
+          }</span> <span>/</span> <span class="vote-box">${
+    movie.vote_count ?? 0
+  }</span></div>
+          <div><strong>Popularity:</strong> ${movie.popularity ?? 0}</div>
+          <div><strong>Genre:</strong> ${genres}</div>
+        </div>
+        <h3 class="app-section-title">ABOUT</h3>
+        <p class="app-modal__about">${
+          movie.overview || 'No description available.'
+        }</p>
+        <button class="app-btn ${
+          inLib ? 'app-btn--danger' : 'app-btn--primary'
+        }" data-action="toggle-library">
+          ${inLib ? 'Remove from my library' : 'Add to Library'}
+        </button>
+      </div>
+    </div>
+  `;
+}
+/* ----- public API ----- */
+export const Modal = {
+  renderMovie(movie) {
+    openWithHTML(movieHTML(movie), inst => {
+      const btn = inst
+        .element()
+        .querySelector('[data-action="toggle-library"]');
+      if (btn) btn.addEventListener('click', () => toggleLibrary(movie, btn));
+    });
+  },
+  showTrailer(youtubeKey) {
+    openWithHTML(`
+      <div class="app-modal app-modal--wide">
+        <button class="app-modal__close" type="button" aria-label="Close">
+          <svg class="app-icon" width="24" height="24" viewBox="0 0 12 12">
+            <path d="M11 11L0.5 0.5M11 0.5L0.5 11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="app-modal__player">
+          <iframe
+            src="https://www.youtube.com/embed/${youtubeKey}"
+            width="100%" height="100%" frameborder="0" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        </div>
+      </div>
+    `);
+  },
+  showMessage(text, title = 'Info') {
+    openWithHTML(`
+      <div class="app-modal">
+        <button class="app-modal__close" type="button" aria-label="Close">
+          <svg class="app-icon" width="24" height="24" viewBox="0 0 12 12">
+            <path d="M11 11L0.5 0.5M11 0.5L0.5 11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="app-modal__details">
+          <h2 class="app-modal__title">${title}</h2>
+          <p class="app-modal__about">${text}</p>
+        </div>
+      </div>
+    `);
+  },
+  openWithHTML,
+  close() {
+    if (instance?.visible()) instance.close();
+  },
+};

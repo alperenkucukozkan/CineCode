@@ -52,6 +52,7 @@ button.goit-students {
   position: relative;
 }
 
+
 .footer-modal-close-btn {
   position: absolute;
   top: 12px;
@@ -81,10 +82,6 @@ button.goit-students {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.dark-theme .student-item {
-  box-shadow: 0 4px 8px rgba(46, 46, 46, 0.936);
-}
-
 .student-item:hover {
   transform: scale(1.05);
 }
@@ -97,6 +94,12 @@ button.goit-students {
   border-top-right-radius: 10px;
 }
 
+.student-info {
+  background-color:#595959;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .student-info p {
   color:#B7B7B7;
   font-weight: bold;
@@ -105,11 +108,6 @@ button.goit-students {
 .footer-icon {
   color: #595959;
   margin: 0 5px;
-}
-
-.light-theme .info-icon {
-  fill: #111111;
-  transition: transform 250ms ease-in-out;
 }
 
 .info-icon:hover {
@@ -126,6 +124,22 @@ button.goit-students {
   background: none;
 }
 
+.light-theme .info-icon {
+  transition: transform 250ms ease-in-out;
+  fill:#F8F8F8;
+}
+
+.light-theme .footer-modal-content {
+  color:#F87719;
+}
+
+.light-theme .student-info p {
+  color:#F87719;
+}
+
+.dark-theme .student-info {
+  background: #121212;
+}
 .dark-theme .footer-modal-content {
   background: #121212;
 }
@@ -133,6 +147,12 @@ button.goit-students {
 .dark-theme .footer-modal-close-btn {
   color: #121212;
 }
+
 .dark-theme .info-icon {
   fill:#F8F8F8;
+  transition: transform 250ms ease-in-out;
+}
+
+.dark-theme .student-item {
+  box-shadow: 0 4px 8px rgba(46, 46, 46, 0.936);
 }

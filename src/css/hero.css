@@ -121,10 +121,9 @@
 }
 
 .icon-empty-star {
-  fill: transparent;
   color: #ff6b35;
   stroke: #ff6b35;
-  stroke-width: 0;
+  stroke-width: 1;
 }
 .hero-badge {
   display: flex;

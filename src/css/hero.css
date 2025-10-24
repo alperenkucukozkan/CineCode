@@ -38,7 +38,7 @@
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 #hero-x .hero-title {
@@ -66,7 +66,7 @@
 #hero-x .hero-ctas {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 /* Butonlar */
@@ -149,6 +149,9 @@
     height: 432px;
     border-radius: 0;
   }
+  #hero-x .hero-bg {
+    background-position: 123px center;
+  }
   #hero-x .hero-title {
     font-size: 44px;
   }
@@ -157,7 +160,7 @@
   }
   #hero-x .hero-inner {
     padding: 36px 32px;
-    max-width: 90%;
+    gap: 22px;
   }
 }
 
@@ -165,6 +168,9 @@
   #hero-x {
     height: 720px;
     border-radius: 0;
+  }
+  #hero-x .hero-bg {
+    background-position: 234px center;
   }
   #hero-x .hero-title {
     font-size: 64px;
@@ -176,5 +182,9 @@
   }
   #hero-x .hero-inner {
     padding: 118px 135px;
+    gap: 36px;
+  }
+  #hero-x .hero-ctas {
+    gap: 14px;
   }
 }

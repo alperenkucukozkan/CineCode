@@ -29,22 +29,45 @@ async function initHeroSection() {
     renderDefaultHero(heroRoot);
   }
 }
+function createRatingStars(vote) {
+  const fullStars = Math.floor(vote / 2);
+  const hasHalfStar = vote % 2 >= 1;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+  let stars = [];
+  for (let i = 0; i < fullStars; i++)
+    stars.push(
+      '<svg class="icon-full-star"><use xlink:href="../img/icon.svg#icon-full-star"></use></svg>'
+    );
+  if (hasHalfStar)
+    stars.push(
+      '<svg class="icon-half-star"><use xlink:href="../img/icon.svg#icon-half-star"></use></svg>'
+    );
+  for (let i = 0; i < emptyStars; i++)
+    stars.push(
+      '<svg class="icon-empty-star"><use xlink:href="../img/icon.svg#icon-empty-star"></use></svg>'
+    );
+  return stars.join('');
+}
+
 
 function renderMovieHero(container, movie) {
+  const ratingStars = createRatingStars(movie.vote_average);
   container.innerHTML = `
     <div class="hero-bg" style="background-image:url('${IMAGE_BASE_URL}${movie.backdrop_path || movie.poster_path || ''}')"></div>
     <div class="hero-scrim"></div>
 
     <div class="hero-inner">
+    <div class="hero-badge">
       <h2 class="hero-title">${movie.title ?? movie.name ?? 'Untitled'}</h2>
+      <span class="hero-rating">${ratingStars}</span>
+      </div>
       <p class="hero-sub">
         ${movie.overview || 'No description available.'}
       </p>
 
       <div class="hero-ctas">
-        <button class="btn-play" id="play-trailer-btn">Play Trailer</button>
+        <button class="btn-play" id="play-trailer-btn">Watch Trailer</button>
         <button class="btn-info" id="more-info-btn">More Info</button>
-        <span class="hero-rating">⭐ ${movie.vote_average != null ? Number(movie.vote_average).toFixed(1) : 'N/A'}</span>
       </div>
     </div>
   `;

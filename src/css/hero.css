@@ -7,7 +7,6 @@
   margin: 0 auto;
   overflow: hidden;
   color: #fff;
-  border-radius: 12px;
 }
 
 /* Arkaplan görsel */
@@ -68,20 +67,22 @@
 #hero-x .btn-play,
 #hero-x .btn-info,
 #hero-x .hero-ctas a.btn-play {
-  padding: 12px 18px;
+  padding: 12px 24px;
   border-radius: 999px;
-  border: 1px solid #f87719;
-  font-weight: 600;
+  border: 1px solid transparent;
+  font-weight: 500;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
 }
-
+#hero-x .btn-info {
+  border: 1px solid #fff;
+}
 #hero-x .btn-play,
 #hero-x .hero-ctas a.btn-play {
-  background: linear-gradient(180deg, #ffc226, #f87719);
+  background: linear-gradient(180deg, #ffc226, #f84119);
   color: #111;
   border: none;
 }
@@ -91,20 +92,52 @@
   color: #fff;
 }
 
+#hero-x .btn-play:hover,
+#hero-x .hero-ctas a.btn-play:hover {
+  background: #ffff;
+  color: #f87719;
+  border: 1px solid #f84119;
+}
+
 #hero-x .btn-info:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Rating badge */
-#hero-x .hero-rating {
-  margin-left: 6px;
-  padding: 6px 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  font-size: 14px;
+.hero-rating {
+  bottom: 16px;
+  display: flex;
+  gap: 4px;
+  right: 12px;
+  width: 86px;
+  height: 14px;
 }
 
+.icon-full-star,
+.icon-half-star {
+  fill: #ff6b35;
+  color: #ff6b35;
+  stroke: #ff6b35;
+  stroke-width: 1;
+}
+
+.icon-empty-star {
+  fill: transparent;
+  color: #ff6b35;
+  stroke: #ff6b35;
+  stroke-width: 0;
+}
+.hero-badge {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.icon-full-star,
+.icon-half-star,
+.icon-empty-star {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
 /* Responsive */
 @media (max-width: 767px) {
   #hero-x {

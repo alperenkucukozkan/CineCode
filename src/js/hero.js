@@ -1,9 +1,9 @@
 import {
   fetchDailyTrending,
   fetchMovieDetails,
-  fetchMovieVideos
+  fetchMovieVideos,
 } from '../api/api.js';
-// import { Modal } from './modal.js'; 
+// import { Modal } from './modal.js';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
 
@@ -15,7 +15,7 @@ async function initHeroSection() {
     const data = await fetchDailyTrending();
     const movies = Array.isArray(data?.data?.results)
       ? data.data.results
-      : (data?.results || []);
+      : data?.results || [];
 
     if (!movies.length) {
       renderDefaultHero(heroRoot);
@@ -49,11 +49,12 @@ function createRatingStars(vote) {
   return stars.join('');
 }
 
-
 function renderMovieHero(container, movie) {
   const ratingStars = createRatingStars(movie.vote_average);
   container.innerHTML = `
-    <div class="hero-bg" style="background-image:url('${IMAGE_BASE_URL}${movie.backdrop_path || movie.poster_path || ''}')"></div>
+    <div class="hero-bg" style="background-image:url('${IMAGE_BASE_URL}${
+    movie.backdrop_path || movie.poster_path || ''
+  }')"></div>
     <div class="hero-scrim"></div>
 
     <div class="hero-inner">
@@ -102,10 +103,14 @@ function renderDefaultHero(container) {
 async function playTrailer(movieId) {
   try {
     const data = await fetchMovieVideos(movieId);
-    const results = Array.isArray(data?.data?.results) ? data.data.results : data?.results;
-    const trailer = results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+    const results = Array.isArray(data?.data?.results)
+      ? data.data.results
+      : data?.results;
+    const trailer = results?.find(
+      v => v.type === 'Trailer' && v.site === 'YouTube'
+    );
     if (trailer) {
-      Modal.showTrailer(trailer.key);     // <-- basicLightbox
+      Modal.showTrailer(trailer.key); // <-- basicLightbox
     } else {
       Modal.showMessage('Trailer not available.', 'Info');
     }
@@ -119,7 +124,7 @@ async function showMovieDetails(movieId) {
   try {
     const res = await fetchMovieDetails(movieId);
     const movie = res?.data ?? res;
-    Modal.renderMovie(movie);             // <-- tek çağrı, kendi kendine açar
+    Modal.renderMovie(movie); // <-- tek çağrı, kendi kendine açar
   } catch (err) {
     console.error('Movie details error:', err);
     Modal.showMessage('Movie details could not be loaded.', 'Error');

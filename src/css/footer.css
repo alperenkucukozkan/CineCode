@@ -19,6 +19,10 @@ button.goit-students {
   font-weight: bold;
 }
 
+.light-theme .footer-modal-title {
+  color:#F87719;
+}
+
 .footer-modal-overlay {
   position: fixed;
   top: 0;
@@ -103,8 +107,8 @@ button.goit-students {
   margin: 0 5px;
 }
 
-.info-icon {
-  fill: #595959;
+.light-theme .info-icon {
+  fill: #111111;
   transition: transform 250ms ease-in-out;
 }
 

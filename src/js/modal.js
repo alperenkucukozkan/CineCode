@@ -247,10 +247,3 @@ if (libraryBtn) {
     updateLibraryButton(movieId);
   });
 }
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initModal, {
-    once: true,
-  });
-} else {
-  initModal();
-}

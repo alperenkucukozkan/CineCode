@@ -4,7 +4,7 @@ import {
   fetchMovieDetails,
 } from '../api/api.js';
 
-// import { Modal } from './modal.js';
+import { Modal } from './modal.js';
 
 let gallery;
 let seeAllBtn;

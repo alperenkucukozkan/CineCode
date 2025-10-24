@@ -59,8 +59,7 @@ const students = [
     name: "Emre Ürün",
     role: "Developer",
     img: "../img/emre.jpg",
-    github: "https://github.com/Emre-Urun",
-    linkedin: "#"
+    github: "https://github.com/Emre-Urun"
   },
 ];
 

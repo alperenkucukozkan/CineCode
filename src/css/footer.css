@@ -19,17 +19,12 @@ button.goit-students {
   font-weight: bold;
 }
 
-body.dark .footer-modal-title {
-  color: #F87719;
-}
-
 .footer-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #111111;
   display: none;
   justify-content: center;
   align-items: center;
@@ -42,7 +37,7 @@ body.dark .footer-modal-title {
 }
 
 .footer-modal-content {
-  background-color: #111111;
+  background: #F8F8F8;
   color: #F87719;
   border-radius: 10px;
   padding: 20px;
@@ -104,27 +99,20 @@ body.dark .footer-modal-title {
 }
 
 .footer-icon {
+  color: #595959;
   margin: 0 5px;
+}
+
+.info-icon {
+  fill: #595959;
+  transition: transform 250ms ease-in-out;
 }
 
 .info-icon:hover {
   transform: scale(1.05);
 }
 
-.info-icon {
-  fill: #F8F8F8;
-  transition: transform 250ms ease-in-out;
-}
-
 .footer-description {
-  color: #595959;
-}
-
-
-body.dark .footer-description {
-  color: gray;
-}
-body.dark button.goit-students {
   color: #595959;
 }
 
@@ -132,4 +120,15 @@ body.dark button.goit-students {
   font-weight: bold;
   color:#595959;
   background: none;
+}
+
+.dark-theme .footer-modal-content {
+  background: #121212;
+}
+
+.dark-theme .footer-modal-close-btn {
+  color: #121212;
+}
+.dark-theme .info-icon {
+  fill:#F8F8F8;
 }

@@ -112,7 +112,7 @@ function renderFooterModal() {
   modal.innerHTML = `
     <div class="footer-modal-content">
       <span class="footer-modal-close-btn" id="closeFooterModalBtn">&times;</span>
-      <h2 class="footer-modal-title">PROJECT TEAM</h2>
+      <h2 class="footer-modal-title">TEAM CİNECODE</h2>
       <ul class="student-list">
         ${students.map(createStudentItem).join("")}
       </ul>

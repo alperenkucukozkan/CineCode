@@ -66,7 +66,7 @@ function renderMovieHero(container, movie) {
       </p>
 
       <div class="hero-ctas">
-        <button class="btn-play" id="play-trailer-btn">Play Trailer</button>
+        <button class="btn-play" id="play-trailer-btn">Watch Trailer</button>
         <button class="btn-info" id="more-info-btn">More Info</button>
       </div>
     </div>

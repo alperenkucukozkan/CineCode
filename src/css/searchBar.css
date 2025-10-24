@@ -1,48 +1,186 @@
-.catalog-search-container {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+.search-section {
+  padding: 2rem 1rem;
+  background-color: transparent;
 }
 
-.catalog-search-input {
-    width: 224px;
-    height: 40px;
-    padding-left: 10px;
-    font-size: 14px;
-    color: #595959;
-    border-radius: 8px;
-    border-width: 1px;
+.search-form {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.catalog-search-button {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 50%;
-    background: linear-gradient(90deg, #ffc226, #f84119);
-    transition: all 0.3s ease;
+.search-input-wrapper {
+  position: relative;
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 100%;
 }
 
-.catalog-search-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 194, 38, 0.4);
+.search-input {
+  width: 100%;
+  padding: 0.875rem 2.5rem 0.875rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+  background-color: #000;
+  color: #fff;
 }
 
-.year-select {
-    width: 95px;
-    height: 40px;
-    border-radius: 8px;
-    text-align: center;
-    color: #595959;
-    font-size: 14px;
+.dark-theme .search-input {
+  background-color: #000;
+  color: #fff;
+  border-color: #333;
+}
+
+.light-theme .search-input {
+  background-color: #fff;
+  color: #000;
+  border-color: #e0e0e0;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #ff6b08;
+  box-shadow: 0 0 0 3px rgba(255, 107, 8, 0.1);
 }
 
 .clear-button {
-    height: 40px;
-    width: 40px;
-    font-size: 20px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: color 0.3s ease;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-button:hover {
+  color: #fff;
+  background-color: rgba(255, 107, 8, 0.1);
+}
+
+.clear-button.hidden {
+  display: none !important;
+}
+
+.year-select {
+  flex: 0 0 auto;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #000;
+  color: #fff;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  min-width: 150px;
+  max-width: 200px;
+  box-sizing: border-box;
+}
+
+.dark-theme .year-select {
+  background-color: #000;
+  color: #fff;
+  border-color: #333;
+}
+
+.light-theme .year-select {
+  background-color: #fff;
+  color: #000;
+  border-color: #e0e0e0;
+}
+
+.year-select:focus {
+  outline: none;
+  border-color: #ff6b08;
+}
+
+.search-button {
+  flex: 0 0 auto;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  background: linear-gradient(90deg, #ffc226, #f84119);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 8, 0.3);
+}
+
+.search-button:active {
+  transform: translateY(0);
+}
+
+/* Tablet için */
+@media (max-width: 992px) {
+  .search-form {
+    gap: 0.875rem;
+  }
+
+  .search-input-wrapper {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .year-select {
+    flex: 1 1 auto;
+    min-width: 140px;
+  }
+
+  .search-button {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+}
+
+/* Mobile için */
+@media (max-width: 768px) {
+  .search-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-input-wrapper,
+  .year-select,
+  .search-button {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .year-select,
+  .search-button {
+    min-width: 100%;
+  }
 }

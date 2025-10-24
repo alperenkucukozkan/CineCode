@@ -35,7 +35,6 @@
 /* İçerik */
 #hero-x .hero-inner {
   position: relative;
-  z-index: 2;
   max-width: 560px;
   padding: 56px 48px;
   margin-left: 24px;

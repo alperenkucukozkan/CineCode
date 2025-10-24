@@ -148,7 +148,7 @@ function displayLibrary(movies, reset = true) {
                     box-sizing: border-box;
                 ">
                     <h3 style="margin:0; font-size:18px;">${movie.title}</h3>
-                    <p style="margin:2px 0; font-size:14px;">${genres} | ${date}</p>
+                    <p style="margin:2px 0; font-size:14px; color: #fff;">${genres} | ${date}</p>
                     <div id="movie-rating">${stars}</div>
                 </div>
             </li>
@@ -407,9 +407,10 @@ async function loadGenres() {
 
 let GENRES = {};
 
-(async function init() {
+// ---------- DOMContentLoaded Init ---------- //
+document.addEventListener('DOMContentLoaded', async () => {
   await loadPartials();
   await loadGenres();
   fetchTrendingMovie();
   loadLibrary();
-})();
+});

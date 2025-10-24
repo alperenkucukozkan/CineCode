@@ -1,8 +1,7 @@
 // ===== IMPORTS =====
 import * as API from '../api/api.js';
 import { initPagination, renderPagination } from './pagination.js';
-import * as basicLightbox from 'basiclightbox';
-import 'basiclightbox/dist/basicLightbox.min.css';
+import { openModal, closeModal, renderMovieInModal } from './modal.js';
 
 // ===== CONFIGURATION =====
 const CONFIG = {
@@ -28,28 +27,6 @@ const AppState = {
 // ===== UTILITY FUNCTIONS =====
 function extractYear(releaseDate) {
   return releaseDate ? releaseDate.split('-')[0] : '—';
-}
-
-function toggleLibraryButton(movie, button) {
-  let library = JSON.parse(localStorage.getItem('library')) || [];
-  const isInLibrary = library.some(
-    item => Number(item.id) === Number(movie.id)
-  );
-  if (isInLibrary) {
-    library = library.filter(item => Number(item.id) !== Number(movie.id));
-    button.textContent = 'Add to Library';
-    button.classList.remove('remove-from-library');
-    button.classList.add('library-btn-w');
-  } else {
-    if (!movie.genre_ids && movie.genres) {
-      movie.genre_ids = movie.genres.map(g => g.id);
-    }
-    library.push(movie);
-    button.textContent = 'Remove from my library';
-    button.classList.remove('library-btn-w');
-    button.classList.add('remove-from-library');
-  }
-  localStorage.setItem('library', JSON.stringify(library));
 }
 
 function getImageUrl(posterPath) {
@@ -335,6 +312,36 @@ function handlePageChange(page) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ===== MODAL HELPERS =====
+async function handleDetailsClick(movieId) {
+  try {
+    const movie = await API.fetchMovieDetails(movieId);
+    renderMovieInModal(movie);
+    openModal();
+  } catch (e) {
+    console.error(e);
+    showErrorMessage('Movie details could not be loaded.');
+  }
+}
+
+async function handleTrailerClick(movieId) {
+  try {
+    const data = await API.fetchMovieVideos(movieId);
+    const trailer = data.results?.find(
+      v => v.type === 'Trailer' && v.site === 'YouTube'
+    );
+    if (trailer) {
+      // Open trailer in new window/tab
+      window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
+    } else {
+      showErrorMessage('Trailer not available.');
+    }
+  } catch (e) {
+    console.error(e);
+    showErrorMessage('Error fetching trailer.');
+  }
+}
+
 // ===== EVENT LISTENERS =====
 function setupEventListeners() {
   // Önceki handler'ı kaldır (eğer varsa)
@@ -352,92 +359,24 @@ function setupEventListeners() {
 
     try {
       const movie = await API.fetchMovieDetails(movieId);
-      const posterUrl = movie.poster_path
-        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-        : `https://via.placeholder.com/500x750?text=No+Image`;
-      const genres = movie.genres.map(g => g.name).join(', ');
-      const library = JSON.parse(localStorage.getItem('library')) || [];
-      const inLibrary = library.some(
-        item => Number(item.id) === Number(movie.id)
-      );
-
-      const popup = basicLightbox.create(
-        `
-        <div class="weekly-movie-modal">
-          <button class="popup-close-btn" aria-label="Close">
-            <svg class="icon-close" width="24" height="24">
-              <use xlink:href="../../img/icon.svg#icon-close"></use>
-            </svg>
-          </button>
-          <img src="${posterUrl}" class="modal-poster" alt="${movie.title}">
-          <div class="modal-details">
-            <h2>${movie.title}</h2>
-            <p><strong>Vote / Votes:</strong> ${movie.vote_average} / ${
-          movie.vote_count
-        }</p>
-            <p><strong>Popularity:</strong> ${movie.popularity}</p>
-            <p><strong>Genre:</strong> ${genres}</p>
-            <h3>ABOUT</h3>
-            <p>${movie.overview}</p>
-            <button class="${
-              inLibrary ? 'remove-from-library' : 'library-btn-w'
-            }">
-              ${inLibrary ? 'Remove from my library' : 'Add to Library'}
-            </button>
-          </div>
-        </div>
-        `,
-        {
-          onShow: instance => {
-            const closeBtn = instance
-              .element()
-              .querySelector('.popup-close-btn');
-            closeBtn.addEventListener('click', () => instance.close());
-            const addBtn = instance
-              .element()
-              .querySelector(
-                'button.remove-from-library, button.library-btn-w'
-              );
-            addBtn.addEventListener('click', () =>
-              toggleLibraryButton(movie, addBtn)
-            );
-          },
-        }
-      );
-      popup.show();
-      function handleEscKey(e) {
-        if (e.key === 'Escape') {
-          popup.close();
-          window.removeEventListener('keydown', handleEscKey);
-        }
-      }
-      window.addEventListener('keydown', handleEscKey);
+      renderMovieInModal(movie);
+      openModal();
     } catch (err) {
-      console.error('Popup açılırken hata:', err);
+      console.error('Modal açılırken hata:', err);
+      showErrorMessage('Film detayları yüklenemedi.');
     }
   };
 
   // Yeni handler'ı ekle
   DOM.moviesUl.addEventListener('click', movieCardClickHandler);
 
-  // Movie action buttons (works for modal buttons too)
+  // Movie action buttons (hero section'daki trailer ve details butonları için)
   document.addEventListener('click', async e => {
     const trailerBtn = e.target.closest('.trailer-btn');
-    if (trailerBtn) {
-      const movieId = trailerBtn.dataset.id;
-      if (movieId) {
-        await handleTrailerClick(movieId);
-      }
-      return;
-    }
+    if (trailerBtn) return handleTrailerClick(trailerBtn.dataset.id);
 
     const detailsBtn = e.target.closest('.details-btn');
-    if (detailsBtn) {
-      const movieId = detailsBtn.dataset.id;
-      if (movieId) {
-        await handleDetailsClick(movieId);
-      }
-    }
+    if (detailsBtn) return handleDetailsClick(detailsBtn.dataset.id);
   });
 }
 

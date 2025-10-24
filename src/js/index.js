@@ -9,9 +9,9 @@ async function boot() {
   await Promise.all([
     importIf('header, .header, #header', () => import('./header.js')),
     importIf('footer, .footer, #footer', () => import('./footer.js')),
-    importIf('#hero, #hero-content, .hero', () => import('./hero.js')),
+    importIf('#hero-x, #hero-content, .hero-x', () => import('./hero.js')),
     importIf('#loading-indicator, .loading-indicator', () => import('./loader.js')),
-    importIf('.movie-modal, [data-modal-root]', () => import('./modal.js')),
+    importIf('#app-modal-template', () => import('./modal.js')),
     importIf('#movies-ul, .movie-list-grid', () => import('./catalog.js')),
     importIf('#pagination-ul, .pagination', () => import('./pagination.js')),
     importIf('#search-form, #searchbar, .search-container', () => import('./searchBar.js')),

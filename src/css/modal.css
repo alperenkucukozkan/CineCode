@@ -30,7 +30,7 @@ body.light-theme {
 .app-modal {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 52px 16px;
   background: var(--app-bg);
   color: var(--app-fg);
   padding: 20px;
@@ -73,6 +73,10 @@ body.light-theme {
   width: 24px;
   height: 24px;
   stroke: currentColor;
+}
+.app-icon {
+  width: 10.5px;
+  height: 10.5px;
 }
 /* =========================
    5) Poster & İçerik
@@ -157,7 +161,7 @@ body.light-theme {
   .app-modal {
     flex-direction: row;
     gap: 20px;
-    padding: 24px;
+    padding: 44px;
   }
   .app-modal__poster {
     width: 260px;
@@ -174,6 +178,9 @@ body.light-theme {
   }
 }
 @media (min-width: 1280px) {
+  .app-modal {
+    padding: 60px;
+  }
   .app-modal__poster {
     width: 375px;
     height: 478px;

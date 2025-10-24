@@ -14,7 +14,7 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: 250px center;
   transform: scale(1.02);
   will-change: transform;
 }

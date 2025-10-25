@@ -1,23 +1,19 @@
-
 import * as API from '../api/api.js';
 import { Modal } from './modal.js';
 
+
 // ===== DOM =====
-const hero           = document.getElementById('hero');
-const titleEl        = document.getElementById('movie-title');
-const overviewEl     = document.getElementById('movie-overview');
-const ratingEl       = document.getElementById('movie-rating');
-const heroButtons    = document.getElementById('hero-buttons');
-const trailerBtn     = document.getElementById('trailer-btn');
 const libraryListEl  = document.getElementById('library-list');
 const emptyLibraryEl = document.getElementById('empty-library');
 const genreFilter    = document.getElementById('genre-filter');
 const loadMoreBtn    = document.getElementById('load-more-btn');
+
 // ===== STATE =====
 let GENRES = {};                  
 let currentLibraryView = [];     
 let displayedCount = 0;
 const LOAD_COUNT = 9;
+
 // ===== UTILS =====
 function createStarRating(vote) {
   const rating = (Number(vote) || 0) / 2;
@@ -45,55 +41,12 @@ function createStarRating(vote) {
   }
   return stars;
 }
+
 function getBrightness(rgb) {
   const m = rgb.match(/\d+/g);
   if (!m) return 255;
   const [r, g, b] = m.map(Number);
   return (r * 299 + g * 587 + b * 114) / 1000;
-}
-// ===== HERO =====
-async function initHero() {
-  try {
-    const dayData = await API.fetchDailyTrending(); // Eski fetch
-    const movie = dayData?.results?.[0];
-    if (!movie) return;
-
-    const bg = movie.backdrop_path || movie.poster_path || '';
-    hero.style.backgroundImage = `url("https://image.tmdb.org/t/p/original${bg}")`;
-
-    titleEl.textContent    = movie.title || movie.name || '—';
-    overviewEl.textContent = movie.overview || 'No description available.';
-    ratingEl.innerHTML     = createStarRating(movie.vote_average);
-    heroButtons.classList.remove('hidden');
-
-    // Trailer butonu
-    trailerBtn.onclick = async () => {
-      try {
-        const vids = await API.fetchMovieVideos(movie.id);
-        const trailer = vids?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
-        if (trailer?.key) {
-          Modal.showTrailer(trailer.key);
-        } else {
-          alert('Trailer not available!');
-        }
-      } catch (e) {
-        console.error('Trailer fetch error:', e);
-      }
-    };
-
-    // İsteğe bağlı: hero tıklama ile modal açma
-    hero.addEventListener('click', async () => {
-      try {
-        const details = await API.fetchMovieDetails(movie.id);
-        Modal.renderMovie(details);
-      } catch (e) {
-        console.error('Hero modal error:', e);
-      }
-    });
-
-  } catch (e) {
-    console.error('Hero init error:', e);
-  }
 }
 
 // ===== LIBRARY RENDER =====
@@ -103,6 +56,7 @@ function displayLibrary(movies, reset = true) {
     displayedCount = 0;
     currentLibraryView = Array.isArray(movies) ? movies : [];
   }
+
   const batch = currentLibraryView.slice(displayedCount, displayedCount + LOAD_COUNT);
   const html = batch.map(movie => {
     if (!movie.poster_path) return '';
@@ -112,6 +66,7 @@ function displayLibrary(movies, reset = true) {
       .filter(Boolean)
       .join(', ') || '—';
     const stars  = createStarRating(movie.vote_average);
+
     return `
       <li id="${movie.id}" class="library-card"
           style="
@@ -128,15 +83,19 @@ function displayLibrary(movies, reset = true) {
         </div>
       </li>`;
   }).join('');
+
   libraryListEl.insertAdjacentHTML('beforeend', html);
   displayedCount += batch.length;
+
   if (displayedCount < currentLibraryView.length) {
     loadMoreBtn.classList.remove('hidden');
   } else {
     loadMoreBtn.classList.add('hidden');
   }
+
   attachCardClickEvents();
 }
+
 function loadLibrary() {
   const library = JSON.parse(localStorage.getItem('library')) || [];
   if (!library.length) {
@@ -146,17 +105,21 @@ function loadLibrary() {
     loadMoreBtn?.classList.add('hidden');
     return;
   }
+
   emptyLibraryEl.style.display = 'none';
   genreFilter?.parentElement && (genreFilter.parentElement.style.display = 'flex');
 
   const set = new Set();
   library.forEach(m => (m.genre_ids || []).forEach(id => GENRES[id] && set.add(GENRES[id])));
+
   if (genreFilter) {
     genreFilter.innerHTML = `<option value="all">Genre</option>` +
       [...set].map(n => `<option value="${n}">${n}</option>`).join('');
   }
+
   displayLibrary(library);
 }
+
 function attachCardClickEvents() {
   document.querySelectorAll('.library-card').forEach(card => {
     card.removeEventListener('click', card._clickHandler);
@@ -176,6 +139,7 @@ document.addEventListener('click', e => {
     setTimeout(() => loadLibrary(), 0);
   }
 });
+
 // ===== EVENTS =====
 loadMoreBtn?.addEventListener('click', () => displayLibrary(currentLibraryView, false));
 genreFilter?.addEventListener('change', e => {
@@ -193,17 +157,15 @@ genreFilter?.addEventListener('change', e => {
   const textColor = brightness < 128 ? '#fff' : '#000';
   genreFilter.style.backgroundColor = bodyBg;
   genreFilter.style.color = textColor;
-  genreFilter.style.border = `1px solid ${brightness < 128 ? '#000' : '#fff'}`;
+  genreFilter.style.border = `1px solid ${brightness < 128 ? '#fff' : '#000'}`;
 })();
+
 // ===== INIT =====
 (async function init() {
   try {
-
-    const genresRes = await API.fetchGenres(); // { genres: [{id,name},...] }
+    const genresRes = await API.fetchGenres();
     const list = genresRes?.genres || [];
     GENRES = list.reduce((acc, g) => ((acc[g.id] = g.name), acc), {});
-
-    await initHero();
 
     loadLibrary();
   } catch (err) {

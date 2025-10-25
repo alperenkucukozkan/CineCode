@@ -3,6 +3,7 @@ import { glob } from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig(({ command }) => {
   return {
@@ -45,8 +46,8 @@ export default defineConfig(({ command }) => {
       }),
       viteStaticCopy({
         targets: [
-          { src: 'src/partials/*', dest: 'partials' },
-          { src: 'src/img/*', dest: 'img' },
+          { src: 'src/partials/**', dest: 'partials' },
+          { src: 'src/img/**', dest: 'img' },
         ],
       }),
     ],

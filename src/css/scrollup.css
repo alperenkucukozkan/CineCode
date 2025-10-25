@@ -1,29 +1,31 @@
-body { height: 2000px;}
-    
-    #scroll-up {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #F87719, #FF0000);
-      color: white;
-      font-size: 25px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 1000;
-      padding-bottom: 5px;
-    }
-    
-    #scroll-up.visible {
-      opacity: 1;
-    }
-   /*Scrolbar Özelleştirme*/
-    /* Webkit (Chrome, Safari, Edge) */
+body {
+  height: 2000px;
+}
+
+#scroll-up {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f87719, #ff0000);
+  color: white;
+  font-size: 25px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1000;
+  padding-bottom: 5px;
+}
+
+#scroll-up.visible {
+  opacity: 1;
+}
+/*Scrolbar Özelleştirme*/
+/* Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -33,11 +35,11 @@ body { height: 2000px;}
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #F87719, #FF4500);
+  background: linear-gradient(45deg, #f87719, #ff4500);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #FF4500, #F87719);
+  background: linear-gradient(45deg, #ff4500, #f87719);
 }
 ::-webkit-scrollbar-button {
   display: none; /* Ok butonlarını gizle */
@@ -47,5 +49,5 @@ body { height: 2000px;}
 /* Firefox */
 html {
   scrollbar-width: thin;
-  scrollbar-color: #F87719 #111;
+  scrollbar-color: #f87719 #111;
 }

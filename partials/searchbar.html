@@ -1,0 +1,75 @@
+<form
+  id="catalog-search-form"
+  class="search-container"
+  role="search"
+  autocomplete="off"
+>
+ 
+  <div class="search-input-wrap">
+    <input
+      id="catalog-search-input"
+      type="text"
+      class="catalog-search-input"
+      placeholder="Search"
+      aria-label="Search movies"
+    />
+    <button
+      id="catalog-search-clear"
+      type="button"
+      class="catalog-search-clear"
+      aria-label="Clear search"
+      hidden
+    >
+      ×
+    </button>
+  </div>
+
+  <div class="search-select-wrap" id="yearFilter" aria-haspopup="listbox">
+    <button
+      type="button"
+      class="year-btn"
+      id="yearBtn"
+      aria-expanded="false"
+      aria-controls="yearList"
+    >
+      Year
+      <span class="year-caret" aria-hidden="true">▾</span>
+    </button>
+
+    <ul
+      class="year-list"
+      id="yearList"
+      role="listbox"
+      tabindex="-1"
+      hidden
+    ></ul>
+  </div>
+
+  <button
+    id="catalog-search-submit"
+    class="catalog-search-button"
+    type="submit"
+    aria-label="Search"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  </button>
+</form>
+
+<div
+  id="catalog-search-alert"
+  class="search-alert"
+  role="status"
+  aria-live="polite"
+></div>

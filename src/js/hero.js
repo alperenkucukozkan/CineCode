@@ -94,7 +94,7 @@ function renderDefaultHero(container) {
       </p>
 
       <div class="hero-ctas">
-        <a href="../catalog.html" class="btn-play">Get Started</a>
+        <a href="./catalog.html" class="btn-play">Get Started</a>
       </div>
     </div>
   `;

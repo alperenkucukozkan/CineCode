@@ -29,7 +29,7 @@ body {
   max-height: 380px;
   display: flex;
   align-items: center;
-  background: url('.././images/seats.jpg') center/cover no-repeat;
+  background: url('./images/seats.jpg') center/cover no-repeat;
   color: white;
   padding: 1.5rem;
   text-align: left;

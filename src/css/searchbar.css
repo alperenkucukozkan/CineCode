@@ -1,0 +1,304 @@
+:root {
+  --sb-max-desktop: 398px; 
+  --sb-max-tablet: 264px; 
+  --sb-max-mobile: 87%; 
+
+  --sb-input-basis: 334px; 
+  --sb-input-max: 204px; 
+  --sb-select-w: 95px; 
+  --sb-gap: 10px; 
+}
+
+.search-container {
+  width: 100%;
+  max-width: var(--sb-max-desktop);
+  margin: 0 auto;
+  padding: 20px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sb-gap);
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1 1 var(--sb-input-basis);
+  max-width: var(--sb-input-max);
+  min-width: 220px;
+}
+
+.catalog-search-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 34px 0 12px;
+  border-radius: 10px;
+  border: 1px solid;
+  outline: none;
+  font: 500 14px/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto,
+    Arial, sans-serif;
+  background: transparent;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s,
+    box-shadow 0.2s;
+}
+
+.catalog-search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  font: 700 18px/1 'DM Sans', system-ui;
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.search-container.has-query .catalog-search-clear {
+  display: inline-flex;
+}
+.catalog-search-clear:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.06);
+}
+
+.search-select-wrap {
+  position: relative;
+  display: none; 
+  flex: 0 0 var(--sb-select-w);
+}
+.search-container.has-query .search-select-wrap {
+  display: block;
+}
+.year-btn {
+  width: var(--sb-select-w);
+  height: 40px;
+  padding: 0 30px 0 10px;
+  border-radius: 10px;
+  border: 1px solid;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  cursor: pointer;
+  font: 600 14px/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto,
+    Arial, sans-serif;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.year-btn .year-caret {
+  font-weight: 700;
+}
+
+.year-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: var(--sb-select-w);
+  max-height: 260px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid;
+  padding: 8px 0;
+  list-style: none;
+  z-index: 30;
+  backdrop-filter: blur(2px);
+}
+.year-option {
+  padding: 9px 12px;
+  font: 600 14px/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto,
+    Arial, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.year-option:hover {
+  filter: brightness(1.05);
+}
+.year-option[aria-selected='true'] {
+  color: #f84119;
+}
+
+.catalog-search-button {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #ffc226, #f84119);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 194, 38, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+}
+.catalog-search-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 194, 38, 0.45);
+  filter: saturate(1.05);
+}
+
+.search-alert {
+  text-align: center;
+  margin: 6px auto 0;
+  max-width: var(--sb-max-desktop);
+  font: 500 14px/1.4 'DM Sans', sans-serif;
+  display: none;
+}
+
+.light-theme .catalog-search-input {
+  color: #111;
+  border-color: #bdbdbd;
+}
+.light-theme .catalog-search-input::placeholder {
+  color: #8f8f8f;
+}
+.light-theme .catalog-search-input:focus {
+  border-color: #f84119;
+  box-shadow: 0 0 0 3px rgba(248, 65, 25, 0.12);
+  outline: none;
+}
+.light-theme .catalog-search-clear {
+  color: #6f6f6f;
+}
+
+.light-theme .year-btn {
+  color: #111;
+  border-color: #bdbdbd;
+}
+.light-theme .year-btn:hover {
+  border-color: #f84119;
+}
+.light-theme .year-btn:focus {
+  border-color: #f84119;
+  box-shadow: 0 0 0 3px rgba(248, 65, 25, 0.12);
+  outline: none;
+}
+.light-theme .year-caret {
+  color: #6f6f6f;
+}
+.light-theme .year-list {
+  background: #fff;
+  border-color: #bdbdbd;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+.light-theme .year-option {
+  color: #111;
+}
+.light-theme .year-option:hover {
+  background: #f6f6f6;
+}
+.light-theme .search-alert {
+  color: #f84119;
+}
+
+.dark-theme .catalog-search-input {
+  color: #f8f8f8;
+  border-color: #ffffff;
+}
+.dark-theme .catalog-search-input::placeholder {
+  color: #cfcfcf;
+}
+.dark-theme .catalog-search-input:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.18);
+  outline: none;
+}
+.dark-theme .catalog-search-clear {
+  color: #e0e0e0;
+}
+
+.dark-theme .year-btn {
+  color: #f8f8f8;
+  border-color: #ffffff;
+}
+.dark-theme .year-btn:hover {
+  border-color: #ff6b35;
+}
+.dark-theme .year-btn:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.18);
+  outline: none;
+}
+.dark-theme .year-caret {
+  color: #cfcfcf;
+}
+.dark-theme .year-list {
+  background: #1c1c1c;
+  border-color: #404040;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+.dark-theme .year-option {
+  color: #eaeaea;
+}
+.dark-theme .year-option:hover {
+  background: #242424;
+}
+.dark-theme .search-alert {
+  color: #ff6b35;
+}
+
+
+@media (max-width: 767px) {
+  .search-container {
+    max-width: var(--sb-max-mobile);
+    padding: 16px 8px 10px;
+    gap: 8px;
+  }
+  .search-input-wrap {
+    max-width: 85px; 
+    flex: 0 1 85px; 
+  }
+
+  .catalog-search-input {
+    width: 100%;
+  }
+
+  .catalog-search-input {
+    height: 40px;
+  }
+  .catalog-search-button {
+    width: 38px;
+    height: 38px;
+  }
+  .search-select-wrap {
+    flex: 0 0 90px;
+  }
+  .year-btn {
+    width: 90px;
+    height: 38px;
+  }
+  .year-list {
+    width: 90px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .search-container {
+    max-width: var(--sb-max-tablet);
+    padding: 22px 14px 12px;
+    gap: var(--sb-gap);
+  }
+  .search-input-wrap {
+    flex: 1 1 420px;
+    max-width: 460px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .search-container {
+    max-width: var(--sb-max-desktop);
+    padding: 26px 12px 14px;
+  }
+  .search-input-wrap {
+    flex: 1 1 var(--sb-input-basis);
+    max-width: var(--sb-input-max);
+  }
+}

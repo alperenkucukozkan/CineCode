@@ -125,10 +125,9 @@ h2 {
   color: #111111;
   font-size: 12px;
   padding: 12px 24px;
-  border: 1px solid transparent;
+  border: none;
   border-radius: 25px;
   cursor: pointer;
-  box-sizing: border-box;
 }
 
 .btn-add {

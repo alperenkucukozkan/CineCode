@@ -3,7 +3,7 @@ import { glob } from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
-
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 export default defineConfig(({ command }) => {
   return {
     define: {
@@ -37,12 +37,20 @@ export default defineConfig(({ command }) => {
       outDir: '../dist',
       emptyOutDir: true,
     },
+    base: '/CineCode/',
     plugins: [
       injectHTML(),
       FullReload(['./src/**/**.html']),
       SortCss({
         sort: 'mobile-first',
       }),
+      viteStaticCopy({
+      targets: [
+        { src: 'partials/**/*', dest: 'partials' }, 
+        { src: 'img/**/*',      dest: 'img' },       
+        { src: 'images/**/*',   dest: 'images' },    
+      ],
+    }),
     ],
   };
 });

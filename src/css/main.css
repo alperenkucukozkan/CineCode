@@ -7,17 +7,17 @@
 /* Common styles */
 @import url('./modern-normalize.css');
 @import url('./reset.css');
-/* @import url('./partials/base.css'); */
 
 /* Sections style */
 @import url('./header.css');
 @import url('./footer.css');
-/* @import url('./partials/hero.css'); */
+@import url('./hero.css');
 @import url('./library.css');
 @import url('./loader.css');
 @import url('./scrollup.css');
 @import url('./modal.css');
-/* @import url('./partials/searchBar.css'); */
+@import url('./searchbar.css');
 @import url('./upcoming.css');
 @import url('./weekly.css');
 @import url('./catalog.css');
+@import url('./pagination.css');

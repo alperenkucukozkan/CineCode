@@ -3,43 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Cinemania - En popüler filmleri keşfedin, arayın ve detaylarını görüntüleyin. Güncel film kataloğu ve trend filmler."
-    />
-    <meta
-      name="keywords"
-      content="film, sinema, movie, catalog, trending, search"
-    />
-    <meta name="author" content="Cinemania" />
     <title>Cinemania | Film Kataloğu</title>
 
-    <!-- Preload -->
-    <link rel="preload" href="./css/catalog.css" as="style" />
-    <link rel="preload" href="./js/catalog.js" as="script" crossorigin />
-
-    <!-- Styles -->
     <link rel="stylesheet" href="./css/catalog.css" />
+    <link rel="stylesheet" href="./css/pagination.css" />
+    <link rel="stylesheet" href="./css/searchbar.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="icon" href="./img/favicon.svg" />
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
   </head>
 
-  <body>
-    <!-- Header -->
+  <body class="dark-theme">
+    
     <header>
       <load src="./partials/header.html"></load>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content" role="main">
+      <load src="./partials/hero.html"></load>
+      <load src="./partials/searchbar.html"></load>
+
       <section class="catalog-block container" aria-label="Film Listesi">
         <div
           id="movie-list"
@@ -47,22 +36,32 @@
           aria-live="polite"
           aria-busy="false"
         >
+          
+          <div
+            id="catalog-empty"
+            class="catalog-empty"
+            role="status"
+            hidden
+          ></div>
+
           <ul class="movie-list-grid" id="movies-ul" role="list"></ul>
         </div>
+
         <load src="./partials/pagination.html"></load>
+        
       </section>
+
+      <load src="./partials/modal.html"></load>
 
       <button id="scroll-up" title="Scroll Up" class="button-up">↑</button>
     </main>
 
-    <!-- Modal -->
-    <load src="./partials/modal.html"></load>
-
-    <!-- Footer -->
-    <load src="./partials/footer.html"></load>
+    <footer>
+      <load src="./partials/footer.html"></load>
+    </footer>
 
     <!-- Scripts -->
-     <script src="./js/scrollup.js"></script>
     <script type="module" src="./main.js"></script>
+    
   </body>
 </html>

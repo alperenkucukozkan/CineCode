@@ -9,15 +9,15 @@ async function boot() {
   await Promise.all([
     importIf('header, .header, #header', () => import('./header.js')),
     importIf('footer, .footer, #footer', () => import('./footer.js')),
-    importIf('#hero, #hero-content, .hero', () => import('./hero.js')),
+    importIf('#hero-x, #hero-content, .hero-x', () => import('./hero.js')),
     importIf('#loading-indicator, .loading-indicator', () => import('./loader.js')),
-    importIf('.movie-modal, [data-modal-root]', () => import('./modal.js')),
+    importIf('#app-modal-template', () => import('./modal.js')),
     importIf('#movies-ul, .movie-list-grid', () => import('./catalog.js')),
     importIf('#pagination-ul, .pagination', () => import('./pagination.js')),
-    importIf('#search-form, #searchbar, .search-container', () => import('./searchBar.js')),
+    importIf('#catalog-search-form, .search-container', () => import('./searchbar.js')),
     importIf('.weekly-gallery', () => import('./weekly.js')),
     importIf('.upcoming-section, #upcoming', () => import('./upcoming.js')),
-    importIf('#library-root, .library-grid', () => import('./library.js')),
+    importIf('#library, .library container', () => import('./library.js')),
     importIf('#scroll-up, .button-up', () => import('./scrollup.js')),
   ]);
 }

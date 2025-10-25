@@ -24,10 +24,10 @@ const s=[{name:"Alperen Küçüközkan",role:"Team Lead",img:"../img/alperen.jpg
   `,e}function m(){let e=document.getElementById("footerModal");return e||(e=document.createElement("div"),e.className="footer-modal-overlay",e.id="footerModal",e.innerHTML=`
     <div class="footer-modal-content">
       <span class="footer-modal-close-btn" id="closeFooterModalBtn">&times;</span>
-      <h2 class="footer-modal-title">PROJECT TEAM</h2>
+      <h2 class="footer-modal-title">TEAM CINECODE</h2>
       <ul class="student-list">
         ${s.map(r).join("")}
       </ul>
     </div>
   `,document.body.appendChild(e),e)}function a(){const e=document.querySelector(".footer-modal-content"),t=document.querySelector(".footer");!e||!t||(window.matchMedia("(max-width: 768px)").matches?(e.style.maxWidth="300px",t.style.paddingBottom="100px"):window.matchMedia("(max-width: 1279px)").matches?(e.style.maxWidth="720px",t.style.paddingBottom="80px"):(e.style.maxWidth="1200px",t.style.paddingBottom="50px"))}function l(){d();const e=m(),t=e.querySelector(".footer-modal-content"),n=document.getElementById("openFooterModalBtn"),i=document.getElementById("closeFooterModalBtn");if(!n||!i){console.warn("Modal tetikleyici veya kapatma butonu bulunamadı.");return}n.addEventListener("click",()=>{e.classList.add("active"),document.body.style.overflow="hidden"}),i.addEventListener("click",()=>{e.classList.remove("active"),document.body.style.overflow=""}),e.addEventListener("click",o=>{t.contains(o.target)||(e.classList.remove("active"),document.body.style.overflow="")}),document.addEventListener("keydown",o=>{o.key==="Escape"&&(e.classList.remove("active"),document.body.style.overflow="")}),a(),window.addEventListener("resize",a)}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",l,{once:!0}):l();
-//# sourceMappingURL=footer-B8N7biyl.js.map
+//# sourceMappingURL=footer-CvsyAaNa.js.map

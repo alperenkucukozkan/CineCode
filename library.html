@@ -4,11 +4,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineCode</title>
+  <title>CineCode — Library</title>
+
+  <!-- Styles -->
   <link rel="icon" href="/CineCode/assets/favicon-0Qq06bqf.svg" />
-  <script type="module" crossorigin src="/CineCode/assets/searchBar-BMU5M4Ue.js"></script>
-  <script type="module" crossorigin src="/CineCode/assets/library-DEahjQgV.js"></script>
-  <link rel="stylesheet" crossorigin href="/CineCode/assets/library-B7CGb8XH.css">
+
+  <!-- (opsiyonel) fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <script type="module" crossorigin src="/CineCode/assets/main-D-VF9M49.js"></script>
+  <script type="module" crossorigin src="/CineCode/assets/api-W8kOuucx.js"></script>
+  <script type="module" crossorigin src="/CineCode/assets/vendor-B5Z-9nsW.js"></script>
+  <script type="module" crossorigin src="/CineCode/assets/modal-hIj8PosX.js"></script>
+  <script type="module" crossorigin src="/CineCode/assets/library-CZ5J9Y5E.js"></script>
+  <link rel="stylesheet" crossorigin href="/CineCode/assets/main-D1bwuYJp.css">
+  <link rel="stylesheet" crossorigin href="/CineCode/assets/vendor-CvQD2c8F.css">
+  <link rel="stylesheet" crossorigin href="/CineCode/assets/library-Bl_SSa3u.css">
 </head>
 
 <body>
@@ -17,9 +31,10 @@
   </header>
 
   <main>
-    <section class="hero" id="hero" data-default="true">
+    <!-- HERO -->
+    <section class="hero" id="hero" data-default="true" aria-label="Featured">
       <div class="hero-overlay"></div>
-      <div class="hero-content">
+      <div class="hero-content" id="hero-content">
         <h2 id="movie-title" class="hero-title">Create Your Dream Cinema</h2>
         <p id="movie-rating"></p>
         <p id="movie-overview" class="hero-overview">
@@ -33,30 +48,25 @@
           <button id="trailer-btn" class="library-btn">Watch Trailer</button>
         </div>
       </div>
-
-      <div id="trailer-modal" class="modal hidden">
-        <div class="modal-content">
-          <button id="close-modal" class="modal-close">&times;</button>
-          <iframe id="trailer-frame" src="" title="Trailer" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
     </section>
 
-    <section class="library container" id="library">
+    <!-- LIBRARY -->
+    <section class="library container" id="library" aria-label="My Library">
       <div class="library-header">
-        <select id="genre-filter" class="filter">
+        <select id="genre-filter" class="filter" aria-label="Filter by genre">
           <option value="all">Genre</option>
         </select>
       </div>
 
       <div id="library-container">
-        <ul id="library-list"></ul>
-        <button id="load-more-btn" class="library-btn hidden">
+        <ul id="library-list" class="library-list" role="list"></ul>
+
+        <button id="load-more-btn" class="library-btn hidden" type="button">
           Load More
         </button>
       </div>
 
-      <div id="empty-library" class="empty">
+      <div id="empty-library" class="empty" role="status" aria-live="polite">
         <p class="empty-text">
           OOPS...<br />
           We are very sorry!<br />
@@ -66,17 +76,17 @@
       </div>
     </section>
 
-    <button id="scroll-up" title="Scroll Up" class="button-up">↑</button>
+    <button id="scroll-up" title="Scroll Up" class="button-up" type="button">
+      ↑
+    </button>
   </main>
-
-  <div id="movie-detail-modal" class="detail-modal"></div>
 
   <footer>
     <load src="./partials/footer.html"></load>
   </footer>
 
+  <!-- Scripts -->
   <script src="./js/scrollup.js"></script>
-  <script src="main.js"></script>
 </body>
 
 </html>

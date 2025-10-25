@@ -37,6 +37,7 @@ export default defineConfig(({ command }) => {
       outDir: '../dist',
       emptyOutDir: true,
     },
+    base: '/CineCode/',
     plugins: [
       injectHTML(),
       FullReload(['./src/**/**.html']),

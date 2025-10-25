@@ -113,4 +113,3 @@ if (document.readyState === 'loading') {
 } else {
   initWeeklySection();
 }
-console.log("hello");

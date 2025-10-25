@@ -30,5 +30,6 @@ async function loadPartials() {
   }
 }
 loadPartials().then(async () => {
+  document.dispatchEvent(new CustomEvent('partials:loaded'));
   await import('./js/index.js');
 });

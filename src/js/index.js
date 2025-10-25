@@ -14,7 +14,7 @@ async function boot() {
     importIf('#app-modal-template', () => import('./modal.js')),
     importIf('#movies-ul, .movie-list-grid', () => import('./catalog.js')),
     importIf('#pagination-ul, .pagination', () => import('./pagination.js')),
-    importIf('#search-form, #searchbar, .search-container', () => import('./searchBar.js')),
+    importIf('#search-form, #searchbar, .search-container', () => import('./searchbar.js')),
     importIf('.weekly-gallery', () => import('./weekly.js')),
     importIf('.upcoming-section, #upcoming', () => import('./upcoming.js')),
     importIf('#library-root, .library-grid', () => import('./library.js')),

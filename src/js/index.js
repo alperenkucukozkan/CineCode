@@ -17,7 +17,7 @@ async function boot() {
     importIf('#catalog-search-form, .search-container', () => import('./searchbar.js')),
     importIf('.weekly-gallery', () => import('./weekly.js')),
     importIf('.upcoming-section, #upcoming', () => import('./upcoming.js')),
-    importIf('#library-root, .library-grid', () => import('./library.js')),
+    importIf('#library, .library container', () => import('./library.js')),
     importIf('#scroll-up, .button-up', () => import('./scrollup.js')),
   ]);
 }

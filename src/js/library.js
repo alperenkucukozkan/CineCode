@@ -26,7 +26,7 @@ function createStarRating(vote) {
     if (rating >= i) {
       stars += `
         <svg class="star-svg-full" width="20" height="20">
-          <use xlink:href="../img/icon.svg#icon-full-star"></use>
+          <use xlink:href="./img/icon.svg#icon-full-star"></use>
         </svg>`;
     } else if (rating >= i - 0.5) {
       stars += `
@@ -39,7 +39,7 @@ function createStarRating(vote) {
     } else {
       stars += `
         <svg class="star-svg-empty" width="20" height="20">
-          <use xlink:href="../img/icon.svg#icon-empty-star"></use>
+          <use xlink:href="./img/icon.svg#icon-empty-star"></use>
         </svg>`;
     }
   }

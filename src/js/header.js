@@ -110,7 +110,7 @@ function initTheme(toggleSel, iconSel, refs = {}) {
 
     icon?.setAttribute(
       'href',
-      `../img/icon.svg#${isDark ? 'icon-Vector' : 'icon-Sun'}`
+      `./img/icon.svg#${isDark ? 'icon-Vector' : 'icon-Sun'}`
     );
   };
 

@@ -62,13 +62,13 @@ function renderStarRating(voteAverage, container) {
   let html = '';
   for (let i = 0; i < full; i++)
     html +=
-      '<svg class="catalog-icon catalog-icon-star"><use xlink:href="../images/symbol-defs.svg#icon-star"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star"><use xlink:href="./images/symbol-defs.svg#icon-star"></use></svg>';
   if (half)
     html +=
-      '<svg class="catalog-icon catalog-icon-star-half"><use xlink:href="../images/symbol-defs.svg#icon-star-half"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star-half"><use xlink:href="./images/symbol-defs.svg#icon-star-half"></use></svg>';
   for (let i = 0; i < empty; i++)
     html +=
-      '<svg class="catalog-icon catalog-icon-star-empty"><use xlink:href="../images/symbol-defs.svg#icon-star-empty"></use></svg>';
+      '<svg class="catalog-icon catalog-icon-star-empty"><use xlink:href="./images/symbol-defs.svg#icon-star-empty"></use></svg>';
   container.innerHTML = html;
 }
 

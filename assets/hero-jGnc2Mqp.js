@@ -28,8 +28,8 @@ import{f as c,a as d,b as h}from"./api-W8kOuucx.js";import{Modal as i}from"./mod
       </p>
 
       <div class="hero-ctas">
-        <a href="../catalog.html" class="btn-play">Get Started</a>
+        <a href="./catalog.html" class="btn-play">Get Started</a>
       </div>
     </div>
   `}async function v(s){var r;try{const e=await d(s),t=Array.isArray((r=e==null?void 0:e.data)==null?void 0:r.results)?e.data.results:e==null?void 0:e.results,o=t==null?void 0:t.find(a=>a.type==="Trailer"&&a.site==="YouTube");o?i.showTrailer(o.key):i.showMessage("Trailer not available.","Info")}catch(e){console.error("Play trailer error:",e),i.showMessage("Error fetching trailer.","Error")}}async function p(s){try{const r=await h(s),e=(r==null?void 0:r.data)??r;i.renderMovie(e)}catch(r){console.error("Movie details error:",r),i.showMessage("Movie details could not be loaded.","Error")}}document.readyState==="loading"?document.addEventListener("partials:loaded",n,{once:!0}):n();
-//# sourceMappingURL=hero-jvdIlbCM.js.map
+//# sourceMappingURL=hero-jGnc2Mqp.js.map

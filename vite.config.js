@@ -39,9 +39,15 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       injectHTML(),
-      FullReload(['./src/**/**.html']),
+      FullReload(['./src//.html']),
       SortCss({
         sort: 'mobile-first',
+      }),
+      viteStaticCopy({
+        targets: [
+          { src: 'src/partials/*', dest: 'partials' },
+          { src: 'src/img/*', dest: 'img' },
+        ],
       }),
     ],
   };

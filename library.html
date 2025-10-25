@@ -1,92 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CineCode — Library</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineCode — Library</title>
+    <!-- Styles -->
+    <link rel="icon" href="/CineCode/assets/favicon-0Qq06bqf.svg" />
 
-  <!-- Styles -->
-  <link rel="icon" href="/CineCode/assets/favicon-0Qq06bqf.svg" />
+    <!-- (opsiyonel) fontlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/CineCode/assets/main-Qgylggb7.js"></script>
+    <link rel="stylesheet" crossorigin href="/CineCode/assets/main-D-AYq2AT.css">
+    <link rel="stylesheet" crossorigin href="/CineCode/assets/library-DmuGOmep.css">
+  </head>
 
-  <!-- (opsiyonel) fontlar -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
-    rel="stylesheet" />
-  <script type="module" crossorigin src="/CineCode/assets/main-B236mmav.js"></script>
-  <script type="module" crossorigin src="/CineCode/assets/api-W8kOuucx.js"></script>
-  <script type="module" crossorigin src="/CineCode/assets/vendor-B5Z-9nsW.js"></script>
-  <script type="module" crossorigin src="/CineCode/assets/modal-hIj8PosX.js"></script>
-  <script type="module" crossorigin src="/CineCode/assets/library-BKAXE1tK.js"></script>
-  <link rel="stylesheet" crossorigin href="/CineCode/assets/main-xw3GwcS6.css">
-  <link rel="stylesheet" crossorigin href="/CineCode/assets/vendor-CvQD2c8F.css">
-  <link rel="stylesheet" crossorigin href="/CineCode/assets/library-CJ1pj1Mv.css">
-</head>
+  <body>
+    <header>
+      <load src="./partials/header.html"></load>
+    </header>
 
-<body>
-  <header>
-    <load src="./partials/header.html"></load>
-  </header>
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="hero" data-default="true" aria-label="Featured">
+        <div class="hero-overlay"></div>
+        <div class="hero-content" id="hero-content">
+          <h2 id="movie-title" class="hero-title">Create Your Dream Cinema</h2>
+          <p id="movie-rating"></p>
+          <p id="movie-overview" class="hero-overview">
+            Is a guide to designing a personalized movie theater experience with
+            the right equipment, customized decor, and favorite films. This
+            guide helps you bring the cinema experience into your own home with
+            cozy seating, dim lighting, and movie theater snacks.
+          </p>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="hero" data-default="true" aria-label="Featured">
-      <div class="hero-overlay"></div>
-      <div class="hero-content" id="hero-content">
-        <h2 id="movie-title" class="hero-title">Create Your Dream Cinema</h2>
-        <p id="movie-rating"></p>
-        <p id="movie-overview" class="hero-overview">
-          Is a guide to designing a personalized movie theater experience with
-          the right equipment, customized decor, and favorite films. This
-          guide helps you bring the cinema experience into your own home with
-          cozy seating, dim lighting, and movie theater snacks.
-        </p>
-
-        <div class="hero-buttons hidden" id="hero-buttons">
-          <button id="trailer-btn" class="library-btn">Watch Trailer</button>
+          <div class="hero-buttons hidden" id="hero-buttons">
+            <button id="trailer-btn" class="library-btn">Watch Trailer</button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- LIBRARY -->
-    <section class="library container" id="library" aria-label="My Library">
-      <div class="library-header">
-        <select id="genre-filter" class="filter" aria-label="Filter by genre">
-          <option value="all">Genre</option>
-        </select>
-      </div>
+      <!-- LIBRARY -->
+      <section class="library container" id="library" aria-label="My Library">
+        <div class="library-header">
+          <select id="genre-filter" class="filter" aria-label="Filter by genre">
+            <option value="all">Genre</option>
+          </select>
+        </div>
 
-      <div id="library-container">
-        <ul id="library-list" class="library-list" role="list"></ul>
+        <div id="library-container">
+          <ul id="library-list" class="library-list" role="list"></ul>
 
-        <button id="load-more-btn" class="library-btn hidden" type="button">
-          Load More
-        </button>
-      </div>
+          <button id="load-more-btn" class="library-btn hidden" type="button">
+            Load More
+          </button>
+        </div>
 
-      <div id="empty-library" class="empty" role="status" aria-live="polite">
-        <p class="empty-text">
-          OOPS...<br />
-          We are very sorry!<br />
-          You don’t have any movies at your library.
-        </p>
-        <a href="./catalog.html" class="library-btn">Search Movie</a>
-      </div>
-    </section>
+        <div id="empty-library" class="empty" role="status" aria-live="polite">
+          <p class="empty-text">
+            OOPS...<br />
+            We are very sorry!<br />
+            You don’t have any movies at your library.
+          </p>
+          <a href="./catalog.html" class="library-btn">Search Movie</a>
+        </div>
+      </section>
 
-    <button id="scroll-up" title="Scroll Up" class="button-up" type="button">
-      ↑
-    </button>
-  </main>
+      <button id="scroll-up" title="Scroll Up" class="button-up" type="button">
+        ↑
+      </button>
+    </main>
 
-  <footer>
-    <load src="./partials/footer.html"></load>
-  </footer>
+    <footer>
+      <load src="./partials/footer.html"></load>
+    </footer>
 
-  <!-- Scripts -->
-  <script src="./js/scrollup.js"></script>
-</body>
-
+    <!-- Scripts -->
+  </body>
 </html>

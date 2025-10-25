@@ -4,34 +4,52 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-
-export default defineConfig(({ command }) => ({
-  base: command === 'serve' ? '/' : '/CineCode/',
-  root: 'src',
-  define: { [command === 'serve' ? 'global' : '_global']: {} },
-  build: {
-    sourcemap: true,
-    outDir: '../dist',
-    emptyOutDir: true,
-    rollupOptions: {
-      input: glob.sync('./src/*.html'),
-      output: {
-        manualChunks: id => (id.includes('node_modules') ? 'vendor' : undefined),
-        entryFileNames: c => (c.name === 'commonHelpers' ? 'commonHelpers.js' : '[name].js'),
-        assetFileNames: a => (a.name?.endsWith('.html') ? '[name].[ext]' : 'assets/[name]-[hash][extname]'),
-      },
+export default defineConfig(({ command }) => {
+  return {
+    define: {
+      [command === 'serve' ? 'global' : '_global']: {},
     },
-  },
-  plugins: [
-    injectHTML(),
-    FullReload(['./src/**/*.html']),
-    SortCss({ sort: 'mobile-first' }),
-    viteStaticCopy({
+    root: 'src',
+    build: {
+      sourcemap: true,
+      rollupOptions: {
+        input: glob.sync('./src/*.html'),
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+          entryFileNames: chunkInfo => {
+            if (chunkInfo.name === 'commonHelpers') {
+              return 'commonHelpers.js';
+            }
+            return '[name].js';
+          },
+          assetFileNames: assetInfo => {
+            if (assetInfo.name && assetInfo.name.endsWith('.html')) {
+              return '[name].[ext]';
+            }
+            return 'assets/[name]-[hash][extname]';
+          },
+        },
+      },
+      outDir: '../dist',
+      emptyOutDir: true,
+    },
+    plugins: [
+      injectHTML(),
+      FullReload(['./src/**/**.html']),
+      SortCss({
+        sort: 'mobile-first',
+      }),
+      viteStaticCopy({
       targets: [
         { src: 'partials/**/*', dest: 'partials' }, 
         { src: 'img/**/*',      dest: 'img' },       
         { src: 'images/**/*',   dest: 'images' },    
       ],
     }),
-  ],
-}));
+    ],
+  };
+});

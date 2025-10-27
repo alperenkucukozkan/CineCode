@@ -43,6 +43,7 @@ export async function fetchMovieVideos(movieId) {
   return res.json();
 }
 
+
 export async function searchMovies(query, year = '', page = 1) {
   const res = await fetch(
     buildUrl('/search/movie', {
@@ -60,11 +61,7 @@ export async function fetchGenres() {
   return res.json();
 }
 
-export async function fetchMoviesBetween(
-  startDate,
-  endDate,
-  { region = DEFAULTS.region } = {}
-) {
+export async function fetchMoviesBetween(startDate, endDate, { region = DEFAULTS.region } = {}) {
   const res = await fetch(
     buildUrl('/discover/movie', {
       sort_by: 'popularity.desc',

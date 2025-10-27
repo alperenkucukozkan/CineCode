@@ -42,12 +42,12 @@ export function initSearchBar() {
     const q = input.value.trim();
     const y = getYear();
     if (!q && !y) { handleClear(alertEl); return; }
-    await handleSearch(q, y, alertEl);
+    await handleSearch(q, y, alertEl, 1); 
   });
 
   yearBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleYearMenu(yearList.hidden); // aç/kapat
+    toggleYearMenu(yearList.hidden);
   });
 
   yearList.addEventListener('click', (e) => {
@@ -57,10 +57,9 @@ export function initSearchBar() {
     toggleYearMenu(false);
     const q = input.value.trim();
     const y = getYear();
-    if (q || y) handleSearch(q, y, alertEl);
+    if (q || y) handleSearch(q, y, alertEl, 1); 
   });
 
-  // Klavye
   yearBtn.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -115,8 +114,8 @@ export async function handleSearchPageChange(page) {
     showLoader();
     const data = await API.searchMovies(
       currentSearchState.query,
-      page,
-      currentSearchState.year
+      currentSearchState.year,
+      page 
     );
 
     if (window.renderMoviesList) window.renderMoviesList(data.results || []);
@@ -152,13 +151,13 @@ export async function handleClear(alertEl) {
   }
 }
 
-async function handleSearch(query, year, alertEl) {
-  currentSearchState = { isSearching: true, query, year, currentPage: 1 };
+async function handleSearch(query, year, alertEl, page = 1) {
+  currentSearchState = { isSearching: true, query, year, currentPage: page };
   try {
     showLoader();
-    const data = await API.searchMovies(query, 1, year); // (query,page,year)
+    const data = await API.searchMovies(query, year, page);
     if (window.renderMoviesList) window.renderMoviesList(data.results || []);
-    if (window.renderPagination) window.renderPagination(1, data.total_pages || 1);
+    if (window.renderPagination) window.renderPagination(page, data.total_pages || 1);
     setAlert(data?.results?.length ? '' : '', alertEl);
   } catch (err) {
     console.error('Arama hatası:', err);

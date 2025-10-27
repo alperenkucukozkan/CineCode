@@ -1,5 +1,6 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
+
 /* ----- küçük “library” yardımcıları ----- */
 function readLibrary() {
   try {
@@ -34,30 +35,46 @@ function toggleLibrary(movie, btn) {
   }
   writeLibrary(lib);
 }
+
 /* ----- tekil basicLightbox instance ----- */
 let instance = null;
+
 function openWithHTML(html, onShow) {
   if (instance?.visible()) instance.close();
   instance = basicLightbox.create(html, {
     onShow: inst => {
       const closeBtn = inst.element().querySelector('.app-modal__close');
       if (closeBtn) closeBtn.addEventListener('click', () => inst.close());
+
+      // ✅ ESC ile kapatma event'i
+      function escHandler(e) {
+        if (e.key === 'Escape') {
+          inst.close();
+          document.removeEventListener('keydown', escHandler);
+        }
+      }
+      document.addEventListener('keydown', escHandler);
+
       if (typeof onShow === 'function') onShow(inst);
     },
   });
   instance.show();
 }
-/* ----- film layout (weekly’den bağımsız sınıflar) ----- */
+
+/* ----- film layout ----- */
 function movieHTML(movie) {
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : `https://via.placeholder.com/500x750?text=No+Image`;
+
   const genres = Array.isArray(movie.genres)
     ? movie.genres.map(g => g.name).join(', ')
     : Array.isArray(movie.genre_ids)
     ? movie.genre_ids.join(', ')
     : '-';
+
   const inLib = isInLibrary(movie.id);
+
   return `
     <div class="app-modal" role="dialog" aria-modal="true">
       <button class="app-modal__close" type="button" aria-label="Close">
@@ -73,12 +90,16 @@ function movieHTML(movie) {
           movie.title || movie.name || 'Untitled'
         }</h2>
         <div class="app-meta">
-          <div><strong>Vote / Votes:</strong> <span class="vote-box">${
-            movie.vote_average ?? 0
-          }</span> <span>/</span> <span class="vote-box">${
-    movie.vote_count ?? 0
-  }</span></div>
-          <div><strong>Popularity:</strong> ${movie.popularity ?? 0}</div>
+          <div><strong>Vote / Votes:</strong> 
+            <span class="vote-box">${(movie.vote_average ?? 0).toFixed(
+              1
+            )}</span> 
+            <span>/</span> 
+            <span class="vote-box">${movie.vote_count ?? 0}</span>
+          </div>
+          <div><strong>Popularity:</strong> ${(movie.popularity ?? 0).toFixed(
+            1
+          )}</div>
           <div><strong>Genre:</strong> ${genres}</div>
         </div>
         <h3 class="app-section-title">ABOUT</h3>
@@ -94,6 +115,7 @@ function movieHTML(movie) {
     </div>
   `;
 }
+
 /* ----- public API ----- */
 export const Modal = {
   renderMovie(movie) {
